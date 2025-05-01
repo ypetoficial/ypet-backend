@@ -1,0 +1,63 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ypet-app
+    restart: unless-stopped
+    volumes:
+      - .:/var/www/html
+      - ./vendor:/var/www/html/vendor
+    networks:
+      - ypet-network
+    depends_on:
+      - db
+
+  nginx:
+    image: nginx:latest
+    container_name: ypet-nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - ypet-network
+    depends_on:
+      - app
+
+  db:
+    image: mysql:8.0
+    container_name: ypet-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ypet
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: password
+      MYSQL_USER: ypet
+    ports:
+      - "3306:3306"
+    volumes:
+      - ypet-db-data:/var/lib/mysql
+    networks:
+      - ypet-network
+
+  mailpit:
+    image: axllent/mailpit
+    container_name: ypet-mailpit
+    restart: unless-stopped
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - ypet-network
+
+networks:
+  ypet-network:
+    driver: bridge
+
+volumes:
+  ypet-db-data:
