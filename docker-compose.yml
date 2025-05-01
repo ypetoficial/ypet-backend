@@ -44,6 +44,22 @@ services:
       - ypet-db-data:/var/lib/mysql
     networks:
       - ypet-network
+      
+  test-db:
+    image: mysql:8.0
+    container_name: ypet-test-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ypet_test
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: password
+      MYSQL_USER: ypet_test
+    ports:
+      - "3307:3306"
+    volumes:
+      - ypet-test-db-data:/var/lib/mysql
+    networks:
+      - ypet-network
 
   mailpit:
     image: axllent/mailpit
@@ -61,3 +77,4 @@ networks:
 
 volumes:
   ypet-db-data:
+  ypet-test-db-data:
