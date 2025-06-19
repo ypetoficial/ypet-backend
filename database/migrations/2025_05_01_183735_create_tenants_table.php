@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('tenants', function (Blueprint $table) {
             $table->id();
+            $table->string('user_name');
+            $table->string('user_email');
+            $table->string('company_name');
+            $table->integer('status');
             $table->timestamps();
         });
     }
