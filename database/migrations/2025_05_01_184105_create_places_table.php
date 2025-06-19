@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('places', function (Blueprint $table) {
             $table->id();
+            $table->string('hash')->nullable()->unique()->index();
+            $table->foreignId('tenant_id')->constrained()->onDelete('cascade');
+            $table->foreignId('company_id')->constrained()->onDelete('cascade');
+
+            $table->tinyInteger('type')->comment('1: Clinica, 2: CCZ (Zoonnose), 3: Ong');
+            $table->string('social_reason')->nullable();
+            $table->string('fantasy_name')->nullable();
+            $table->string('cnpj')->nullable()->unique()->index();
+            $table->string('phone')->nullable();
+            $table->text('observations')->nullable();
             $table->timestamps();
         });
     }

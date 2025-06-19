@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('citizens', function (Blueprint $table) {
             $table->id();
+            $table->string('hash')->nullable()->unique()->index();
+            $table->foreignId('tenant_id')->constrained()->onDelete('cascade');
+            $table->foreignId('company_id')->constrained()->onDelete('cascade');
+
+            $table->string('name');
+            $table->string('email')->unique()->index();
+            $table->string('document')->unique()->index();
+            $table->string('phone')->nullable();
+            $table->text('observations')->nullable();
+
             $table->timestamps();
         });
     }

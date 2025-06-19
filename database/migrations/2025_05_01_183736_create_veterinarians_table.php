@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('veterinarians', function (Blueprint $table) {
             $table->id();
+            $table->string('hash')->nullable()->unique()->index();
+            $table->foreignId('tenant_id')->constrained()->onDelete('cascade');
+            $table->foreignId('company_id')->constrained()->onDelete('cascade');
+
+            $table->string('name');
+            $table->string('document')->nullable();
+            $table->string('crmv')->index();
+            $table->string('profile_picture')->nullable();
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }
