@@ -1,0 +1,183 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Ypet API",
+        "description": "Documentação da API Ypet.",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login do usuário",
+                "operationId": "bcb720a17e1444423eec0922a4b69195",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "user@email.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "secret"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login realizado com sucesso."
+                    },
+                    "422": {
+                        "description": "Erro de validação."
+                    }
+                }
+            }
+        },
+        "/auth/me": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Usuário autenticado",
+                "operationId": "84a56be75b9c3d5b956f4274ab77fdda",
+                "responses": {
+                    "200": {
+                        "description": "Usuário autenticado."
+                    },
+                    "401": {
+                        "description": "Não autenticado."
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout do usuário",
+                "operationId": "2a44f720947c0a36d97121f31606350b",
+                "responses": {
+                    "200": {
+                        "description": "Logout realizado com sucesso."
+                    },
+                    "401": {
+                        "description": "Não autenticado."
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/auth/forget-password": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Solicita redefinição de senha",
+                "operationId": "301ed81512b1c3f4cfe5bc042a6dc05e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "user@email.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Link enviado."
+                    },
+                    "422": {
+                        "description": "Erro de validação."
+                    }
+                }
+            }
+        },
+        "/auth/reset-password": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Reseta a senha do usuário",
+                "operationId": "67ba5af438c00a68a01a60b8c1b25add",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password",
+                                    "token"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "user@email.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "novaSenha"
+                                    },
+                                    "token": {
+                                        "type": "string",
+                                        "example": "token.aqui"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Senha redefinida com sucesso."
+                    },
+                    "422": {
+                        "description": "Erro de validação."
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        }
+    ]
+}
