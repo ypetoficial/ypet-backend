@@ -2,100 +2,92 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Http\Requests\ForgetPasswordRequest;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\ResetPasswordRequest;
+use App\Ypet\Auth\Services\AuthService;
+use App\Ypet\User\Services\UserService;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
     /**
-     * Register a new user
+     * Method __construct
+     *
+     * @return void
      */
-    public function register(Request $request)
+    public function __construct(private AuthService $authService)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'message' => 'User registered successfully',
-            'user' => $user,
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ], Response::HTTP_CREATED);
     }
 
     /**
-     * Login user
+     * Logs in the user with the given credentials.
+     *
+     * @param  LoginRequest  $request
+     * @return \Illuminate\Http\JsonResponse.
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request): JsonResponse
     {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
-        if (!Auth::attempt($request->only('email', 'password'))) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
+        try {
+            return $this->ok($this->authService->login($request->validated()));
+        } catch (ValidationException $e) {
+            return $this->error($this->messageErrorDefault, $e->errors());
         }
-
-        $user = User::where('email', $request->email)->firstOrFail();
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'message' => 'Login successful',
-            'user' => $user,
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ]);
     }
 
     /**
-     * Logout user (revoke current token)
+     * Get the authenticated user.
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function logout(Request $request)
+    public function me(Request $request): JsonResponse
     {
-        $request->user()->currentAccessToken()->delete();
-
-        return response()->json([
-            'message' => 'Logged out successfully',
-        ]);
+        return $this->ok($request->user()->toArray());
     }
 
     /**
-     * Logout from all devices (revoke all tokens)
+     * Log the user out (Invalidate the token).
      */
-    public function logoutAll(Request $request)
+    public function logout(Request $request): JsonResponse
     {
-        $request->user()->tokens()->delete();
+        $this->authService->logout();
 
-        return response()->json([
-            'message' => 'Logged out from all devices successfully',
-        ]);
+        Auth::guard('web')->logout();
+
+        return $this->success('Successfully logged out');
     }
 
     /**
-     * Get authenticated user
+     * Send email Password Reset Link.
+     *
+     * @param  ForgetPasswordRequest  $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function user(Request $request)
+    public function forgetPassword(ForgetPasswordRequest $request): JsonResponse
     {
-        return response()->json([
-            'user' => $request->user(),
-        ]);
+        $this->authService->forgetPassword($request->validated());
+
+        return $this->success('Reset password link sent on email.');
+    }
+
+    /**
+     * Reset user password.
+     *
+     * @param  ResetPasswordRequest  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function resetPassword(ResetPasswordRequest $request): JsonResponse
+    {
+        try {
+            $this->authService->resetPassword($request->validated());
+
+            return $this->success('Password has been successfully changed');
+        } catch (ValidationException $e) {
+            return $this->error($this->messageErrorDefault, $e->errors());
+        }
     }
 }

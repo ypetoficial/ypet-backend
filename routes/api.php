@@ -1,21 +1,17 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// Public authentication routes
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::prefix('auth')->group(function () {
+    // Public routes
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('forget-password', [AuthController::class, 'forgetPassword']);
+    Route::post('reset-password', [AuthController::class, 'resetPassword']);
 
-// Protected authentication routes
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::post('/logout-all', [AuthController::class, 'logoutAll']);
-    Route::get('/user', [AuthController::class, 'user']);
-
-    // Your protected API routes can go here
-    Route::get('/profile', function (Request $request) {
-        return $request->user();
+    // Protected routes
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('me', [AuthController::class, 'me']);
+        Route::post('logout', [AuthController::class, 'logout']);
     });
 });
