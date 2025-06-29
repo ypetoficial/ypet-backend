@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->group(function () {
@@ -14,4 +15,8 @@ Route::prefix('auth')->group(function () {
         Route::get('me', [AuthController::class, 'me']);
         Route::post('logout', [AuthController::class, 'logout']);
     });
+});
+
+Route::middleware(['auth:sanctum', 'role:ADMIN'])->group(function () {
+    Route::apiResource('users', UserController::class);
 });
