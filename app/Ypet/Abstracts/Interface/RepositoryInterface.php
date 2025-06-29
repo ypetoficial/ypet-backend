@@ -6,7 +6,7 @@ interface RepositoryInterface
 {
     public function getModel();
 
-    public function all(?array $params = []);
+    public function all(array $params = [], array $with = []): \Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
     public function find($id);
 
@@ -27,4 +27,6 @@ interface RepositoryInterface
     public function exists(array $params): bool;
 
     public function findWhereIn(string $column, array $values, array $with = []);
+
+    public function findByEmail(string $email);
 }

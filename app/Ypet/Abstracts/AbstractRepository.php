@@ -15,11 +15,28 @@ class AbstractRepository implements RepositoryInterface
         return $this->model;
     }
 
-    public function all(?array $params = [])
+    public function all(?array $params = [], array $with = []): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        return $this->model->query($params)
-            ->orderBy('created_at', $params['order_by'] ?? 'desc')
-            ->paginate($params['per_page'] ?? 20);
+        $params = $params ?? [];
+        $query = $this->model->query();
+
+        $page = $params['page'] ?? 1;
+        $perPage = $params['per_page'] ?? $this->model->getPerPage();
+        $orderBy = $params['order_by'] ?? 'created_at';
+        $orderDirection = $params['order_direction'] ?? 'desc';
+
+        // Remove pagination and ordering params to not interfere with where clauses
+        unset($params['page'], $params['per_page'], $params['order_by'], $params['order_direction']);
+
+        if (!empty($params)) {
+            foreach ($params as $key => $value) {
+                $query->where($key, $value);
+            }
+        }
+
+        return $query->with($with)
+            ->orderBy($orderBy, $orderDirection)
+            ->paginate($perPage, ['*'], 'page', $page);
     }
 
     public function find($id, $with = [])
@@ -117,5 +134,10 @@ class AbstractRepository implements RepositoryInterface
     public function getFillable(): array
     {
         return $this->model->getFillable();
+    }
+
+    public function findByEmail(string $email)
+    {
+        return $this->findOneWhere(['email' => $email]);
     }
 }
