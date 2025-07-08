@@ -19,7 +19,9 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $clientType = $request->header('X-Client-Type', 'spa');
+        $tokenName = $clientType === 'mobile' ? 'mobile_token' : 'spa_token';
+        $token = $user->createToken($tokenName)->plainTextToken;
 
         return response()->json([
             'message' => 'User registered successfully',

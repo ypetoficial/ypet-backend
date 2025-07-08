@@ -19,7 +19,9 @@ class LoginController extends Controller
         }
 
         $user = User::where('email', $request->email)->firstOrFail();
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $clientType = $request->header('X-Client-Type', 'spa');
+        $tokenName = $clientType === 'mobile' ? 'mobile_token' : 'spa_token';
+        $token = $user->createToken($tokenName)->plainTextToken;
 
         return response()->json([
             'message' => 'Login realizado com sucesso.',
