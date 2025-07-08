@@ -35,6 +35,7 @@ class AuthController extends Controller
             'user' => $user,
             'access_token' => $token,
             'token_type' => 'Bearer',
+            'expires_in' => config('sanctum.expiration', 60) * 60,
         ], Response::HTTP_CREATED);
     }
 
@@ -62,6 +63,7 @@ class AuthController extends Controller
             'user' => $user,
             'access_token' => $token,
             'token_type' => 'Bearer',
+            'expires_in' => config('sanctum.expiration', 60) * 60,
         ]);
     }
 
