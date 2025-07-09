@@ -21,14 +21,15 @@ class LoginController extends Controller
         $user = User::where('email', $request->email)->firstOrFail();
         $clientType = $request->header('X-Client-Type', 'spa');
         $tokenName = $clientType === 'mobile' ? 'mobile_token' : 'spa_token';
-        $token = $user->createToken($tokenName)->plainTextToken;
+        $expiresAt = now()->addMinutes(config('sanctum.expiration', 60));
+        $token = $user->createToken($tokenName, ['*'], $expiresAt);
 
         return response()->json([
             'message' => 'Login realizado com sucesso.',
             'user' => $user,
-            'access_token' => $token,
+            'access_token' => $token->plainTextToken,
             'token_type' => 'Bearer',
-            'expires_in' => config('sanctum.expiration', 60) * 60,
+            'expires_in' => $token->accessToken->expires_at->timestamp,
         ]);
     }
 }
