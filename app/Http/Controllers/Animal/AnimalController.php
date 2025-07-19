@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Animal;
 
-use App\Http\Controllers\AbstractController;
 use App\Domains\Animal\Services\AnimalService;
-
+use App\Http\Controllers\AbstractController;
 
 class AnimalController extends AbstractController
 {

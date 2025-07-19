@@ -1,12 +1,12 @@
 <?php
 
+use App\Http\Controllers\Animal\AnimalController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\User\UserController;
-use App\Http\Controllers\Animal\AnimalController;
 use Illuminate\Support\Facades\Route;
 
 // Public authentication routes

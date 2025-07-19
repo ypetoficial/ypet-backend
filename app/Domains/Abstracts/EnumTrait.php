@@ -73,4 +73,3 @@ trait EnumTrait
         return data_get(self::descriptions($locale), $name, '');
     }
 }
-

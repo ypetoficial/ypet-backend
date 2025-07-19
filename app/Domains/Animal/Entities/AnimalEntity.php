@@ -6,5 +6,5 @@ use App\Models\Animal;
 
 class AnimalEntity extends Animal
 {
-    protected $table = "animals";
+    protected $table = 'animals';
 }
