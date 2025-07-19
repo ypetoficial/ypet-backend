@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Animal\AnimalController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
@@ -25,4 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/me/profile', [UserController::class, 'updateProfile']);
         Route::put('/me/password', [UserController::class, 'changePassword']);
     });
+
+    Route::apiResource('animals', AnimalController::class)
+        ->middleware('role:animal_administrator');
 });
