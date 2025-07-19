@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "85c1d2065f70e38b0d6bf66559fb13c5",
+    "content-hash": "554a4fd8a1394d3ed2f7fec3292bee42",
     "packages": [
         {
             "name": "brick/math",
@@ -6242,6 +6242,61 @@
                 "source": "https://github.com/laravel/sail"
             },
             "time": "2025-04-22T13:39:39+00:00"
+        },
+        {
+            "name": "marcusslv/abstractor",
+            "version": "v1.0.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marcusslv/abstractor.git",
+                "reference": "10753e712d95cefbbfcc8be0e724b72126b2ad60"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marcusslv/abstractor/zipball/10753e712d95cefbbfcc8be0e724b72126b2ad60",
+                "reference": "10753e712d95cefbbfcc8be0e724b72126b2ad60",
+                "shasum": ""
+            },
+            "require-dev": {
+                "laravel/pint": "dev-main",
+                "orchestra/testbench": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Codehubmvs\\Abstracts\\AbstractsBaseServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Codehubmvs\\Abstracts\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcus Silva",
+                    "email": "marcusjapaslv@hotmail.com"
+                }
+            ],
+            "description": "Pacote Laravel para geração de classes base de domínio com foco em arquitetura limpa, reutilização e produtividade.",
+            "keywords": [
+                "abstracts",
+                "domain",
+                "laravel",
+                "provider",
+                "service"
+            ],
+            "support": {
+                "issues": "https://github.com/marcusslv/abstractor/issues",
+                "source": "https://github.com/marcusslv/abstractor/tree/v1.0.11"
+            },
+            "time": "2025-06-30T08:48:29+00:00"
         },
         {
             "name": "mockery/mockery",
