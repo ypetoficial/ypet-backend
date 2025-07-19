@@ -2,9 +2,9 @@
 
 namespace App\Ypet\Abstracts;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use App\Ypet\Abstracts\Interface\RepositoryInterface;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class AbstractRepository implements RepositoryInterface
 {

@@ -2,12 +2,11 @@
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\User\UserController;
+use Illuminate\Support\Facades\Route;
 
 // Public authentication routes
 Route::group(['prefix' => 'auth'], function () {
@@ -16,7 +15,6 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail']);
     Route::post('/reset-password', [ResetPasswordController::class, 'reset']);
 });
-
 
 // Protected authentication routes
 Route::middleware('auth:sanctum')->group(function () {

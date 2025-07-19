@@ -8,14 +8,14 @@ class ResetPasswordRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return !auth()->check();
+        return ! auth()->check();
     }
 
     public function rules(): array
     {
         return [
-            'token'    => ['required', 'string'],
-            'email'    => ['required', 'email'],
+            'token' => ['required', 'string'],
+            'email' => ['required', 'email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }

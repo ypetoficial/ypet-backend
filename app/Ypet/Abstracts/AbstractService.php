@@ -2,11 +2,11 @@
 
 namespace App\Ypet\Abstracts;
 
-use Exception;
-use InvalidArgumentException;
-use Illuminate\Database\Eloquent\Model;
-use App\Ypet\Abstracts\Interface\ServiceInterface;
 use App\Ypet\Abstracts\Interface\RepositoryInterface;
+use App\Ypet\Abstracts\Interface\ServiceInterface;
+use Exception;
+use Illuminate\Database\Eloquent\Model;
+use InvalidArgumentException;
 
 class AbstractService implements ServiceInterface
 {

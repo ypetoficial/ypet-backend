@@ -32,7 +32,7 @@ class UserController extends Controller
     {
         $user = $request->user();
 
-        if (!Hash::check($request->current_password, $user->password)) {
+        if (! Hash::check($request->current_password, $user->password)) {
             throw ValidationException::withMessages([
                 'current_password' => ['A senha atual está incorreta.'],
             ]);
@@ -43,7 +43,7 @@ class UserController extends Controller
         ]);
 
         return response()->json([
-            'message' => 'Senha atualizada com sucesso.'
+            'message' => 'Senha atualizada com sucesso.',
         ]);
     }
 }

@@ -55,7 +55,14 @@
         "test": [
             "@php artisan config:clear --ansi",
             "@php artisan test"
+        ],
+        "pint:test": [
+            "vendor/bin/pint --test"
+        ],
+        "pint:fix": [
+            "vendor/bin/pint"
         ]
+
     },
     "extra": {
         "laravel": {
