@@ -3,9 +3,6 @@
 namespace App\Domains\Abstracts;
 
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
 
 abstract class AbstractService implements ServiceInterface
 {
@@ -15,6 +12,8 @@ abstract class AbstractService implements ServiceInterface
 
     public function getAll(array $params = [], array $options = [])
     {
+        $this->with = data_get($options, 'with', []);
+
         return $this->getRepository()->all($params, $this->with, $options);
     }
 
@@ -27,40 +26,32 @@ abstract class AbstractService implements ServiceInterface
     }
 
     /**
-     * @return mixed
-     *
      * @throws \Exception
      */
-    public function find($id, array $with = [])
+    public function find($id, array $with = []): mixed
     {
         $result = $this->repository->find($id, $with);
         if ($result == null) {
-            throw new \Exception('Objeto não encontrado na base de dados');
+            throw new \Exception('Objeto não encontrado na base de dados', 404);
         }
 
         return $result;
     }
 
-    /**
-     * @return array
-     */
-    public function beforeSave(array $data)
+    public function beforeSave(array $data): array
+    {
+        return $data;
+    }
+
+    public function beforeUpdate($id, array $data): array
     {
         return $data;
     }
 
     /**
-     * @return array
+     * @throws \Exception
      */
-    public function beforeUpdate($id, array $data)
-    {
-        return $data;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function save(array $data)
+    public function save(array $data): mixed
     {
         $data = $this->beforeSave($data);
         if ($this->validateOnInsert($data) !== false) {
@@ -69,6 +60,8 @@ abstract class AbstractService implements ServiceInterface
 
             return $entity;
         }
+
+        throw new \Exception('Validação falhou ao salvar o registro', 422);
     }
 
     public function afterSave($entity, array $params)
@@ -77,14 +70,14 @@ abstract class AbstractService implements ServiceInterface
     }
 
     /**
-     * @return mixed
-     *
      * @throws \Exception
      */
-    public function update($id, array $data)
+    public function update($id, array $data): mixed
     {
         $data = $this->beforeUpdate($id, $data);
-        $this->validateOnUpdate($id, $data);
+        if ($this->validateOnUpdate($id, $data) === false) {
+            throw new \Exception('Validação falhou ao atualizar o registro', 422);
+        }
         $entity = $this->find($id);
         $this->afterUpdate($entity, $data);
 
@@ -93,10 +86,7 @@ abstract class AbstractService implements ServiceInterface
 
     public function afterUpdate($entity, array $params) {}
 
-    /**
-     * @return mixed
-     */
-    public function beforeDelete($id)
+    public function beforeDelete($id): mixed
     {
         return $id;
     }
@@ -111,30 +101,23 @@ abstract class AbstractService implements ServiceInterface
         $this->validateOnDelete($id);
         $this->beforeDelete($id);
         $this->repository->delete($id);
-        $this->afterDelete($id);
 
-        return $id;
+        return $this->afterDelete($id);
     }
 
-    /**
-     * @return mixed
-     */
-    public function afterDelete($id)
+    public function afterDelete($id): mixed
     {
         return $id;
     }
 
-    /**
-     * @return bool
-     */
-    public function validateOnInsert(array $params)
+    public function validateOnInsert(array $params): bool
     {
-        return $params;
+        return true;
     }
 
-    public function validateOnUpdate($id, array $params)
+    public function validateOnUpdate($id, array $params): bool
     {
-        return $params;
+        return true;
     }
 
     /**
@@ -142,44 +125,16 @@ abstract class AbstractService implements ServiceInterface
      */
     public function validateOnDelete($id)
     {
-        $result = $this->repository->find($id);
+        $result = $this->getRepository()->find($id);
         if ($result == null) {
             throw new \Exception('Objeto não encontrado na base de dados');
         }
     }
 
-    /**
-     * @return mixed
-     */
-    public function getRepository()
+    public function getRepository(): RepositoryInterface
     {
         return $this->repository;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getUserAuth()
-    {
-        return Auth::user();
-    }
-
-    /**
-     * @param  string  $message
-     */
-    public function makeRequestExterna(string $url, string $messageComparation): bool
-    {
-        $response = Http::get($url);
-
-        return
-            $response->status() === Response::HTTP_OK &&
-            $response->json()['message'] == $messageComparation;
-    }
-
-    /**
-     * Pre Requisite default
-     */
-    public function preRequisite($id = null) {}
 
     /**
      * Simples criação, sem validações

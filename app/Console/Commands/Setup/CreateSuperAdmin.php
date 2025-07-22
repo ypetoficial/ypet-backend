@@ -3,7 +3,9 @@
 namespace App\Console\Commands\Setup;
 
 use App\Enums\RolesEnum;
+use App\Enums\UserStatusEnum;
 use App\Models\User;
+use App\Models\UserStatus;
 use Illuminate\Console\Command;
 
 class CreateSuperAdmin extends Command
@@ -31,11 +33,21 @@ class CreateSuperAdmin extends Command
 
         if (! $user) {
             $user = User::create([
-                'name' => 'Super Admin',
+                'name' => 'Super User',
                 'email' => 'super.user@ypet.com',
+                'telephone' => '1234567890',
+                'cellphone' => '0987654321',
                 'password' => bcrypt('password'),
                 'email_verified_at' => now(),
             ]);
+
+            UserStatus::create([
+                'user_id' => $user->id,
+                'status' => UserStatusEnum::ACTIVE->value,
+                'description' => 'Super admin user created during setup.',
+            ]);
+
+            $this->info('Super admin user created successfully.');
         }
 
         $roles = array_map(

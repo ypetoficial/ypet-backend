@@ -9,27 +9,32 @@ enum RolesEnum: string implements EnumInterface
 {
     use EnumTrait;
 
+    case SUPERUSER = 'superuser';
     case USER_ADMINISTRATOR = 'user_administrator';
-    case ROLE_ADMINISTRATOR = 'role_administrator';
-    case ANIMAL_ADMINISTRATOR = 'animal_administrator';
+    case USER_COLLABORATOR = 'user_collaborator';
+    case USER_COMMON = 'user_common';
 
     public static function translations(string $locale = 'en'): array
     {
         $locations = [
             'en' => [
-                'ROLE_ADMINISTRATOR' => 'Role Administrator',
+                'SUPERUSER' => 'Superuser',
                 'USER_ADMINISTRATOR' => 'User Administrator',
-                'ANIMAL_ADMINISTRATOR' => 'Animal Administrator',
+                'USER_COLLABORATOR' => 'User Collaborator',
+                'USER_COMMON' => 'User Common',
             ],
             'es' => [
-                'ROLE_ADMINISTRATOR' => 'Administrador de Role',
-                'USER_ADMINISTRATOR' => 'Administrador de Usuario',
-                'ANIMAL_ADMINISTRATOR' => 'Administrador de Animal',
+                'SUPERUSER' => 'Super usuario',
+                'USER_ADMINISTRATOR' => 'Administrador de usuário',
+                'USER_COLLABORATOR' => 'Colaborador de usuário',
+                'USER_COMMON' => 'Usuário comum',
             ],
             'pt_BR' => [
-                'ROLE_ADMINISTRATOR' => 'Administrador de função',
-                'USER_ADMINISTRATOR' => 'Administrador de usuário',
-                'ANIMAL_ADMINISTRATOR' => 'Administrador de animal',
+                'SUPERUSER' => 'Super usuário',
+                'USER_ADMINISTRATOR' => 'Administrador de função',
+                'USER_COLLABORATOR' => 'Colaborador de função',
+                'USER_COMMON' => 'Usuário comum',
+
             ],
         ];
 
