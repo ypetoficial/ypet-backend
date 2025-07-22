@@ -34,7 +34,6 @@ enum RolesEnum: string implements EnumInterface
                 'USER_ADMINISTRATOR' => 'Administrador de função',
                 'USER_COLLABORATOR' => 'Colaborador de função',
                 'USER_COMMON' => 'Usuário comum',
-
             ],
         ];
 
