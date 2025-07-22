@@ -21,10 +21,7 @@ abstract class AbstractController extends Controller
      */
     public function index(Request $request)
     {
-        if (isset($request->with)) {
-            $this->with = $request->with;
-        }
-
+        $this->with = $request->get('with', []);
         $withoutPagination = filter_var(
             $request->get('without_pagination', false),
             FILTER_VALIDATE_BOOLEAN
@@ -55,6 +52,7 @@ abstract class AbstractController extends Controller
                 ],
                 'columns' => $columns,
                 'per_page' => $perPage,
+                'with' => $this->with,
             ]);
 
         return $this->ok($items->toArray());
@@ -76,7 +74,9 @@ abstract class AbstractController extends Controller
 
         try {
             DB::beginTransaction();
-            $response = $this->service->save($request->all());
+            $params = $request->all();
+            data_set($params, 'created_by', $request->user()->id ?? null);
+            $response = $this->service->save($params);
             DB::commit();
 
             return $this->success($this->messageSuccessDefault, ['response' => $response]);
@@ -107,7 +107,9 @@ abstract class AbstractController extends Controller
 
         try {
             DB::beginTransaction();
-            $this->service->update($id, $request->all());
+            $params = $request->all();
+            data_set($params, 'updated_by', $request->user()->id ?? null);
+            $this->service->update($id, $params);
             DB::commit();
 
             return $this->success($this->messageSuccessDefault);
@@ -128,6 +130,8 @@ abstract class AbstractController extends Controller
     public function show($id)
     {
         try {
+            $this->with = request()->get('with', []);
+
             return $this->ok($this->service->find($id, $this->with));
         } catch (\Exception|ValidationException $e) {
             DB::rollBack();

@@ -38,7 +38,7 @@ abstract class AbstractRepository implements RepositoryInterface
 
         return $model->with($with)
             ->where($params)
-            ->orderBy($$orderByColumn, $orderByDirection)
+            ->orderBy($orderByColumn, $orderByDirection)
             ->paginate($perPage, $columns)
             ->withQueryString();
     }
@@ -78,6 +78,8 @@ abstract class AbstractRepository implements RepositoryInterface
 
     public function create($params): Model
     {
+        $params = $this->filterParamsByFillable($params);
+
         return $this->getModel()->forceCreate($params);
     }
 
@@ -124,6 +126,8 @@ abstract class AbstractRepository implements RepositoryInterface
 
     public function update(Model $entity, $data)
     {
+        $data = $this->filterParamsByFillable($data);
+
         return $entity->forceFill($data)->save();
     }
 
@@ -175,5 +179,16 @@ abstract class AbstractRepository implements RepositoryInterface
     public function getAttribute($params, $value, $default = null)
     {
         return (isset($params[$value])) ? $params[$value] : $default;
+    }
+
+    protected function filterParamsByFillable(array $params): array
+    {
+        $model = $this->getModel();
+
+        return array_filter(
+            $params,
+            fn ($key) => in_array($key, $model->getFillable()),
+            ARRAY_FILTER_USE_KEY
+        );
     }
 }
