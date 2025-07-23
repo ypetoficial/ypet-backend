@@ -45,8 +45,8 @@ class StoreAnimalRequest extends FormRequest
             'castration_site' => ['nullable', 'string', 'max:255'],
             'collection_site' => ['nullable', 'string', 'max:255'],
             'collection_reason' => ['nullable', 'string', 'max:255'],
-            'microchip_number' => ['required', 'numeric', 'max:255', 'unique:animals,microchip_number'],
-            'registration_number' => ['nullable', 'numeric', 'max:255', 'unique:animals,registration_number'],
+            'microchip_number' => ['required', 'numeric', 'unique:animals,microchip_number'],
+            'registration_number' => ['nullable', 'numeric', 'unique:animals,registration_number'],
         ];
     }
 }
