@@ -28,8 +28,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/me/password', [UserProfileController::class, 'changePassword']);
     });
 
-    Route::apiResource('animals', AnimalController::class)
-        ->middleware('role:animal_administrator');
-
     Route::apiResource('users', UserController::class);
+    Route::apiResource('animals', AnimalController::class);
 });
