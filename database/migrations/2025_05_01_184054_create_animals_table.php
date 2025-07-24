@@ -14,32 +14,29 @@ return new class extends Migration
         Schema::create('animals', function (Blueprint $table) {
             $table->id();
             $table->string('hash')->nullable()->unique()->index();
-            $table->foreignId('tenant_id')->constrained()->onDelete('cascade');
-            $table->foreignId('company_id')->constrained()->onDelete('cascade');
-            // Caso seja para adoçaão o animal precisa está em um local
-            $table->foreignId('place_id')->nullable()->constrained()->onDelete('cascade');
-            // Caso tenha um dono precisa do id do cidadão
-            $table->foreignId('citizen_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('tenant_id')->nullable()->constrained();
+            $table->foreignId('company_id')->nullable()->constrained();
+            $table->foreignId('tutor_id')->nullable()->constrained('users');
 
-            $table->tinyInteger('type')->comment('1: cahorro, 2: gato, 3: coruja, 4: equideo, 5: urubu, 6: outro');
-            $table->integer('breed');
-            $table->tinyInteger('status');
             $table->string('name');
-            $table->string('color');
-            $table->string('size')->nullable();
+            $table->string('species')->index();
+            $table->string('gender')->index();
+            $table->float('weight');
             $table->date('birth_date');
-            $table->tinyInteger('gender')->comment('1: macho, 2: fêmea');
-            $table->string('profile_picture')->nullable();
-            $table->boolean('castrated')->default(false);
+            $table->boolean('castrated');
             $table->date('castration_at')->nullable();
             $table->string('castration_site')->nullable();
-            $table->string('registration_number')->nullable()->unique()->index();
+            $table->string('size')->index();
+            $table->string('color');
+            $table->string('coat')->nullable();
+            $table->string('characteristics')->nullable();
+            $table->string('surname')->nullable();
             $table->date('entry_date')->nullable();
+            $table->string('picture')->nullable();
             $table->string('collection_site')->nullable();
             $table->string('collection_reason')->nullable();
-            $table->string('microchip')->nullable()->unique()->index();
-            $table->string('tracker_number')->nullable()->unique()->index();
-            $table->string('medal_code')->nullable()->unique()->index();
+            $table->string('microchip_number')->nullable()->unique()->index();
+            $table->string('registration_number')->nullable()->unique()->index();
             $table->timestamps();
         });
     }

@@ -10,6 +10,14 @@ class UserEntity extends User
 {
     public $table = 'users';
 
+    protected $fillable = [
+        'name',
+        'email',
+        'telephone',
+        'cellphone',
+        'password',
+    ];
+
     public function historyUserStatus(): HasMany
     {
         return $this->hasMany(UserStatusEntity::class, 'user_id', 'id');
