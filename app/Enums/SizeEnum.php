@@ -5,7 +5,7 @@ namespace App\Enums;
 use App\Domains\Abstracts\EnumInterface;
 use App\Domains\Abstracts\EnumTrait;
 
-enum AnimalSizeEnum: string implements EnumInterface
+enum SizeEnum: string implements EnumInterface
 {
     use EnumTrait;
 

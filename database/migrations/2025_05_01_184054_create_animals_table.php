@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('animals', function (Blueprint $table) {
             $table->id();
             $table->string('hash')->nullable()->unique()->index();
-            $table->foreignId('tenant_id')->constrained();
-            $table->foreignId('company_id')->constrained();
+            $table->foreignId('tenant_id')->nullable()->constrained();
+            $table->foreignId('company_id')->nullable()->constrained();
             $table->foreignId('tutor_id')->nullable()->constrained('users');
 
             $table->string('name');
-            $table->string('type')->index();
+            $table->string('species')->index();
             $table->string('gender')->index();
-            $table->integer('weight');
+            $table->float('weight');
             $table->date('birth_date');
             $table->boolean('castrated');
             $table->date('castration_at')->nullable();
@@ -32,7 +32,7 @@ return new class extends Migration
             $table->string('characteristics')->nullable();
             $table->string('surname')->nullable();
             $table->date('entry_date')->nullable();
-            $table->string('profile_picture')->nullable();
+            $table->string('picture')->nullable();
             $table->string('collection_site')->nullable();
             $table->string('collection_reason')->nullable();
             $table->string('microchip_number')->nullable()->unique()->index();

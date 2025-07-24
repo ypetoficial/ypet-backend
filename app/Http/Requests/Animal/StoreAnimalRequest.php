@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Animal;
 
 use App\Enums\AnimalCoatEnum;
-use App\Enums\AnimalSizeEnum;
+use App\Enums\SizeEnum;
 use App\Enums\AnimalSpeciesEnum;
 use App\Enums\AnimalStatusEnum;
 use App\Enums\GenderEnum;
@@ -28,13 +28,14 @@ class StoreAnimalRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'picture' => ['nullable', 'image', 'max:2048'],
             'name' => ['required', 'string', 'max:255'],
             'species' => ['required', 'string', 'max:255', Rule::in(AnimalSpeciesEnum::values())],
             'gender' => ['required', 'string', 'max:255', Rule::in(GenderEnum::values())],
             'weight' => ['nullable', 'numeric', 'min:0'],
             'birth_date' => ['nullable', 'date', 'before_or_equal:today'],
             'castrated' => ['required', 'boolean'],
-            'size' => ['required', 'string', Rule::in(AnimalSizeEnum::values())],
+            'size' => ['required', 'string', Rule::in(SizeEnum::values())],
             'color' => ['nullable', 'string', 'max:255'],
             'coat' => ['nullable', 'string', Rule::in(AnimalCoatEnum::values())],
             'characteristics' => ['nullable', 'string', 'max:1000'],

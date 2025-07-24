@@ -3,6 +3,7 @@
 namespace App\Listeners\AnimalCreated;
 
 use App\Domains\Animal\Services\AnimalStatusService;
+use App\Events\AnimalCreated;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -27,7 +28,7 @@ class CreateAnimalStatusListener implements ShouldQueue
     /**
      * Handle the event.
      */
-    public function handle(object $event): void
+    public function handle(AnimalCreated $event): void
     {
         $entity = $event->entity;
         $params = $event->params;
@@ -37,7 +38,7 @@ class CreateAnimalStatusListener implements ShouldQueue
         ]);
 
         $this->animalStatusService->save([
-            'user_id' => $entity->id,
+            'animal_id' => $entity->id,
             'status' => data_get($params, 'status'),
             'description' => data_get($params, 'description'),
             'created_by' => data_get($params, 'created_by'),

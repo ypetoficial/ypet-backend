@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Animal;
 
 use App\Enums\AnimalCoatEnum;
-use App\Enums\AnimalSizeEnum;
+use App\Enums\SizeEnum;
 use App\Enums\AnimalSpeciesEnum;
 use App\Enums\AnimalStatusEnum;
 use App\Enums\GenderEnum;
@@ -34,7 +34,7 @@ class UpdateAnimalRequest extends FormRequest
             'weight' => ['nullable', 'numeric', 'min:0'],
             'birth_date' => ['nullable', 'date', 'before_or_equal:today'],
             'castrated' => ['sometimes', 'boolean'],
-            'size' => ['sometimes', 'string', Rule::in(AnimalSizeEnum::values())],
+            'size' => ['sometimes', 'string', Rule::in(SizeEnum::values())],
             'color' => ['nullable', 'string', 'max:255'],
             'coat' => ['nullable', 'string', Rule::in(AnimalCoatEnum::values())],
             'characteristics' => ['nullable', 'string', 'max:1000'],
@@ -45,8 +45,8 @@ class UpdateAnimalRequest extends FormRequest
             'castration_site' => ['nullable', 'string', 'max:255'],
             'collection_site' => ['nullable', 'string', 'max:255'],
             'collection_reason' => ['nullable', 'string', 'max:255'],
-            'microchip_number' => ['sometimes', 'numeric', 'max:255', Rule::unique('animals', 'microchip_number')->ignore($this->animal)],
-            'registration_number' => ['nullable', 'numeric', 'max:255', Rule::unique('animals', 'registration_number')->ignore($this->animal)],
+            'microchip_number' => ['sometimes', 'numeric', Rule::unique('animals', 'microchip_number')->ignore($this->animal)],
+            'registration_number' => ['nullable', 'numeric', Rule::unique('animals', 'registration_number')->ignore($this->animal)],
         ];
     }
 }

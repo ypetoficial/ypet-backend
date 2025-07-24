@@ -2,9 +2,15 @@
 
 namespace App\Domains\Animal\Entities;
 
+use App\Casts\EnumCast;
+use App\Enums\AnimalCoatEnum;
+use App\Enums\AnimalSpeciesEnum;
+use App\Enums\GenderEnum;
+use App\Enums\SizeEnum;
 use App\Models\Animal;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class AnimalEntity extends Animal
 {
@@ -16,7 +22,7 @@ class AnimalEntity extends Animal
         'company_id',
         'tutor_id',
         'name',
-        'type',
+        'species',
         'gender',
         'weight',
         'birth_date',
@@ -37,7 +43,11 @@ class AnimalEntity extends Animal
     ];
 
     protected $casts = [
-        'weight' => 'integer',
+        'species' => EnumCast::class . ':' . AnimalSpeciesEnum::class,
+        'gender' => EnumCast::class . ':' . GenderEnum::class,
+        'size' => EnumCast::class . ':' . SizeEnum::class,
+        'coat' => EnumCast::class . ':' . AnimalCoatEnum::class,
+        'weight' => 'float',
         'birth_date' => 'date',
         'castrated' => 'boolean',
         'entry_date' => 'date',
@@ -52,5 +62,10 @@ class AnimalEntity extends Animal
     public function historyAnimalStatus(): HasMany
     {
         return $this->hasMany(AnimalStatusEntity::class, 'animal_id', 'id');
+    }
+
+    public function status(): HasOne
+    {
+        return $this->hasOne(AnimalStatusEntity::class, 'animal_id', 'id')->latest();
     }
 }

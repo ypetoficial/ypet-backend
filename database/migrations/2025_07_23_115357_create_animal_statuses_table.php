@@ -17,8 +17,6 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->foreignId('animal_id')->constrained('animals');
             $table->foreignId('created_by')->nullable()->constrained('users');
-            $table->foreignId('tenant_id')->constrained();
-            $table->foreignId('company_id')->constrained();
             $table->timestamps();
         });
     }
