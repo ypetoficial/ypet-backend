@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('hash')->nullable()->unique()->index();
             $table->foreignId('tenant_id')->constrained();
             $table->foreignId('company_id')->constrained();
-            $table->foreignId('tutor_id')->nullable()->constrained();
+            $table->foreignId('tutor_id')->nullable()->constrained('users');
 
             $table->string('name');
             $table->string('type')->index();
