@@ -43,10 +43,10 @@ class AnimalEntity extends Animal
     ];
 
     protected $casts = [
-        'species' => EnumCast::class . ':' . AnimalSpeciesEnum::class,
-        'gender' => EnumCast::class . ':' . GenderEnum::class,
-        'size' => EnumCast::class . ':' . SizeEnum::class,
-        'coat' => EnumCast::class . ':' . AnimalCoatEnum::class,
+        'species' => EnumCast::class.':'.AnimalSpeciesEnum::class,
+        'gender' => EnumCast::class.':'.GenderEnum::class,
+        'size' => EnumCast::class.':'.SizeEnum::class,
+        'coat' => EnumCast::class.':'.AnimalCoatEnum::class,
         'weight' => 'float',
         'birth_date' => 'date',
         'castrated' => 'boolean',

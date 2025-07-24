@@ -27,7 +27,7 @@ class UserStatusEntity extends UserStatus
     ];
 
     protected $casts = [
-        'status' => EnumCast::class . ':' . UserStatusEnum::class,
+        'status' => EnumCast::class.':'.UserStatusEnum::class,
         'created_at' => 'datetime',
     ];
 

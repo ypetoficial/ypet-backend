@@ -2,7 +2,6 @@
 
 namespace App\Domains\Animal\Entities;
 
-use App\Casts\Animal\AnimalStatusCast;
 use App\Casts\EnumCast;
 use App\Enums\AnimalStatusEnum;
 use App\Models\Animal;
@@ -16,11 +15,11 @@ class AnimalStatusEntity extends Animal
         'status',
         'description',
         'animal_id',
-        'created_by'
+        'created_by',
     ];
 
     protected $casts = [
-        'status' => EnumCast::class . ':' . AnimalStatusEnum::class,
+        'status' => EnumCast::class.':'.AnimalStatusEnum::class,
     ];
 
     public function animal(): BelongsTo

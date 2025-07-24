@@ -3,10 +3,10 @@
 namespace App\Http\Requests\Animal;
 
 use App\Enums\AnimalCoatEnum;
-use App\Enums\SizeEnum;
 use App\Enums\AnimalSpeciesEnum;
 use App\Enums\AnimalStatusEnum;
 use App\Enums\GenderEnum;
+use App\Enums\SizeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
