@@ -22,7 +22,9 @@ class ResetPasswordController extends Controller
         );
 
         if ($status === Password::PASSWORD_RESET) {
-            return response()->json(['message' => __($status)]);
+            return $this->ok([
+                'message' => __($status),
+            ]);
         }
 
         throw ValidationException::withMessages([

@@ -23,7 +23,7 @@ class RegisterController extends Controller
         $expiresAt = now()->addMinutes(config('sanctum.expiration', 60));
         $token = $user->createToken($tokenName, ['*'], $expiresAt);
 
-        return response()->json([
+        return $this->ok([
             'message' => 'Registro realizado com sucesso.',
             'user' => $user,
             'access_token' => $token->plainTextToken,

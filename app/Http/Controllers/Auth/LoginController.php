@@ -24,7 +24,7 @@ class LoginController extends Controller
         $expiresAt = now()->addMinutes(config('sanctum.expiration', 60));
         $token = $user->createToken($tokenName, ['*'], $expiresAt);
 
-        return response()->json([
+        return $this->ok([
             'message' => 'Login realizado com sucesso.',
             'user' => $user,
             'access_token' => $token->plainTextToken,
