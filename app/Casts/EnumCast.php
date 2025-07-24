@@ -26,7 +26,7 @@ class EnumCast implements CastsAttributes
          */
         $enum = ($this->enumClass);
 
-        return $value !== null ? $enum::labelByValue($value, 'pt_BR') : null;
+        return $value !== null ? $enum::labelByValue($value, config('app.locale', 'en')) : null;
     }
 
     public function set(Model $model, string $key, mixed $value, array $attributes): mixed
