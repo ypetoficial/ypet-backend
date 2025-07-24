@@ -37,7 +37,7 @@ class CreateSuperAdmin extends Command
                 'email' => 'super.user@ypet.com',
                 'telephone' => '1234567890',
                 'cellphone' => '0987654321',
-                'password' => bcrypt('password'),
+                'password' => bcrypt('superuser123'),
                 'email_verified_at' => now(),
             ]);
 
