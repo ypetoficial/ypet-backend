@@ -93,3 +93,18 @@ A aplicação estará disponível em `http://localhost:8000` ou conforme configu
 Use as credenciais padrão para acessar o painel administrativo:
 - **Email:** ``super.user@ypet.com``
 - **Senha:** ``superuser123``
+
+---
+
+## 📖 Documentação da API (Swagger)
+
+O projeto utiliza Swagger (OpenAPI) para documentação da API.
+
+### Como Gerar e Acessar a Documentação Swagger
+
+1. **Gerar a documentação:**
+   ```bash
+   php artisan l5-swagger:generate
+    ```
+2. **Acessar a documentação:**
+3. Abra seu navegador e acesse `http://localhost:8000/api/documentation` ou conforme configurado no seu ambiente.

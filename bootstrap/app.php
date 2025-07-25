@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Auth\AuthenticationException;
 use App\Http\Middleware\EnsureClientTypeHeader;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;

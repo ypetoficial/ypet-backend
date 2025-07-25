@@ -1,0 +1,1566 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "YPet API",
+        "description": "Documentação da API do sistema YPet",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "{scheme}://{host}:{port}",
+            "description": "Servidor dinâmico",
+            "variables": {
+                "scheme": {
+                    "enum": [
+                        "http",
+                        "https"
+                    ],
+                    "default": "http"
+                },
+                "host": {
+                    "default": "localhost"
+                },
+                "port": {
+                    "enum": [
+                        "8000",
+                        "443",
+                        "80"
+                    ],
+                    "default": "8000"
+                }
+            }
+        }
+    ],
+    "paths": {
+        "/api/animals": {
+            "get": {
+                "tags": [
+                    "Animals"
+                ],
+                "summary": "Lista todos os animais (com ou sem paginação)",
+                "operationId": "60e13a1328d2059783a4da6201b7b17d",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT. Exemplo: Bearer {token}",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ...token..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Client type (e.g., web, mobile)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    },
+                    {
+                        "name": "with[]",
+                        "in": "query",
+                        "description": "Relações a serem carregadas. Ex: status, historyAnimalStatus",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "status"
+                        }
+                    },
+                    {
+                        "name": "without_pagination",
+                        "in": "query",
+                        "description": "Se true, desativa a paginação",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "example": false
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de animais retornada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Buddy"
+                                                            },
+                                                            "species": {
+                                                                "type": "string",
+                                                                "example": "dog"
+                                                            },
+                                                            "status": {
+                                                                "type": "string",
+                                                                "example": "for_adoption"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Animals"
+                ],
+                "summary": "Cadastra um novo animal",
+                "operationId": "97067675d1a25c465d8655092eee4d04",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "species",
+                                    "status"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Buddy"
+                                    },
+                                    "species": {
+                                        "type": "string",
+                                        "example": "dog"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "example": "for_adoption"
+                                    },
+                                    "gender": {
+                                        "type": "string",
+                                        "example": "male"
+                                    },
+                                    "weight": {
+                                        "type": "number",
+                                        "example": 12.5
+                                    },
+                                    "birth_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2020-05-10"
+                                    },
+                                    "color": {
+                                        "type": "string",
+                                        "example": "brown"
+                                    },
+                                    "castrated": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Animal cadastrado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Buddy"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/animals/{id}": {
+            "get": {
+                "tags": [
+                    "Animals"
+                ],
+                "summary": "Exibe os detalhes de um animal",
+                "operationId": "d4fbb107a0e89c5787d93b8d5afc6290",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do animal",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    },
+                    {
+                        "name": "with[]",
+                        "in": "query",
+                        "description": "Relações. Ex: status, historyAnimalStatus",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "status"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Animal encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Buddy"
+                                                },
+                                                "species": {
+                                                    "type": "string",
+                                                    "example": "dog"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Animals"
+                ],
+                "summary": "Atualiza os dados de um animal",
+                "operationId": "209dd1a8cd04bdfc6d4d3ae0938ca110",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do animal",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Buddy"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "example": "for_adoption"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Animal atualizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Buddy"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/forgot-password": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Solicita redefinição de senha",
+                "operationId": "96edfc3a5e4dd4c959407fcae5bf0ec9",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT. Exemplo: Bearer {token}",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ...token..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Client type (e.g., web, mobile)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "marcus2@ypet.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "E-mail de redefinição enviado com sucesso"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            }
+        },
+        "/api/auth/reset-password": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Redefine a senha do usuário",
+                "operationId": "8492df141ecaa1dd00b90c7f2b691991",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT. Exemplo: Bearer {token}",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ...token..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Client type (e.g., web, mobile)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "token",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "token": {
+                                        "type": "string",
+                                        "example": "a3186bb5497..."
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "marcus2@ypet.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "teste123"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "teste123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Senha redefinida com sucesso"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login do usuário",
+                "operationId": "72c02a1c267487938eaff976b1f8d4d3",
+                "parameters": [
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Client type (e.g., web, mobile)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "super.user@ypet.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access_token": {
+                                            "type": "string"
+                                        },
+                                        "token_type": {
+                                            "type": "string"
+                                        },
+                                        "expires_in": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/logout-all": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout em todos os dispositivos",
+                "operationId": "80a3bf5b92425b2e3d1908ebd5e23740",
+                "parameters": [
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Client type (e.g., web, mobile)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Logout de todas as sessões realizado com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                }
+            }
+        },
+        "/api/auth/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout do usuário",
+                "operationId": "91b83bdb76216edd11fd9c56340c422e",
+                "parameters": [
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Client type (e.g., web, mobile)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Logout realizado com sucesso"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                }
+            }
+        },
+        "/api/auth/me": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Retorna os dados do usuário autenticado",
+                "operationId": "6ce201286744e39204bcddca58c1d0b6",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT. Exemplo: Bearer {token}",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Client type (e.g., web, mobile)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Dados do usuário retornados com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Marcus Silva"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "marcus@ypet.com"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "active"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                }
+            }
+        },
+        "/api/auth/me/password": {
+            "put": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Atualiza a senha do usuário autenticado",
+                "operationId": "cc7ecc0992f133c0bb8f760cd3398b54",
+                "parameters": [
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Client type (e.g., web, mobile)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "current_password",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "current_password": {
+                                        "type": "string",
+                                        "example": "senhaAtual123"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "novaSenha456"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "novaSenha456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Senha atualizada com sucesso"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                }
+            }
+        },
+        "/api/auth/me/profile": {
+            "put": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Atualiza o perfil do usuário autenticado",
+                "operationId": "34098a9d477cb9885fcdd39ca3af0558",
+                "parameters": [
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Client type (e.g., web, mobile)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Marcus Silva"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "marcus@ypet.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Perfil atualizado com sucesso"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                }
+            }
+        },
+        "/api/auth/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Registro de novo usuário",
+                "operationId": "ba9d5e6515e1b8f490739623811e09e3",
+                "parameters": [
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Client type (e.g., web, mobile)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Marcus"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "marcus@ypet.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuário registrado com sucesso"
+                    },
+                    "422": {
+                        "description": "Dados inválidos"
+                    }
+                }
+            }
+        },
+        "/api/enums/{group}": {
+            "get": {
+                "tags": [
+                    "Enums"
+                ],
+                "summary": "Lista os valores de um grupo de enums",
+                "operationId": "daf6fa0469a2652d369ecccd5aa21428",
+                "parameters": [
+                    {
+                        "name": "group",
+                        "in": "path",
+                        "description": "Nome do grupo enum (ex: user_status, animal_status)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "user_status"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT. Exemplo: Bearer {token}",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ...token..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente (ex: web, mobile)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de enums retornada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "value": {
+                                                        "type": "string",
+                                                        "example": "active"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "ACTIVE"
+                                                    },
+                                                    "label": {
+                                                        "type": "string",
+                                                        "example": "Ativo"
+                                                    },
+                                                    "color": {
+                                                        "type": "string",
+                                                        "example": "#000000"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Usuário ativo"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Lista todos os usuários (com ou sem paginação)",
+                "operationId": "bc13cf3d9931011c78e865f999ef3cef",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT. Exemplo: Bearer {token}",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ...token..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Client type (e.g., web, mobile)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    },
+                    {
+                        "name": "with[]",
+                        "in": "query",
+                        "description": "Relações a serem carregadas. Ex: status, historyUserStatus",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "status"
+                        }
+                    },
+                    {
+                        "name": "without_pagination",
+                        "in": "query",
+                        "description": "Se true, desativa a paginação",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "example": false
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de usuários com ou sem paginação",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Super User"
+                                                            },
+                                                            "email": {
+                                                                "type": "string",
+                                                                "example": "super.user@ypet.com"
+                                                            },
+                                                            "telephone": {
+                                                                "type": "string",
+                                                                "example": "1234567890"
+                                                            },
+                                                            "status": {
+                                                                "properties": {
+                                                                    "status": {
+                                                                        "properties": {
+                                                                            "value": {
+                                                                                "type": "string",
+                                                                                "example": "active"
+                                                                            },
+                                                                            "label": {
+                                                                                "type": "string",
+                                                                                "example": "Ativo"
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    }
+                                                                },
+                                                                "type": "object"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 20
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Cria um novo usuário",
+                "operationId": "1ee849c7fa7d267dcf00cef2b437a0db",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT. Exemplo: Bearer {token}",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ...token..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Client type (e.g., web, mobile)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation",
+                                    "status",
+                                    "roles"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Maria Helena"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "maria.helena@test.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "password"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "example": "active"
+                                    },
+                                    "roles": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "example": [
+                                            "user_administrator",
+                                            "superuser"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuário criado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Maria Helena"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "maria.helena@test.com"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Exibe os detalhes de um usuário específico",
+                "operationId": "410386c6901d0198a4341671e3703915",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT. Exemplo: Bearer {token}",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ...token..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Client type (e.g., web, mobile)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    },
+                    {
+                        "name": "with[]",
+                        "in": "query",
+                        "description": "Relações a serem carregadas. Ex: status.createdBy, historyUserStatus.createdBy",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "status.createdBy"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Dados do usuário retornados com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Super User"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "super.user@ypet.com"
+                                                },
+                                                "telephone": {
+                                                    "type": "string",
+                                                    "example": "1234567890"
+                                                },
+                                                "status": {
+                                                    "properties": {
+                                                        "status": {
+                                                            "properties": {
+                                                                "value": {
+                                                                    "type": "string",
+                                                                    "example": "active"
+                                                                },
+                                                                "label": {
+                                                                    "type": "string",
+                                                                    "example": "Ativo"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Atualiza os dados de um usuário",
+                "operationId": "c4dfdf39554905275eb6be2d38680010",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 2
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT. Exemplo: Bearer {token}",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ...token..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Client type (e.g., web, mobile)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Maria H. Atualizada"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "novaSenha123"
+                                    },
+                                    "telephone": {
+                                        "type": "string",
+                                        "example": "11999999999"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário atualizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Maria H. Atualizada"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "maria.helena@test.com"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Autenticação e gerenciamento de sessão"
+        },
+        {
+            "name": "Enums",
+            "description": "Consulta de enums disponíveis"
+        },
+        {
+            "name": "Users",
+            "description": "Gerenciamento de usuários"
+        },
+        {
+            "name": "Animals",
+            "description": "Cadastro e controle de animais"
+        }
+    ]
+}
