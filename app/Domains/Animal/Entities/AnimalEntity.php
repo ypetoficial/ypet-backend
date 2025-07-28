@@ -59,7 +59,7 @@ class AnimalEntity extends Animal
         return $this->belongsTo('App\Models\User', 'tutor_id');
     }
 
-    public function historyAnimalStatus(): HasMany
+    public function historyStatuses(): HasMany
     {
         return $this->hasMany(AnimalStatusEntity::class, 'animal_id', 'id');
     }

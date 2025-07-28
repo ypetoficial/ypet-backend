@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\EnumController;
+use App\Http\Controllers\LostAnimal\LostAnimalController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\UserProfileController;
 use Illuminate\Support\Facades\Route;
@@ -31,5 +32,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('users', UserController::class);
     Route::apiResource('animals', AnimalController::class);
+    Route::apiResource('lost-animals', LostAnimalController::class);
     Route::get('enums/{enum}', [EnumController::class, 'show']);
 });
