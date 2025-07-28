@@ -10,6 +10,7 @@ use App\Http\Requests\LostAnimal\StoreLostAnimalRequest;
 class LostAnimalController extends AbstractController
 {
     protected $requestValidate = StoreLostAnimalRequest::class;
+
     protected $requestValidateUpdate = UpdateAnimalRequest::class;
 
     public function __construct(LostAnimalService $service)

@@ -1052,6 +1052,523 @@
                 }
             }
         },
+        "/api/lost-animals": {
+            "get": {
+                "tags": [
+                    "Lost Animals"
+                ],
+                "summary": "Lista todos os animais perdidos",
+                "operationId": "092c79043b7d305ef29fc41e2399dce6",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    },
+                    {
+                        "name": "with[]",
+                        "in": "query",
+                        "description": "Relações. Ex: animal",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "animal"
+                        }
+                    },
+                    {
+                        "name": "without_pagination",
+                        "in": "query",
+                        "description": "Se true, desativa paginação",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "example": false
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de animais perdidos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "status": {
+                                                                "type": "string",
+                                                                "example": "pending"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Lost Animals"
+                ],
+                "summary": "Cadastra um novo animal perdido",
+                "operationId": "d07409a1b1bd037238d025709ac9b471",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT. Exemplo: Bearer {token}",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente (web, mobile)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "animal_id",
+                                    "lost_at",
+                                    "status",
+                                    "address"
+                                ],
+                                "properties": {
+                                    "animal_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "lost_at": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2025-07-24T10:00:00Z"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "example": "pending"
+                                    },
+                                    "address": {
+                                        "required": [
+                                            "street",
+                                            "number",
+                                            "district",
+                                            "city",
+                                            "state",
+                                            "zip_code",
+                                            "country"
+                                        ],
+                                        "properties": {
+                                            "street": {
+                                                "type": "string",
+                                                "example": "Rua das Flores"
+                                            },
+                                            "number": {
+                                                "type": "string",
+                                                "example": "123"
+                                            },
+                                            "complement": {
+                                                "type": "string",
+                                                "example": "Apto 202"
+                                            },
+                                            "district": {
+                                                "type": "string",
+                                                "example": "Centro"
+                                            },
+                                            "city": {
+                                                "type": "string",
+                                                "example": "São Paulo"
+                                            },
+                                            "state": {
+                                                "type": "string",
+                                                "example": "SP"
+                                            },
+                                            "zip_code": {
+                                                "type": "string",
+                                                "example": "01000-000"
+                                            },
+                                            "country": {
+                                                "type": "string",
+                                                "example": "Brasil"
+                                            },
+                                            "latitude": {
+                                                "type": "number",
+                                                "example": -23.55052
+                                            },
+                                            "longitude": {
+                                                "type": "number",
+                                                "example": -46.633308
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Animal perdido cadastrado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "animal_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "pending"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            }
+        },
+        "/api/lost-animals/{id}": {
+            "get": {
+                "tags": [
+                    "Lost Animals"
+                ],
+                "summary": "Exibe os detalhes de um animal perdido",
+                "operationId": "fe6eb24fee334f4f4d45e8414449adf5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do registro",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    },
+                    {
+                        "name": "with[]",
+                        "in": "query",
+                        "description": "Relações. Ex: animal",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "animal"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalhes do animal perdido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "animal_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "pending"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Lost Animals"
+                ],
+                "summary": "Atualiza os dados de um animal perdido",
+                "operationId": "7a4f2810295863a737070df03fbf1dd7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do registro",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "lost_at",
+                                    "status",
+                                    "address"
+                                ],
+                                "properties": {
+                                    "lost_at": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2025-07-25T12:00:00Z"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "example": "pending"
+                                    },
+                                    "address": {
+                                        "required": [
+                                            "street",
+                                            "number",
+                                            "district",
+                                            "city",
+                                            "state",
+                                            "zip_code",
+                                            "country"
+                                        ],
+                                        "properties": {
+                                            "street": {
+                                                "type": "string",
+                                                "example": "Av. Paulista"
+                                            },
+                                            "number": {
+                                                "type": "string",
+                                                "example": "1000"
+                                            },
+                                            "complement": {
+                                                "type": "string",
+                                                "example": "Bloco B"
+                                            },
+                                            "district": {
+                                                "type": "string",
+                                                "example": "Bela Vista"
+                                            },
+                                            "city": {
+                                                "type": "string",
+                                                "example": "São Paulo"
+                                            },
+                                            "state": {
+                                                "type": "string",
+                                                "example": "SP"
+                                            },
+                                            "zip_code": {
+                                                "type": "string",
+                                                "example": "01310-100"
+                                            },
+                                            "country": {
+                                                "type": "string",
+                                                "example": "Brasil"
+                                            },
+                                            "latitude": {
+                                                "type": "number",
+                                                "example": -23.561414
+                                            },
+                                            "longitude": {
+                                                "type": "number",
+                                                "example": -46.655881
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Animal perdido atualizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "pending"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            }
+        },
         "/api/users": {
             "get": {
                 "tags": [
@@ -1561,6 +2078,10 @@
         {
             "name": "Animals",
             "description": "Cadastro e controle de animais"
+        },
+        {
+            "name": "Lost Animals",
+            "description": "Lost Animals"
         }
     ]
 }
