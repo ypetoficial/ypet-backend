@@ -7,7 +7,6 @@ use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -24,7 +23,7 @@ class RegisterController extends Controller
         $expiresAt = now()->addMinutes(config('sanctum.expiration', 60));
         $token = $user->createToken($tokenName, ['*'], $expiresAt);
 
-        return response()->json([
+        return $this->ok([
             'message' => 'Registro realizado com sucesso.',
             'user' => $user,
             'access_token' => $token->plainTextToken,

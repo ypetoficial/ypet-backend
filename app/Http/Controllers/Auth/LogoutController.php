@@ -11,7 +11,7 @@ class LogoutController extends Controller
     {
         $request->user()->currentAccessToken()->delete();
 
-        return response()->json([
+        return $this->ok([
             'message' => 'Logout realizado com sucesso.',
         ]);
     }
@@ -20,8 +20,8 @@ class LogoutController extends Controller
     {
         $request->user()->tokens()->delete();
 
-        return response()->json([
-            'message' => 'Logout de todos os dispositivos realizado com sucesso.',
+        return $this->ok([
+            'message' => 'Todos os tokens foram revogados com sucesso.',
         ]);
     }
 }

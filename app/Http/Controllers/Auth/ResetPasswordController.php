@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ResetPasswordRequest;
-use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
 
 class ResetPasswordController extends Controller
@@ -22,7 +22,9 @@ class ResetPasswordController extends Controller
         );
 
         if ($status === Password::PASSWORD_RESET) {
-            return response()->json(['message' => __($status)]);
+            return $this->ok([
+                'message' => __($status),
+            ]);
         }
 
         throw ValidationException::withMessages([

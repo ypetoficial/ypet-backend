@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use App\Models\User;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
     {
         ResetPassword::createUrlUsing(function (User $user, string $token) {
             $frontendUrl = config('app.frontend_url');
-            if (!$frontendUrl) {
+            if (! $frontendUrl) {
                 throw new \Exception('Frontend URL is not configured in the application.');
             }
 

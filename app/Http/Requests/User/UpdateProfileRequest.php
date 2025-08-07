@@ -18,12 +18,12 @@ class UpdateProfileRequest extends FormRequest
             'email' => [
                 'sometimes',
                 'max:255',
-                'unique:users,email,' . $this->user()->id,
-                function($attribute, $value, $fail) {
-                    if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                        $fail("E-mail inválido.");
+                'unique:users,email,'.$this->user()->id,
+                function ($attribute, $value, $fail) {
+                    if (! filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                        $fail('E-mail inválido.');
                     }
-                }]
+                }],
         ];
     }
 

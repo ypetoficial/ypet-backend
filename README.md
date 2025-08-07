@@ -61,3 +61,50 @@ php artisan migrate
 
 # (Opcional) Rode o servidor local
 php artisan serve
+```
+### Configuração usando Docker:
+```bash
+# Certifique-se de ter o Docker e Docker Compose instalados
+# Clone o repositório
+git clone https://github.com/[usuario]/ypet.git
+cd ypet
+
+# Inicie os containers
+docker-compose up -d
+
+# Acesse o container do PHP
+docker-compose exec app bash
+
+# Instale as dependências PHP dentro do container
+composer install
+
+# Gere a chave da aplicação
+php artisan key:generate
+
+# Configure seu banco de dados no .env e rode as migrations
+php artisan migrate
+
+# Rode o setup inicial
+php artisan app:setup
+```
+
+### Acessando a Aplicação
+A aplicação estará disponível em `http://localhost:8000` ou conforme configurado no seu ambiente Docker.
+Use as credenciais padrão para acessar o painel administrativo:
+- **Email:** ``super.user@ypet.com``
+- **Senha:** ``superuser123``
+
+---
+
+## 📖 Documentação da API (Swagger)
+
+O projeto utiliza Swagger (OpenAPI) para documentação da API.
+
+### Como Gerar e Acessar a Documentação Swagger
+
+1. **Gerar a documentação:**
+   ```bash
+   php artisan l5-swagger:generate
+    ```
+2. **Acessar a documentação:**
+3. Abra seu navegador e acesse `http://localhost:8000/api/documentation` ou conforme configurado no seu ambiente.

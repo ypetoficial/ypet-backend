@@ -2,48 +2,19 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\User\ChangePasswordRequest;
-use App\Http\Requests\User\UpdateProfileRequest;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
+use App\Domains\User\Services\UserService;
+use App\Http\Controllers\AbstractController;
+use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 
-class UserController extends Controller
+class UserController extends AbstractController
 {
-    public function me(Request $request)
+    public $requestValidate = StoreUserRequest::class;
+
+    public $requestValidateUpdate = UpdateUserRequest::class;
+
+    public function __construct(UserService $service)
     {
-        return response()->json($request->user());
-    }
-
-    public function updateProfile(UpdateProfileRequest $request)
-    {
-        $user = $request->user();
-
-        $user->fill($request->only(['name', 'email']))->save();
-
-        return response()->json([
-            'message' => 'Perfil atualizado com sucesso.',
-            'user' => $user,
-        ]);
-    }
-
-    public function changePassword(ChangePasswordRequest $request)
-    {
-        $user = $request->user();
-
-        if (!Hash::check($request->current_password, $user->password)) {
-            throw ValidationException::withMessages([
-                'current_password' => ['A senha atual está incorreta.'],
-            ]);
-        }
-
-        $user->update([
-            'password' => Hash::make($request->password),
-        ]);
-
-        return response()->json([
-            'message' => 'Senha atualizada com sucesso.'
-        ]);
+        $this->service = $service;
     }
 }

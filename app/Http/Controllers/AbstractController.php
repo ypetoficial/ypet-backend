@@ -2,18 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use Illuminate\Validation\ValidationException;
 
 abstract class AbstractController extends Controller
 {
-    protected array $with = [];
-
-    protected array $withCount = [];
+    protected $with = [];
 
     protected $service;
 
@@ -21,28 +16,57 @@ abstract class AbstractController extends Controller
 
     protected $requestValidateUpdate;
 
-    private array $validated;
-
-    public function index(Request $request): JsonResponse
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index(Request $request)
     {
-        if (! isset($request->with)) {
-            $request->with = $this->with;
+        $this->with = $request->get('with', []);
+        $withoutPagination = filter_var(
+            $request->get('without_pagination', false),
+            FILTER_VALIDATE_BOOLEAN
+        );
+        $orderByColumn = $request->get('order_by_column', 'id');
+        $orderByDirection = $request->get('order_by_direction', 'asc');
+        $columns = $request->get('columns', '*');
+        $perPage = $request->get('per_page', 20);
+
+        if ($withoutPagination) {
+            $items = $this->service->getAllWithoutPagination($request->all(), $this->with, [
+                'order_by' => [
+                    'column' => $orderByColumn,
+                    'direction' => $orderByDirection,
+                ],
+                'columns' => $columns,
+            ]);
+
+            return $this->ok($items->toArray());
         }
 
         $items = $this
             ->service
-            ->all($request->all(), $request->with)
-            ->toArray();
+            ->getAll($request->all(), [
+                'order_by' => [
+                    'column' => $orderByColumn,
+                    'direction' => $orderByDirection,
+                ],
+                'columns' => $columns,
+                'per_page' => $perPage,
+                'with' => $this->with,
+            ]);
 
-        return $this->ok($items);
+        return $this->ok($items->toArray());
     }
 
-    public function store(Request $request): JsonResponse
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store(Request $request)
     {
         try {
             if ($this->requestValidate) {
                 $requestValidate = app($this->requestValidate);
-                $this->validated = $request->validate($requestValidate->rules());
+                $request->validate($requestValidate->rules());
             }
         } catch (ValidationException $e) {
             return $this->error($this->messageErrorDefault, $e->errors());
@@ -50,7 +74,9 @@ abstract class AbstractController extends Controller
 
         try {
             DB::beginTransaction();
-            $response = $this->service->save($this->validated);
+            $params = $request->all();
+            data_set($params, 'created_by', $request->user()->id ?? null);
+            $response = $this->service->save($params);
             DB::commit();
 
             return $this->success($this->messageSuccessDefault, ['response' => $response]);
@@ -59,18 +85,21 @@ abstract class AbstractController extends Controller
             if ($e instanceof ValidationException) {
                 return $this->error($this->messageErrorDefault, $e->errors());
             }
-            if ($e instanceof Exception) {
+            if ($e instanceof \Exception) {
                 return $this->error($e->getMessage());
             }
         }
     }
 
-    public function update(Request $request, $id): JsonResponse
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(Request $request, $id)
     {
         try {
             if (! empty($this->requestValidateUpdate)) {
                 $requestValidateUpdate = app($this->requestValidateUpdate);
-                $this->validated = $request->validate($requestValidateUpdate->rules());
+                $request->validate($requestValidateUpdate->rules());
             }
         } catch (ValidationException $e) {
             return $this->error($this->messageErrorDefault, $e->errors());
@@ -78,13 +107,15 @@ abstract class AbstractController extends Controller
 
         try {
             DB::beginTransaction();
-            $this->service->update($id, $this->validated);
+            $params = $request->all();
+            data_set($params, 'updated_by', $request->user()->id ?? null);
+            $this->service->update($id, $params);
             DB::commit();
 
             return $this->success($this->messageSuccessDefault);
         } catch (\Exception|ValidationException $e) {
             DB::rollBack();
-            if ($e instanceof Exception) {
+            if ($e instanceof \Exception) {
                 return $this->error($e->getMessage());
             }
             if ($e instanceof ValidationException) {
@@ -93,21 +124,18 @@ abstract class AbstractController extends Controller
         }
     }
 
-    public function show($id, Request $request): JsonResponse
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show($id)
     {
-        if (! isset($request->with)) {
-            $request->with = $this->with;
-        }
-
-        if (! isset($request->withCount)) {
-            $request->withCount = $this->withCount;
-        }
-
         try {
-            return $this->ok($this->service->find($id, $request->with, $request->withCount)->toArray());
+            $this->with = request()->get('with', []);
+
+            return $this->ok($this->service->find($id, $this->with));
         } catch (\Exception|ValidationException $e) {
             DB::rollBack();
-            if ($e instanceof Exception) {
+            if ($e instanceof \Exception) {
                 return $this->error($e->getMessage());
             }
             if ($e instanceof ValidationException) {
@@ -116,7 +144,10 @@ abstract class AbstractController extends Controller
         }
     }
 
-    public function destroy($id): JsonResponse
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy($id)
     {
         try {
             $this->service->delete($id);
@@ -129,16 +160,20 @@ abstract class AbstractController extends Controller
 
     /**
      * @param  null  $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function preRequisite($id = null): JsonResponse
+    public function preRequisite($id = null)
     {
         $preRequisite = $this->service->preRequisite($id);
 
         return $this->ok(compact('preRequisite'));
     }
 
-    public function toSelect(): JsonResponse
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function toSelect()
     {
-        return $this->ok($this->service->toSelect(request()->all()));
+        return $this->ok($this->service->toSelect());
     }
 }

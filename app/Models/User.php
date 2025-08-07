@@ -14,7 +14,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens, CanResetPassword;
+    use CanResetPassword, HasApiTokens, HasFactory, HasRoles, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -24,6 +24,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'telephone',
+        'cellphone',
         'password',
         'phone',
         'job_title',
@@ -52,5 +54,10 @@ class User extends Authenticatable
             'password' => 'hashed',
             'type' => UserTypeEnum::class,
         ];
+    }
+
+    public function guardName(): string
+    {
+        return 'api';
     }
 }

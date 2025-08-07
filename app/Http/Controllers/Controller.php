@@ -2,30 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\UnauthorizedException;
 use Symfony\Component\HttpFoundation\Response;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected string $messageSuccessDefault = 'Operação realizada com sucesso';
+    protected $messageSuccessDefault = 'Operação realizada com com sucesso';
 
-    protected string $messageErrorDefault = 'Ops';
+    protected $messageErrorDefault = 'Ops';
 
     const TYPE_SUCCESS = 'success';
 
     const TYPE_ERROR = 'error';
 
-    public function ok(array $items = [], int $status = Response::HTTP_OK): JsonResponse
+    /**
+     * @param  array  $items
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function ok($items = [], int $status = Response::HTTP_OK)
     {
         $data = [
             'type' => self::TYPE_SUCCESS,
@@ -37,11 +37,14 @@ class Controller extends BaseController
         return response()->json($data, $status);
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function error(
         string $message = '',
         array $items = [],
         int $status = Response::HTTP_UNPROCESSABLE_ENTITY
-    ): JsonResponse {
+    ) {
         if (is_null($message)) {
             $message = $this->messageErrorDefault;
         }
@@ -62,11 +65,15 @@ class Controller extends BaseController
         return response()->json($data, $status);
     }
 
+    /**
+     * @param  bool  $showMessage
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function success(
         string $message,
         array $items = [],
         int $status = Response::HTTP_OK
-    ): JsonResponse {
+    ) {
         if (is_null($message)) {
             $message = $this->messageSuccessDefault;
         }
@@ -91,18 +98,11 @@ class Controller extends BaseController
         return response()->json($data, $status);
     }
 
-    public function getUserAuth(): ?Authenticatable
+    /**
+     * @return mixed
+     */
+    public function getUserAuth()
     {
         return Auth::user();
-    }
-
-    public function hasPermissionTo($permission): void
-    {
-        if (! Auth::user()->hasPermissionTo($permission)) {
-            throw new UnauthorizedException(
-                403,
-                'Você não tem permissão suficiente para executar essa ação'
-            );
-        }
     }
 }

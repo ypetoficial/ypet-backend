@@ -43,9 +43,7 @@ return [
                 /*
                  * Absolute paths to directory containing the swagger annotations are stored.
                  */
-                'annotations' => [
-                    base_path('app'),
-                ],
+                'annotations' => base_path('app/Docs'),
             ],
         ],
     ],
@@ -54,7 +52,7 @@ return [
             /*
              * Route for accessing parsed swagger annotations.
              */
-            'docs' => 'docs',
+            'docs' => 'Docs',
 
             /*
              * Route for Oauth2 authentication callback.
