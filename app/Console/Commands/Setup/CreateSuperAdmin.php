@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Setup;
 
+use App\Domains\User\Entities\UserStatusEntity;
 use App\Enums\RolesEnum;
 use App\Enums\UserStatusEnum;
 use App\Models\User;
@@ -41,7 +42,7 @@ class CreateSuperAdmin extends Command
                 'email_verified_at' => now(),
             ]);
 
-            UserStatus::create([
+            UserStatusEntity::create([
                 'user_id' => $user->id,
                 'status' => UserStatusEnum::ACTIVE->value,
                 'description' => 'Super admin user created during setup.',
