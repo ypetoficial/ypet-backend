@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Veterinarian;
 
+use App\Domains\Veterinarian\Services\VeterinarianService;
 use App\Http\Controllers\AbstractController;
 use App\Http\Requests\StoreVetenirarianRequest;
 use App\Http\Requests\UpdateVetenirarianRequest;
-use App\Domains\Veterinarian\Services\VeterinarianService;
 
 class VeterinarianController extends AbstractController
 {
