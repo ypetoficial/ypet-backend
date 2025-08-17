@@ -35,7 +35,3 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('animals', AnimalController::class);
     Route::get('enums/{enum}', [EnumController::class, 'show']);
 });
-
-Route::middleware(['auth:sanctum', 'role:ADMIN'])->group(function () {
-    Route::apiResource('users', UserController::class);
-});

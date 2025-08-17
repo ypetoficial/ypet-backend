@@ -27,9 +27,6 @@ class User extends Authenticatable
         'telephone',
         'cellphone',
         'password',
-        'phone',
-        'job_title',
-        'type',
     ];
 
     /**
@@ -52,7 +49,6 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'type' => UserTypeEnum::class,
         ];
     }
 
