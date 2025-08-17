@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Models\User;
 use App\Ypet\Common\Enums\UserTypeEnum;
 use App\Ypet\User\Services\UserService;
 use Illuminate\Http\JsonResponse;
@@ -18,7 +17,6 @@ class UserController extends AbstractController
         $this->requestValidate = StoreUserRequest::class;
         $this->requestValidateUpdate = UpdateUserRequest::class;
     }
-
 
     public function show($id, Request $request): JsonResponse
     {

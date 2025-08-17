@@ -2,10 +2,10 @@
 
 namespace App\Enums;
 
-use App\Domains\Abstracts\EnumTrait;
 use App\Domains\Abstracts\EnumInterface;
+use App\Domains\Abstracts\EnumTrait;
 
-enum LinkedTypeEnum:int implements EnumInterface
+enum LinkedTypeEnum: int implements EnumInterface
 {
     use EnumTrait;
 

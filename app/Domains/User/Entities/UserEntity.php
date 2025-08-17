@@ -16,7 +16,7 @@ class UserEntity extends User
         'telephone',
         'cellphone',
         'password',
-        'document'
+        'document',
     ];
 
     public function historyUserStatus(): HasMany

@@ -14,7 +14,7 @@ class LoginRequest extends FormRequest
         return true;
     }
 
-   protected function prepareForValidation()
+    protected function prepareForValidation()
     {
         $this->merge(['device_name' => request()->userAgent()]);
     }

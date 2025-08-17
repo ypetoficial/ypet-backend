@@ -27,7 +27,7 @@ class CreateVeterinarianPermissionsListener implements ShouldQueue
         $entity = $event->userEntity;
         $params = $event->params;
 
-        if (!isset($params['is_veterinarian']) || !$params['is_veterinarian']) {
+        if (! isset($params['is_veterinarian']) || ! $params['is_veterinarian']) {
             return;
         }
 
@@ -40,7 +40,7 @@ class CreateVeterinarianPermissionsListener implements ShouldQueue
 
         $availablePermissions = [
             'can_access_castromovel',
-            'can_apply_vaccine'
+            'can_apply_vaccine',
         ];
 
         foreach ($availablePermissions as $permissionName) {
@@ -48,11 +48,11 @@ class CreateVeterinarianPermissionsListener implements ShouldQueue
 
             $permission = Permission::firstOrCreate([
                 'name' => $permissionName,
-                'guard_name' => 'web'
+                'guard_name' => 'web',
             ]);
 
             if ($shouldHavePermission) {
-                if (!$entity->hasPermissionTo($permission)) {
+                if (! $entity->hasPermissionTo($permission)) {
                     $entity->givePermissionTo($permission);
 
                     logger()->info('Permission assigned to veterinarian', [

@@ -9,6 +9,7 @@ use App\Domains\Veterinarian\Repositories\VeterinarianRepository;
 class VeterinarianService extends AbstractService
 {
     public UserService $userService;
+
     public function __construct(VeterinarianRepository $repository)
     {
         $this->repository = $repository;
@@ -23,6 +24,7 @@ class VeterinarianService extends AbstractService
         $data['permissions'] = $permissions;
 
         $data['user_id'] = $this->userService->save($data)?->id;
+
         return $data;
     }
 
@@ -33,6 +35,7 @@ class VeterinarianService extends AbstractService
         $data['permissions'] = $permissions;
 
         $this->userService->update($veterinarian->user_id, $data);
+
         return $data;
     }
 }

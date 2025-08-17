@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class VeterinarianEntity extends Veterinarian
 {
-    protected $table = "veterinarians";
+    protected $table = 'veterinarians';
 
     protected $fillable = [
         'hash',
