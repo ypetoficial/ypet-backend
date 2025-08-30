@@ -957,6 +957,580 @@
                 }
             }
         },
+        "/api/citizen": {
+            "get": {
+                "tags": [
+                    "Citizens"
+                ],
+                "summary": "Lista todos os cidadãos",
+                "operationId": "f34597ca12faa803f68023f857cdc3f2",
+                "parameters": [
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de cidadãos retornada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "uuid": {
+                                                        "type": "string",
+                                                        "example": "a3f4c9b2-1234-5678-9abc-9876543210ff"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "test@test.com"
+                                                    },
+                                                    "phone": {
+                                                        "type": "string",
+                                                        "example": "(31) 8730-5567"
+                                                    },
+                                                    "birth_date": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "1990-05-15"
+                                                    },
+                                                    "gender": {
+                                                        "type": "string",
+                                                        "example": "male"
+                                                    },
+                                                    "special_permissions": {
+                                                        "type": "integer",
+                                                        "example": 0
+                                                    },
+                                                    "can_report_abuse": {
+                                                        "type": "integer",
+                                                        "example": 0
+                                                    },
+                                                    "can_mobile_castration": {
+                                                        "type": "integer",
+                                                        "example": 0
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Citizens"
+                ],
+                "summary": "Cadastra um novo cidadão",
+                "operationId": "90afb54a8928ad20455273dea593f367",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "document",
+                                    "email",
+                                    "phone",
+                                    "birth_date",
+                                    "gender",
+                                    "status",
+                                    "address",
+                                    "tenant_id",
+                                    "company_id"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Paulo"
+                                    },
+                                    "document": {
+                                        "type": "string",
+                                        "example": "12345678910"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "test@test.comm"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "(31) 98765-4321"
+                                    },
+                                    "birth_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1990-05-15"
+                                    },
+                                    "gender": {
+                                        "type": "string",
+                                        "example": "male"
+                                    },
+                                    "special_permissions": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "can_report_abuse": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "can_mobile_castration": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "status": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "address": {
+                                        "required": [
+                                            "type",
+                                            "zipcode",
+                                            "street",
+                                            "number",
+                                            "neighborhood",
+                                            "city",
+                                            "state"
+                                        ],
+                                        "properties": {
+                                            "type": {
+                                                "type": "integer",
+                                                "example": 0
+                                            },
+                                            "zipcode": {
+                                                "type": "string",
+                                                "example": "35010-600"
+                                            },
+                                            "street": {
+                                                "type": "string",
+                                                "example": "Rua Flores"
+                                            },
+                                            "number": {
+                                                "type": "string",
+                                                "example": "123"
+                                            },
+                                            "complement": {
+                                                "type": "string",
+                                                "example": "Apto 202"
+                                            },
+                                            "neighborhood": {
+                                                "type": "string",
+                                                "example": "Centro"
+                                            },
+                                            "city": {
+                                                "type": "string",
+                                                "example": "Governador Valadares"
+                                            },
+                                            "state": {
+                                                "type": "string",
+                                                "example": "MG"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "tenant_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "company_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Cidadão cadastrado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Paulo"
+                                                },
+                                                "document": {
+                                                    "type": "string",
+                                                    "example": "12345678910"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "test@test.com"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/citizen/{uuid}": {
+            "get": {
+                "tags": [
+                    "Citizens"
+                ],
+                "summary": "Exibe os detalhes de um cidadão",
+                "operationId": "47eb1cf183ac07b99d4bba597edf2d34",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "UUID do cidadão",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "e68023dc-f657-45b5-bded-62fc80b76036"
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    },
+                    {
+                        "name": "with[]",
+                        "in": "query",
+                        "description": "Relações para carregar. Ex: address, company, tenant",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "address"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cidadão encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "uuid": {
+                                                    "type": "integer",
+                                                    "example": "e68023dc-f657-45b5-bded-62fc80b76036"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Paulo"
+                                                },
+                                                "document": {
+                                                    "type": "string",
+                                                    "example": "12345678910"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "test@test.com"
+                                                },
+                                                "phone": {
+                                                    "type": "string",
+                                                    "example": "(31) 98765-4321"
+                                                },
+                                                "birth_date": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "1990-05-15"
+                                                },
+                                                "gender": {
+                                                    "type": "string",
+                                                    "example": "male"
+                                                },
+                                                "status": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "address": {
+                                                    "properties": {
+                                                        "zipcode": {
+                                                            "type": "string",
+                                                            "example": "35010-600"
+                                                        },
+                                                        "street": {
+                                                            "type": "string",
+                                                            "example": "Rua Flores"
+                                                        },
+                                                        "number": {
+                                                            "type": "string",
+                                                            "example": "123"
+                                                        },
+                                                        "neighborhood": {
+                                                            "type": "string",
+                                                            "example": "Centro"
+                                                        },
+                                                        "city": {
+                                                            "type": "string",
+                                                            "example": "Governador Valadares"
+                                                        },
+                                                        "state": {
+                                                            "type": "string",
+                                                            "example": "MG"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Citizens"
+                ],
+                "summary": "Atualiza os dados de um cidadão",
+                "operationId": "62655ceeee8f154388257869bff951cc",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "UUID do cidadão",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "a3f4c9b2-1234-5678-9abc-9876543210ff"
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "test@test.com"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "(31) 8730-5567"
+                                    },
+                                    "birth_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1990-05-15"
+                                    },
+                                    "gender": {
+                                        "type": "string",
+                                        "example": "male"
+                                    },
+                                    "special_permissions": {
+                                        "type": "integer",
+                                        "example": 0
+                                    },
+                                    "can_report_abuse": {
+                                        "type": "integer",
+                                        "example": 0
+                                    },
+                                    "can_mobile_castration": {
+                                        "type": "integer",
+                                        "example": 0
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Cidadão atualizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "uuid": {
+                                                    "type": "string",
+                                                    "example": "a3f4c9b2-1234-5678-9abc-9876543210ff"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "test@test.com"
+                                                },
+                                                "phone": {
+                                                    "type": "string",
+                                                    "example": "(31) 8730-5567"
+                                                },
+                                                "birth_date": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "1990-05-15"
+                                                },
+                                                "gender": {
+                                                    "type": "string",
+                                                    "example": "male"
+                                                },
+                                                "special_permissions": {
+                                                    "type": "integer",
+                                                    "example": 0
+                                                },
+                                                "can_report_abuse": {
+                                                    "type": "integer",
+                                                    "example": 0
+                                                },
+                                                "can_mobile_castration": {
+                                                    "type": "integer",
+                                                    "example": 0
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/enums/{group}": {
             "get": {
                 "tags": [
@@ -1545,6 +2119,15 @@
             }
         }
     },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
     "tags": [
         {
             "name": "Auth",
@@ -1561,6 +2144,10 @@
         {
             "name": "Animals",
             "description": "Cadastro e controle de animais"
+        },
+        {
+            "name": "Citizens",
+            "description": "Gerenciamento de cidadãos"
         }
     ]
 }

@@ -34,8 +34,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('users', UserController::class);
     Route::apiResource('animals', AnimalController::class);
     Route::get('enums/{enum}', [EnumController::class, 'show']);
+
+    Route::get('citizen', [CitizenController::class, 'index']);
+    Route::get('citizen/{uuid}', [CitizenController::class, 'show']);
     Route::put('/citizen/{uuid}', [CitizenController::class, 'update']);
 });
 
-Route::apiResource('citizen', CitizenController::class)->except(['update']);
+Route::post('citizen', [CitizenController::class, 'store']);
 Route::get('busca/cep/{cep}', [AddressController::class, 'searchCep']);
