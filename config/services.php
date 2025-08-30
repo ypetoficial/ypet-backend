@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'busca_cep' => [
+        'url' => env('BUSCA_CEP_URL'),
+    ],
+
 ];
