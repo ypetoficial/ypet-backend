@@ -2,16 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\Tenant;
+use App\Models\Address;
 use Illuminate\Database\Seeder;
 
-class TenantSeeder extends Seeder
+class AddressSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Tenant::factory()->create();
+        Address::factory()->create();
     }
 }

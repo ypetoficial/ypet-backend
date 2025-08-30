@@ -1,0 +1,57 @@
+<?php
+
+namespace App\Domains\Address\Services;
+
+use App\Models\Address;
+use Illuminate\Support\Facades\Http;
+use App\Domains\Abstracts\AbstractService;
+use App\Domains\Address\Repositories\AddressRepository;
+
+class AddressService extends AbstractService
+{
+    /**
+     * Method __construct
+     *
+     *
+     * @return void
+     */
+    public function __construct(AddressRepository $addressRepository)
+    {
+        $this->repository = $addressRepository;
+    }
+
+    public function beforeSave(array $data): array
+    {
+        $data['cep'] = $this->onlyNumbers($data['cep']);
+        $data['city_code'] = $this->getCityCode($data['city'], $data['state']);
+
+        return $data;
+    }
+
+    public function onlyNumbers(string $value): string
+    {
+        return preg_replace('/\D/', '', $value);
+    }
+
+    public function beforeUpdate($id, array $data): array
+    {
+        $data['cep'] = $this->onlyNumbers($data['cep']);
+        $data['city_code'] = $this->getCityCode($data['city'], $data['state']);
+
+        return $data;
+    }
+
+    public function getCityCode(string $city, string $state): ?int
+    {
+        $city = Address::where('city', $city)
+            ->where('state', $state)
+            ->pluck('id')
+            ->first();
+
+        if ($city) {
+            return $city;
+        }
+
+        return null;
+    }
+}

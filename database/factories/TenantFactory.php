@@ -10,14 +10,17 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class TenantFactory extends Factory
 {
     /**
-     * Define the model's default state.
+     * Define the model's default state.å
      *
      * @return array<string, mixed>
      */
     public function definition(): array
     {
         return [
-            //
+            'user_name' => $this->faker->name(),
+            'user_email' => $this->faker->unique()->safeEmail(),
+            'company_name' => $this->faker->company(),
+            'status' => $this->faker->randomElement([0, 1]),
         ];
     }
 }

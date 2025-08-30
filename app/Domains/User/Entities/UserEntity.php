@@ -25,6 +25,6 @@ class UserEntity extends User
 
     public function status(): HasOne
     {
-        return $this->hasOne(UserStatusEntity::class, 'user_id', 'id')->latest();
+        return $this->hasOne(UserStatusEntity::class, 'user_id', 'id')->latest('created_at');
     }
 }
