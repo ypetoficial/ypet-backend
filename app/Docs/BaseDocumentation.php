@@ -21,7 +21,7 @@ namespace App\Docs;
  *      url="{scheme}://{host}:{port}",
  *       description="Servidor dinâmico",
  *       variables={
- * 
+ *
  *           @OA\ServerVariable(
  *               serverVariable="scheme",
  *               enum={"http", "https"},

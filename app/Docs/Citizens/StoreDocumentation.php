@@ -19,7 +19,7 @@ namespace App\Docs\Citizens;
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             required={"name", "document", "email", "phone", "birth_date", "gender", "status", "address", "tenant_id", "company_id"},
+ *             required={"name", "document", "email", "phone", "birth_date", "gender", "status", "address", "tenant_id"},
  *
  *             @OA\Property(property="name", type="string", example="Paulo"),
  *             @OA\Property(property="document", type="string", example="12345678910"),
@@ -47,7 +47,6 @@ namespace App\Docs\Citizens;
  *             ),
  *
  *             @OA\Property(property="tenant_id", type="integer", example=1),
- *             @OA\Property(property="company_id", type="integer", example=1)
  *         )
  *     ),
  *

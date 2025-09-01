@@ -15,7 +15,6 @@ class Citizen extends Model
         'hash',
         'user_id',
         'tenant_id',
-        'company_id',
         'name',
         'document',
         'email',

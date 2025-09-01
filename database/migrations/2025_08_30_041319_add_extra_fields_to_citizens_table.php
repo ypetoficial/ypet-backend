@@ -18,6 +18,7 @@ return new class extends Migration
             $table->boolean('can_report_abuse');
             $table->boolean('can_mobile_castration');
             $table->boolean('status');
+            $table->integer('user_id');
         });
     }
 

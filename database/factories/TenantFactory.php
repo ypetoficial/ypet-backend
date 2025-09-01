@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class TenantFactory extends Factory
 {
     /**
-     * Define the model's default state.å
+     * Define the model's default state.
      *
      * @return array<string, mixed>
      */

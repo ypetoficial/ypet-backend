@@ -50,11 +50,6 @@ class UpdateCitizenRequest extends FormRequest
                 'integer', 
                 'exists:tenants,id'
             ],
-            'company_id' => [
-                'nullable', 
-                'integer', 
-                'exists:companies,id'
-            ],
             'birth_date' => ['nullable', 'date'],
             'gender' => ['nullable', 'string', 'max:20'],
             'special_permissions' => ['nullable','boolean'],

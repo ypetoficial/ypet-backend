@@ -16,12 +16,11 @@ return new class extends Migration
             $table->string('hash')->nullable()->unique()->index();
             $table->string('uuid')->nullable()->unique();
             $table->foreignId('tenant_id')->constrained()->onDelete('cascade');
-            $table->foreignId('company_id')->constrained()->onDelete('cascade');
 
             $table->string('name');
             $table->string('email')->unique()->index();
             $table->string('document')->unique()->index();
-            $table->string('phone')->nullable();      
+            $table->string('phone')->nullable();
             $table->text('observations')->nullable();
             $table->foreignId('updated_by')->nullable()->constrained('users');
 

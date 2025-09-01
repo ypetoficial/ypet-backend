@@ -15,7 +15,6 @@ class CitizenEntity extends Citizen
     protected $fillable = [
         'user_id',
         'tenant_id',
-        'company_id',
         'name',
         'document',
         'email',

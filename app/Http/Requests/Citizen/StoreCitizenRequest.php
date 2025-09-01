@@ -44,20 +44,10 @@ class StoreCitizenRequest extends FormRequest
                 'string',
                 'max:20',
             ],
-            'address' => [
-                'required',
-                'min:8',
-                'max:20',
-            ],
             'tenant_id' => [
-                'nullable', 
+                'required', 
                 'integer', 
                 'exists:tenants,id'
-            ],
-            'company_id' => [
-                'nullable', 
-                'integer', 
-                'exists:companies,id'
             ],
             'birth_date' => ['required', 'date'],
             'gender' => ['required', 'string', 'max:20'],
