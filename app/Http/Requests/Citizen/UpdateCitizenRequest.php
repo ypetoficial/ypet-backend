@@ -40,11 +40,6 @@ class UpdateCitizenRequest extends FormRequest
                 'string',
                 'max:20',
             ],
-            'address' => [
-                'nullable',
-                'min:8',
-                'max:20',
-            ],
             'tenant_id' => [
                 'nullable', 
                 'integer', 
