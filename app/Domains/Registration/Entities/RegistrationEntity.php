@@ -18,6 +18,7 @@ class RegistrationEntity extends Registration
         'user_id',
         'animal_id',
         'status',
+        'created_at',
     ];
 
     protected $casts = [
