@@ -45,5 +45,4 @@ class RegistrationRepository extends AbstractRepository
 
         return $query;
     }
-
 }
