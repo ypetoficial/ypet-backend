@@ -2,8 +2,8 @@
 
 namespace App\Domains\MobileClinicEvent\Services;
 
-use App\Domains\MobileClinicEvent\Repositories\MobileClinicEventRepository;
 use App\Domains\Abstracts\AbstractService;
+use App\Domains\MobileClinicEvent\Repositories\MobileClinicEventRepository;
 
 class MobileClinicEventService extends AbstractService
 {

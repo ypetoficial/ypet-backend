@@ -7,7 +7,8 @@ use App\Ypet\Abstracts\AbstractRepository;
 
 class UserRepository extends AbstractRepository
 {
-    public function __construct(User $model) {
+    public function __construct(User $model)
+    {
         $this->model = $model;
     }
 

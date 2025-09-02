@@ -23,7 +23,7 @@ class AuthControllerTest extends TestCase
         ]);
 
         $response->assertStatus(200)
-                 ->assertJsonStructure(['data' => ['access_token', 'token_type']]);
+            ->assertJsonStructure(['data' => ['access_token', 'token_type']]);
     }
 
     public function test_login_with_invalid_data()
@@ -33,7 +33,7 @@ class AuthControllerTest extends TestCase
         ]);
 
         $response->assertStatus(422)
-                 ->assertJsonValidationErrors(['password']);
+            ->assertJsonValidationErrors(['password']);
     }
 
     public function test_login_with_wrong_credentials()
@@ -56,13 +56,13 @@ class AuthControllerTest extends TestCase
         $token = $user->createToken('test-token')->plainTextToken;
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer ' . $token,
+            'Authorization' => 'Bearer '.$token,
         ])->getJson('/api/auth/me');
 
         $response->assertStatus(200)
-                 ->assertJson([
-                     'data' => ['email' => $user->email],
-                 ]);
+            ->assertJson([
+                'data' => ['email' => $user->email],
+            ]);
     }
 
     public function test_me_endpoint_requires_authentication()
@@ -83,10 +83,10 @@ class AuthControllerTest extends TestCase
         ]);
 
         $this->withHeaders([
-            'Authorization' => 'Bearer ' . $token,
+            'Authorization' => 'Bearer '.$token,
         ])->postJson('/api/auth/logout')
-          ->assertStatus(200)
-          ->assertJson(['message' => 'Successfully logged out']);
+            ->assertStatus(200)
+            ->assertJson(['message' => 'Successfully logged out']);
 
         // Assert token was deleted
         $this->assertDatabaseMissing('personal_access_tokens', [
@@ -99,7 +99,7 @@ class AuthControllerTest extends TestCase
 
         // Assert user is unauthenticated when using the revoked token
         $this->withHeaders([
-            'Authorization' => 'Bearer ' . $token,
+            'Authorization' => 'Bearer '.$token,
         ])->getJson('/api/auth/me')->assertStatus(401);
     }
 }

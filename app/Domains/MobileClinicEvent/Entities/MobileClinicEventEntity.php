@@ -2,13 +2,13 @@
 
 namespace App\Domains\MobileClinicEvent\Entities;
 
-use App\Models\MobileClinicEvent;
 use App\Casts\EnumCast;
 use App\Enums\MobileEventStatusEnum;
+use App\Models\MobileClinicEvent;
 
 class MobileClinicEventEntity extends MobileClinicEvent
 {
-    protected $table = "mobile_clinic_events";
+    protected $table = 'mobile_clinic_events';
 
     protected $fillable = [
         'name',
@@ -22,7 +22,7 @@ class MobileClinicEventEntity extends MobileClinicEvent
     ];
 
     protected $casts = [
-        'status' => EnumCast::class . ':' . MobileEventStatusEnum::class,
+        'status' => EnumCast::class.':'.MobileEventStatusEnum::class,
         'species' => 'array',
         'gender' => 'array',
     ];

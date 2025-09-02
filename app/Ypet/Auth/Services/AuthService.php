@@ -2,7 +2,6 @@
 
 namespace App\Ypet\Auth\Services;
 
-use App\Ypet\Abstracts\AbstractService;
 use App\Ypet\Common\Enums\UserStatusEnum;
 use App\Ypet\User\Services\UserService;
 use Illuminate\Support\Facades\Hash;
@@ -23,8 +22,8 @@ class AuthService
         $user = $this->userService->findByEmail($data['email']);
 
         if (
-            !$user ||
-            !Hash::check($data['password'], $user->password) ||
+            ! $user ||
+            ! Hash::check($data['password'], $user->password) ||
             $user->status === UserStatusEnum::DISABLED->value ||
             $user->status === UserStatusEnum::SUSPENDED->value
         ) {

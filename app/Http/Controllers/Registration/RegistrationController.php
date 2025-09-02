@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Registration;
 
-use App\Http\Controllers\AbstractController;
 use App\Domains\Registration\Services\RegistrationService;
+use App\Http\Controllers\AbstractController;
 use App\Http\Requests\Registration\RegistrationRequest;
 
 class RegistrationController extends AbstractController

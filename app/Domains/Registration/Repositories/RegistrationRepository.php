@@ -2,8 +2,8 @@
 
 namespace App\Domains\Registration\Repositories;
 
-use App\Domains\Registration\Entities\RegistrationEntity;
 use App\Domains\Abstracts\AbstractRepository;
+use App\Domains\Registration\Entities\RegistrationEntity;
 
 class RegistrationRepository extends AbstractRepository
 {

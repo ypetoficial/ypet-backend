@@ -2,8 +2,8 @@
 
 namespace App\Ypet\User\Services;
 
-use App\Ypet\Abstracts\AbstractService;
 use App\Models\User;
+use App\Ypet\Abstracts\AbstractService;
 use App\Ypet\Common\Enums\UserTypeEnum;
 use App\Ypet\User\Repositories\UserRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -20,8 +20,7 @@ class UserService extends AbstractService
     }
 
     /**
-     * @param array $params
-     * @param array $with
+     * @param  array  $with
      * @return LengthAwarePaginator
      */
     public function all(array $params = [], $with = [])

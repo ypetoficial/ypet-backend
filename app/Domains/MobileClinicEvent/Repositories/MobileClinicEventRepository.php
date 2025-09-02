@@ -2,8 +2,8 @@
 
 namespace App\Domains\MobileClinicEvent\Repositories;
 
-use App\Domains\MobileClinicEvent\Entities\MobileClinicEventEntity;
 use App\Domains\Abstracts\AbstractRepository;
+use App\Domains\MobileClinicEvent\Entities\MobileClinicEventEntity;
 
 class MobileClinicEventRepository extends AbstractRepository
 {

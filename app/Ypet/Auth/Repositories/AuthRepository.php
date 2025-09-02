@@ -2,7 +2,4 @@
 
 namespace App\Ypet\Auth\Repositories;
 
-class AuthRepository
-{
-
-}
+class AuthRepository {}

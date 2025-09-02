@@ -2,16 +2,16 @@
 
 namespace App\Domains\Registration\Entities;
 
-use App\Models\Registration;
-use App\Domains\User\Entities\UserEntity;
+use App\Casts\EnumCast;
 use App\Domains\Animal\Entities\AnimalEntity;
 use App\Domains\MobileClinicEvent\Entities\MobileClinicEventEntity;
-use App\Casts\EnumCast;
+use App\Domains\User\Entities\UserEntity;
 use App\Enums\RegistrationStatusEnum;
+use App\Models\Registration;
 
 class RegistrationEntity extends Registration
 {
-    protected $table = "registrations";
+    protected $table = 'registrations';
 
     protected $fillable = [
         'mobile_clinic_event_id',
@@ -21,7 +21,7 @@ class RegistrationEntity extends Registration
     ];
 
     protected $casts = [
-        'status' => EnumCast::class . ':' . RegistrationStatusEnum::class,
+        'status' => EnumCast::class.':'.RegistrationStatusEnum::class,
     ];
 
     public function mobileClinicEvent()

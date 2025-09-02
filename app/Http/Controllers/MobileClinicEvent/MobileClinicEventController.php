@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\MobileClinicEvent;
 
+use App\Domains\MobileClinicEvent\Services\MobileClinicEventService;
 use App\Http\Controllers\AbstractController;
 use App\Http\Requests\MobileClinic\MobileClinicRequest;
-use App\Domains\MobileClinicEvent\Services\MobileClinicEventService;
 
 class MobileClinicEventController extends AbstractController
 {

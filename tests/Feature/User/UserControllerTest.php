@@ -14,6 +14,7 @@ class UserControllerTest extends TestCase
     use RefreshDatabase;
 
     protected User $adminUser;
+
     protected User $operatorUser;
 
     protected function setUp(): void
@@ -121,7 +122,7 @@ class UserControllerTest extends TestCase
         $response->assertStatus(401);
     }
 
-     public function test_store_user_fails_with_invalid_data()
+    public function test_store_user_fails_with_invalid_data()
     {
         $response = $this->actingAs($this->adminUser, 'sanctum')->postJson('/api/users', ['name' => 'test']);
 

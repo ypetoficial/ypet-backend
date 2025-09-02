@@ -2,16 +2,18 @@
 
 namespace App\Domains\Registration\Services;
 
-use App\Enums\MobileEventStatusEnum;
 use App\Domains\Abstracts\AbstractService;
 use App\Domains\Animal\Services\AnimalService;
-use App\Domains\Registration\Repositories\RegistrationRepository;
 use App\Domains\MobileClinicEvent\Services\MobileClinicEventService;
+use App\Domains\Registration\Repositories\RegistrationRepository;
+use App\Enums\MobileEventStatusEnum;
 
 class RegistrationService extends AbstractService
 {
     protected AnimalService $animalService;
+
     protected MobileClinicEventService $mobileClinicEventService;
+
     public function __construct(RegistrationRepository $repository)
     {
         $this->repository = $repository;
@@ -51,7 +53,7 @@ class RegistrationService extends AbstractService
 
     private function validateAnimalSpecies($animal, $mobileClinicEvent): void
     {
-        if (!in_array($animal->species, $mobileClinicEvent->species->toArray())) {
+        if (! in_array($animal->species, $mobileClinicEvent->species->toArray())) {
             throw new \Exception('Espécie do animal não é permitida no evento.');
         }
     }
