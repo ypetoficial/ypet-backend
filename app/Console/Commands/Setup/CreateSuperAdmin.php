@@ -6,7 +6,6 @@ use App\Domains\User\Entities\UserStatusEntity;
 use App\Enums\RolesEnum;
 use App\Enums\UserStatusEnum;
 use App\Models\User;
-use App\Models\UserStatus;
 use Illuminate\Console\Command;
 
 class CreateSuperAdmin extends Command

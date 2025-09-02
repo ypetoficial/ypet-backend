@@ -777,6 +777,266 @@
                 }
             }
         },
+        "/api/mobile-clinic-events": {
+            "get": {
+                "tags": [
+                    "Mobile Clinic Events"
+                ],
+                "summary": "Lista todos os eventos de clínica móvel (com ou sem paginação)",
+                "operationId": "getMobileClinicEvents",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT. Exemplo: Bearer {token}",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ...token..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Client type (e.g., web, mobile)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    },
+                    {
+                        "name": "with[]",
+                        "in": "query",
+                        "description": "Relações a serem carregadas",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "registrations"
+                        }
+                    },
+                    {
+                        "name": "without_pagination",
+                        "in": "query",
+                        "description": "Se true, desativa a paginação",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "example": false
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de eventos retornada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Clínica Móvel Centro"
+                                                            },
+                                                            "description": {
+                                                                "type": "string",
+                                                                "example": "Evento de castração gratuita"
+                                                            },
+                                                            "location": {
+                                                                "type": "string",
+                                                                "example": "Praça Central"
+                                                            },
+                                                            "start_date": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2024-01-15 08:00:00"
+                                                            },
+                                                            "end_date": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2024-01-15 17:00:00"
+                                                            },
+                                                            "status": {
+                                                                "type": "string",
+                                                                "example": "active"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Mobile Clinic Events"
+                ],
+                "summary": "Cadastra um novo evento de clínica móvel",
+                "operationId": "createMobileClinicEvent",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "location",
+                                    "start_date",
+                                    "end_date",
+                                    "status"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Clínica Móvel Centro"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Evento de castração gratuita"
+                                    },
+                                    "location": {
+                                        "type": "string",
+                                        "example": "Praça Central"
+                                    },
+                                    "start_date": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-01-15 08:00:00"
+                                    },
+                                    "end_date": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-01-15 17:00:00"
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "example": "active"
+                                    },
+                                    "species": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "example": ["dog", "cat"]
+                                    },
+                                    "gender": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "example": ["male", "female"]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Evento cadastrado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "response": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": 5
+                                                        },
+                                                        "name": {
+                                                            "type": "string",
+                                                            "example": "Clínica Móvel Centro"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/auth/me/password": {
             "put": {
                 "tags": [
@@ -1561,6 +1821,14 @@
         {
             "name": "Animals",
             "description": "Cadastro e controle de animais"
+        },
+        {
+            "name": "Mobile Clinic Events",
+            "description": "Gerenciamento de eventos de clínica móvel"
+        },
+        {
+            "name": "Registrations",
+            "description": "Gerenciamento de inscrições em eventos"
         }
     ]
 }
