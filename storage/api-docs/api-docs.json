@@ -2919,6 +2919,14 @@
         {
             "name": "Protectors",
             "description": "Gerenciamento de protetores"
+        },
+        {
+            "name": "Mobile Clinic Events",
+            "description": "Gerenciamento de eventos de clínica móvel"
+        },
+        {
+            "name": "Registrations",
+            "description": "Gerenciamento de inscrições em eventos"
         }
     ]
 }
