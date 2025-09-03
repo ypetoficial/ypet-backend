@@ -2,16 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\Tenant;
+use App\Models\Protector;
 use Illuminate\Database\Seeder;
 
-class TenantSeeder extends Seeder
+class ProtectorSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Tenant::factory()->create();
+        Protector::factory()->create();
     }
 }

@@ -6,8 +6,8 @@ use App\Common\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Citizen extends Model
+class Protector extends Model
 {
-    /** @use HasFactory<\Database\Factories\CitizenFactory> */
+    /** @use HasFactory<\Database\Factories\ProtectorFactory> */
     use HasFactory, HasUuid;
 }

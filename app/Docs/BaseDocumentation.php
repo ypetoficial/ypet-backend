@@ -15,6 +15,8 @@ namespace App\Docs;
  *     @OA\Tag(name="Enums", description="Consulta de enums disponíveis"),
  *     @OA\Tag(name="Users", description="Gerenciamento de usuários"),
  *     @OA\Tag(name="Animals", description="Cadastro e controle de animais"),
+ *     @OA\Tag(name="Citizens", description="Gerenciamento de cidadãos"),
+ *     @OA\Tag(name="Protectors", description="Gerenciamento de protetores"),
  *
  *      @OA\Server(
  *      url="{scheme}://{host}:{port}",
@@ -37,6 +39,13 @@ namespace App\Docs;
  *           )
  *       }
  *  )
+ * )
+ *
+ * @OA\SecurityScheme(
+ *     securityScheme="bearerAuth",
+ *     type="http",
+ *     scheme="bearer",
+ *     bearerFormat="JWT"
  * )
  */
 class BaseDocumentation {}
