@@ -14,19 +14,24 @@ namespace App\Docs\Citizens;
  *         in="header",
  *         required=true,
  *         description="Tipo do cliente",
+ *
  *         @OA\Schema(type="string", example="web")
  *     ),
  *
  *     @OA\Response(
  *         response=200,
  *         description="Lista de cidadãos retornada com sucesso",
+ *
  *         @OA\JsonContent(
+ *
  *             @OA\Property(property="type", type="string", example="success"),
  *             @OA\Property(property="status", type="integer", example=200),
  *             @OA\Property(
  *                 property="data",
  *                 type="array",
+ *
  *                 @OA\Items(
+ *
  *                     @OA\Property(property="id", type="integer", example=1),
  *                     @OA\Property(property="uuid", type="string", example="a3f4c9b2-1234-5678-9abc-9876543210ff"),
  *                     @OA\Property(property="email", type="string", example="test@test.com"),

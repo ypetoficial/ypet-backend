@@ -2,23 +2,16 @@
 
 namespace App\Domains\Citizen\Entities;
 
-use App\Models\User;
-use App\Models\Tenant;
-use App\Models\Address;
+use App\Domains\Address\Entities\AddressEntity;
 use App\Models\Citizen;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CitizenEntity extends Citizen
 {
-    protected $table = "citizens";
+    protected $table = 'citizens';
 
     protected $fillable = [
-        'user_id',
-        'tenant_id',
-        'name',
-        'document',
-        'email',
-        'phone',
         'observations',
         'birth_date',
         'gender',
@@ -26,7 +19,9 @@ class CitizenEntity extends Citizen
         'can_report_abuse',
         'can_mobile_castration',
         'status',
-        'updated_by'
+        'updated_by',
+        'user_id',
+        'document',
     ];
 
     protected $hidden = [
@@ -36,16 +31,11 @@ class CitizenEntity extends Citizen
 
     public function user(): BelongsTo
     {
-       return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function tenant()
-    {
-        return $this->belongsTo(Tenant::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function addresses()
     {
-        return $this->morphMany(Address::class, 'addressable');
+        return $this->morphMany(AddressEntity::class, 'addressable');
     }
 }

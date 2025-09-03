@@ -6,7 +6,7 @@ use App\Models\Address;
 
 class AddressEntity extends Address
 {
-    protected $table = "address";
+    protected $table = 'addresses';
 
     protected $fillable = [
         'type',

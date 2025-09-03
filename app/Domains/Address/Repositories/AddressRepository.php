@@ -2,8 +2,8 @@
 
 namespace App\Domains\Address\Repositories;
 
-use App\Domains\Address\Entities\AddressEntity;
 use App\Domains\Abstracts\AbstractRepository;
+use App\Domains\Address\Entities\AddressEntity;
 
 class AddressRepository extends AbstractRepository
 {

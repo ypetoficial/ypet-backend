@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Citizen;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UpdateCitizenRequest extends FormRequest
 {
@@ -15,41 +14,18 @@ class UpdateCitizenRequest extends FormRequest
         return true;
     }
 
-        public function rules(): array
+    public function rules(): array
     {
         return [
-            'name' => [
-                'nullable',
-                'string',
-                'max:255',
-            ],
-            'document' => [
-                'nullable',
-                'string',
-                'max:11',
-                'min:11',
-            ],
-            'email' => [
-                'nullable',
-                'email',
-                'max:255',
-                'unique:citizens,email'
-            ],
-            'phone' => [
-                'nullable',
-                'string',
-                'max:20',
-            ],
-            'tenant_id' => [
-                'nullable', 
-                'integer', 
-                'exists:tenants,id'
-            ],
+            'name' => ['nullable', 'string', 'max:255'],
+            'document' => ['nullable', 'string', 'max:11', 'min:11'],
+            'email' => ['nullable', 'email', 'max:255', 'unique:citizens,email'],
+            'telephone' => ['nullable', 'string', 'max:20'],
             'birth_date' => ['nullable', 'date'],
             'gender' => ['nullable', 'string', 'max:20'],
-            'special_permissions' => ['nullable','boolean'],
-            'can_report_abuse' => ['nullable','boolean'],
-            'can_mobile_castration' => ['nullable','boolean'],
+            'special_permissions' => ['nullable', 'boolean'],
+            'can_report_abuse' => ['nullable', 'boolean'],
+            'can_mobile_castration' => ['nullable', 'boolean'],
             'status' => ['nullable', 'integer'],
             'address' => ['nullable', 'array'],
             'address.type' => ['nullable', 'integer'],

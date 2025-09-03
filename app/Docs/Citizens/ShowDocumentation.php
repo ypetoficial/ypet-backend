@@ -14,27 +14,34 @@ namespace App\Docs\Citizens;
  *         in="path",
  *         required=true,
  *         description="UUID do cidadão",
+ *
  *         @OA\Schema(type="string", example="e68023dc-f657-45b5-bded-62fc80b76036")
  *     ),
+ *
  *     @OA\Parameter(
  *         name="X-Client-Type",
  *         in="header",
  *         required=true,
  *         description="Tipo do cliente",
+ *
  *         @OA\Schema(type="string", example="web")
  *     ),
+ *
  *     @OA\Parameter(
  *         name="with[]",
  *         in="query",
  *         required=false,
  *         description="Relações para carregar. Ex: address, company, tenant",
+ *
  *         @OA\Schema(type="string", example="address")
  *     ),
  *
  *     @OA\Response(
  *         response=200,
  *         description="Cidadão encontrado",
+ *
  *         @OA\JsonContent(
+ *
  *             @OA\Property(property="type", type="string", example="success"),
  *             @OA\Property(property="status", type="integer", example=200),
  *             @OA\Property(

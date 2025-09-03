@@ -10,5 +10,5 @@ class Tenant extends Model
     /** @use HasFactory<\Database\Factories\TenantFactory> */
     use HasFactory;
 
-    protected $table = "tenants";
+    protected $table = 'tenants';
 }

@@ -13,11 +13,13 @@ namespace App\Docs\Citizens;
  *         in="header",
  *         required=true,
  *         description="Tipo do cliente",
+ *
  *         @OA\Schema(type="string", example="web")
  *     ),
  *
  *     @OA\RequestBody(
  *         required=true,
+ *
  *         @OA\JsonContent(
  *             required={"name", "document", "email", "phone", "birth_date", "gender", "status", "address", "tenant_id"},
  *
@@ -31,7 +33,6 @@ namespace App\Docs\Citizens;
  *             @OA\Property(property="can_report_abuse", type="integer", example=1),
  *             @OA\Property(property="can_mobile_castration", type="integer", example=1),
  *             @OA\Property(property="status", type="integer", example=1),
- *
  *             @OA\Property(
  *                 property="address",
  *                 type="object",
@@ -45,7 +46,6 @@ namespace App\Docs\Citizens;
  *                 @OA\Property(property="city", type="string", example="Governador Valadares"),
  *                 @OA\Property(property="state", type="string", example="MG")
  *             ),
- *
  *             @OA\Property(property="tenant_id", type="integer", example=1),
  *         )
  *     ),
@@ -53,7 +53,9 @@ namespace App\Docs\Citizens;
  *     @OA\Response(
  *         response=201,
  *         description="Cidadão cadastrado com sucesso",
+ *
  *         @OA\JsonContent(
+ *
  *             @OA\Property(property="type", type="string", example="success"),
  *             @OA\Property(property="status", type="integer", example=201),
  *             @OA\Property(property="data", type="object",
@@ -68,4 +70,3 @@ namespace App\Docs\Citizens;
  * )
  */
 class StoreDocumentation {}
-
