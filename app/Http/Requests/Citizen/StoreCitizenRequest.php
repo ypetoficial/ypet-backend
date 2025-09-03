@@ -22,38 +22,16 @@ class StoreCitizenRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => [
-                'required',
-                'string',
-                'max:255',
-            ],
-            'document' => [
-                'required',
-                'string',
-                'max:11',
-                'min:11',
-            ],
-            'email' => [
-                'required',
-                'email',
-                'max:255',
-                'unique:citizens,email'
-            ],
-            'phone' => [
-                'required',
-                'string',
-                'max:20',
-            ],
-            'tenant_id' => [
-                'required', 
-                'integer', 
-                'exists:tenants,id'
-            ],
+            'name' => ['required', 'string', 'max:255'],
+            'document' => ['required', 'string', 'max:11', 'min:11'],
+            'email' => ['required', 'email', 'max:255'],
+            'password' => 'required|string|min:8|confirmed',
+            'telephone' => ['required', 'string', 'max:20'],
             'birth_date' => ['required', 'date'],
             'gender' => ['required', 'string', 'max:20'],
-            'special_permissions' => ['required','boolean'],
-            'can_report_abuse' => ['required','boolean'],
-            'can_mobile_castration' => ['required','boolean'],
+            'special_permissions' => ['required', 'boolean'],
+            'can_report_abuse' => ['required', 'boolean'],
+            'can_mobile_castration' => ['required', 'boolean'],
             'status' => ['required', 'integer'],
             'address' => ['required', 'array'],
             'address.type' => ['required', 'integer'],

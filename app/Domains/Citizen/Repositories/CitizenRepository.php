@@ -2,8 +2,8 @@
 
 namespace App\Domains\Citizen\Repositories;
 
-use App\Domains\Citizen\Entities\CitizenEntity;
 use App\Domains\Abstracts\AbstractRepository;
+use App\Domains\Citizen\Entities\CitizenEntity;
 
 class CitizenRepository extends AbstractRepository
 {

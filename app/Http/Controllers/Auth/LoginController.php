@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
-use App\Models\UserStatus;
 use App\Enums\UserStatusEnum;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
+use App\Models\UserStatus;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
@@ -21,7 +21,7 @@ class LoginController extends Controller
         }
 
         $user = User::where('email', $request->email)->firstOrFail();
-        $userstatus = UserStatus::where('user_id',  $user?->id)->firstOrFail();
+        $userstatus = UserStatus::where('user_id', $user?->id)->firstOrFail();
 
         if ($userstatus->status != UserStatusEnum::ACTIVE->value) {
             throw ValidationException::withMessages([

@@ -2,10 +2,9 @@
 
 namespace App\Domains\Address\Services;
 
-use App\Models\Address;
-use Illuminate\Support\Facades\Http;
 use App\Domains\Abstracts\AbstractService;
 use App\Domains\Address\Repositories\AddressRepository;
+use App\Models\Address;
 
 class AddressService extends AbstractService
 {

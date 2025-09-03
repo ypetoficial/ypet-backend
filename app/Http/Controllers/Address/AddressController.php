@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Address;
 
-use App\Http\Requests\SearchCepRequest;
-use App\Http\Controllers\AbstractController;
-use Illuminate\Http\JsonResponse;
 use App\Domains\Address\Services\AddressService;
+use App\Http\Controllers\AbstractController;
+use App\Http\Requests\SearchCepRequest;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
-
 
 class AddressController extends AbstractController
 {

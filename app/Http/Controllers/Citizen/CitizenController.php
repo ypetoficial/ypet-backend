@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Citizen;
 
-use App\Http\Controllers\AbstractController;
 use App\Domains\Citizen\Services\CitizenService;
+use App\Http\Controllers\AbstractController;
 use App\Http\Requests\Citizen\StoreCitizenRequest;
 use App\Http\Requests\Citizen\UpdateCitizenRequest;
 

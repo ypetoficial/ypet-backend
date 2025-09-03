@@ -1267,7 +1267,7 @@
                                                         "type": "string",
                                                         "example": "test@test.com"
                                                     },
-                                                    "phone": {
+                                                    "telephone": {
                                                         "type": "string",
                                                         "example": "(31) 8730-5567"
                                                     },
@@ -1344,8 +1344,7 @@
                                     "birth_date",
                                     "gender",
                                     "status",
-                                    "address",
-                                    "tenant_id"
+                                    "address"
                                 ],
                                 "properties": {
                                     "name": {
@@ -1360,7 +1359,7 @@
                                         "type": "string",
                                         "example": "test@test.comm"
                                     },
-                                    "phone": {
+                                    "telephone": {
                                         "type": "string",
                                         "example": "(31) 98765-4321"
                                     },
@@ -1434,10 +1433,6 @@
                                             }
                                         },
                                         "type": "object"
-                                    },
-                                    "tenant_id": {
-                                        "type": "integer",
-                                        "example": 1
                                     }
                                 },
                                 "type": "object"
@@ -1525,7 +1520,7 @@
                     {
                         "name": "with[]",
                         "in": "query",
-                        "description": "Relações para carregar. Ex: address, company, tenant",
+                        "description": "Relações para carregar. Ex: address",
                         "required": false,
                         "schema": {
                             "type": "string",
@@ -1566,7 +1561,7 @@
                                                     "type": "string",
                                                     "example": "test@test.com"
                                                 },
-                                                "phone": {
+                                                "telephone": {
                                                     "type": "string",
                                                     "example": "(31) 98765-4321"
                                                 },
@@ -1670,7 +1665,7 @@
                                         "type": "string",
                                         "example": "test@test.com"
                                     },
-                                    "phone": {
+                                    "telephone": {
                                         "type": "string",
                                         "example": "(31) 8730-5567"
                                     },
@@ -1730,7 +1725,7 @@
                                                     "type": "string",
                                                     "example": "test@test.com"
                                                 },
-                                                "phone": {
+                                                "telephone": {
                                                     "type": "string",
                                                     "example": "(31) 8730-5567"
                                                 },
