@@ -1007,7 +1007,7 @@
                                                         "type": "string",
                                                         "example": "test@test.com"
                                                     },
-                                                    "phone": {
+                                                    "telephone": {
                                                         "type": "string",
                                                         "example": "(31) 8730-5567"
                                                     },
@@ -1061,16 +1061,6 @@
                 "operationId": "90afb54a8928ad20455273dea593f367",
                 "parameters": [
                     {
-                        "name": "Authorization",
-                        "in": "header",
-                        "description": "Token JWT",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "example": "Bearer eyJ..."
-                        }
-                    },
-                    {
                         "name": "X-Client-Type",
                         "in": "header",
                         "description": "Tipo do cliente",
@@ -1094,9 +1084,7 @@
                                     "birth_date",
                                     "gender",
                                     "status",
-                                    "address",
-                                    "tenant_id",
-                                    "company_id"
+                                    "address"
                                 ],
                                 "properties": {
                                     "name": {
@@ -1111,7 +1099,7 @@
                                         "type": "string",
                                         "example": "test@test.comm"
                                     },
-                                    "phone": {
+                                    "telephone": {
                                         "type": "string",
                                         "example": "(31) 98765-4321"
                                     },
@@ -1185,14 +1173,6 @@
                                             }
                                         },
                                         "type": "object"
-                                    },
-                                    "tenant_id": {
-                                        "type": "integer",
-                                        "example": 1
-                                    },
-                                    "company_id": {
-                                        "type": "integer",
-                                        "example": 1
                                     }
                                 },
                                 "type": "object"
@@ -1280,7 +1260,7 @@
                     {
                         "name": "with[]",
                         "in": "query",
-                        "description": "Relações para carregar. Ex: address, company, tenant",
+                        "description": "Relações para carregar. Ex: address",
                         "required": false,
                         "schema": {
                             "type": "string",
@@ -1321,7 +1301,7 @@
                                                     "type": "string",
                                                     "example": "test@test.com"
                                                 },
-                                                "phone": {
+                                                "telephone": {
                                                     "type": "string",
                                                     "example": "(31) 98765-4321"
                                                 },
@@ -1425,7 +1405,7 @@
                                         "type": "string",
                                         "example": "test@test.com"
                                     },
-                                    "phone": {
+                                    "telephone": {
                                         "type": "string",
                                         "example": "(31) 8730-5567"
                                     },
@@ -1485,7 +1465,7 @@
                                                     "type": "string",
                                                     "example": "test@test.com"
                                                 },
-                                                "phone": {
+                                                "telephone": {
                                                     "type": "string",
                                                     "example": "(31) 8730-5567"
                                                 },

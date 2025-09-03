@@ -21,12 +21,12 @@ namespace App\Docs\Citizens;
  *         required=true,
  *
  *         @OA\JsonContent(
- *             required={"name", "document", "email", "phone", "birth_date", "gender", "status", "address", "tenant_id"},
+ *             required={"name", "document", "email", "phone", "birth_date", "gender", "status", "address"},
  *
  *             @OA\Property(property="name", type="string", example="Paulo"),
  *             @OA\Property(property="document", type="string", example="12345678910"),
  *             @OA\Property(property="email", type="string", example="test@test.comm"),
- *             @OA\Property(property="phone", type="string", example="(31) 98765-4321"),
+ *             @OA\Property(property="telephone", type="string", example="(31) 98765-4321"),
  *             @OA\Property(property="birth_date", type="string", format="date", example="1990-05-15"),
  *             @OA\Property(property="gender", type="string", example="male"),
  *             @OA\Property(property="special_permissions", type="integer", example=1),
@@ -46,7 +46,6 @@ namespace App\Docs\Citizens;
  *                 @OA\Property(property="city", type="string", example="Governador Valadares"),
  *                 @OA\Property(property="state", type="string", example="MG")
  *             ),
- *             @OA\Property(property="tenant_id", type="integer", example=1),
  *         )
  *     ),
  *

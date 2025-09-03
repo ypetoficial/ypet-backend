@@ -31,7 +31,7 @@ namespace App\Docs\Citizens;
  *         name="with[]",
  *         in="query",
  *         required=false,
- *         description="Relações para carregar. Ex: address, company, tenant",
+ *         description="Relações para carregar. Ex: address",
  *
  *         @OA\Schema(type="string", example="address")
  *     ),
@@ -51,7 +51,7 @@ namespace App\Docs\Citizens;
  *                 @OA\Property(property="name", type="string", example="Paulo"),
  *                 @OA\Property(property="document", type="string", example="12345678910"),
  *                 @OA\Property(property="email", type="string", example="test@test.com"),
- *                 @OA\Property(property="phone", type="string", example="(31) 98765-4321"),
+ *                 @OA\Property(property="telephone", type="string", example="(31) 98765-4321"),
  *                 @OA\Property(property="birth_date", type="string", format="date", example="1990-05-15"),
  *                 @OA\Property(property="gender", type="string", example="male"),
  *                 @OA\Property(property="status", type="integer", example=1),
