@@ -2,28 +2,24 @@
 
 namespace App\Domains\Protector\Entities;
 
-use App\Models\User;
-use App\Models\Tenant;
-use App\Models\Address;
+use App\Domains\Address\Entities\AddressEntity;
 use App\Models\Protector;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ProtectorEntity extends Protector
 {
-    protected $table = "protectors";
+    protected $table = 'protectors';
 
     protected $fillable = [
-        'tenant_id',
+        'user_id',
         'uuid',
-        'name',
-        'document',
-        'email',
-        'phone',
         'birth_date',
         'gender',
         'special_permissions',
         'status',
-        'updated_by'
+        'document',
+        'updated_by',
     ];
 
     protected $hidden = [
@@ -33,16 +29,11 @@ class ProtectorEntity extends Protector
 
     public function user(): BelongsTo
     {
-       return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function tenant()
-    {
-        return $this->belongsTo(Tenant::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function addresses()
     {
-        return $this->morphMany(Address::class, 'addressable');
+        return $this->morphMany(AddressEntity::class, 'addressable');
     }
 }

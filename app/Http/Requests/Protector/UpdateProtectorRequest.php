@@ -22,40 +22,14 @@ class UpdateProtectorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => [
-                'nullable',
-                'string',
-                'max:255',
-            ],
-            'document' => [
-                'nullable',
-                'string',
-                'max:11',
-                'min:11',
-            ],
-            'email' => [
-                'nullable',
-                'email',
-                'max:255',
-                'unique:citizens,email'
-            ],
-            'phone' => [
-                'nullable',
-                'string',
-                'max:20',
-            ],
-            'tenant_id' => [
-                'nullable', 
-                'integer', 
-                'exists:tenants,id'
-            ],
-            'status' => [
-                'nullable', 
-                'integer', 
-            ],
+            'name' => ['nullable', 'string', 'max:255'],
+            'document' => ['nullable', 'string', 'max:11', 'min:11'],
+            'email' => ['nullable', 'email', 'max:255', 'unique:citizens,email'],
+            'telephone' => ['nullable', 'string', 'max:20'],
+            'status' => ['nullable', 'boolean'],
             'birth_date' => ['nullable', 'date'],
             'gender' => ['nullable', 'string', 'max:20'],
-            'special_permissions' => ['nullable','integer'],
+            'special_permissions' => ['nullable', 'integer'],
             'address' => ['nullable', 'array'],
             'address.type' => ['nullable', 'integer'],
             'address.zipcode' => ['nullable', 'string', 'max:10'],

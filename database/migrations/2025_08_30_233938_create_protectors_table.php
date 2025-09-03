@@ -13,18 +13,16 @@ return new class extends Migration
     {
         Schema::create('protectors', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('uuid')->nullable()->unique();
-            $table->foreignId('tenant_id')->constrained()->onDelete('cascade'); 
-            $table->string('name');
-            $table->string('document')->unique()->index();
-            $table->string('email')->unique()->index();
-            $table->string('phone')->nullable();     
-            $table->date('birth_date')->nullable();
+            $table->string('uuid')->unique();
+            $table->integer('user_id');
+            $table->date('birth_date');
             $table->string('gender')->nullable();
             $table->integer('special_permissions')->nullable();
+            $table->string('document')->nullable()->unique();
             $table->boolean('status');
-            $table->integer('pet_status')->nullable();   
+            $table->integer('pet_status')->nullable();
             $table->foreignId('updated_by')->nullable()->constrained('users');
+            $table->text('observations')->nullable();
             $table->timestamps();
         });
     }

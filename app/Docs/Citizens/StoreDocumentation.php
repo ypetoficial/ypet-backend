@@ -21,7 +21,7 @@ namespace App\Docs\Citizens;
  *         required=true,
  *
  *         @OA\JsonContent(
- *             required={"name", "document", "email", "phone", "birth_date", "gender", "status", "address"},
+ *             required={"name", "document", "email", "telephone", "birth_date", "gender", "status", "address"},
  *
  *             @OA\Property(property="name", type="string", example="Paulo"),
  *             @OA\Property(property="document", type="string", example="12345678910"),

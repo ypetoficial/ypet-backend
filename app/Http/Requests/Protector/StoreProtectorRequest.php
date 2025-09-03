@@ -22,40 +22,15 @@ class StoreProtectorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => [
-                'required',
-                'string',
-                'max:255',
-            ],
-            'document' => [
-                'required',
-                'string',
-                'max:11',
-                'min:11',
-            ],
-            'email' => [
-                'required',
-                'email',
-                'max:255',
-                'unique:citizens,email'
-            ],
-            'phone' => [
-                'required',
-                'string',
-                'max:20',
-            ],
-            'tenant_id' => [
-                'nullable', 
-                'integer', 
-                'exists:tenants,id'
-            ],
-            'status' => [
-                'required', 
-                'boolean', 
-            ],
+            'name' => ['required', 'string', 'max:255'],
+            'document' => ['required', 'string', 'max:11', 'min:11'],
+            'email' => ['required', 'email', 'max:255'],
+            'password' => 'required|string|min:8|confirmed',
+            'telephone' => ['required', 'string', 'max:20'],
+            'status' => ['required', 'boolean'],
             'birth_date' => ['required', 'date'],
             'gender' => ['required', 'string', 'max:20'],
-            'special_permissions' => ['required','integer'],
+            'special_permissions' => ['required', 'integer'],
             'address' => ['required', 'array'],
             'address.type' => ['required', 'integer'],
             'address.zipcode' => ['required', 'string', 'max:10'],

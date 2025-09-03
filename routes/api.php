@@ -1,21 +1,21 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EnumController;
-use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Address\AddressController;
+use App\Http\Controllers\Animal\AnimalController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\Animal\AnimalController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Address\AddressController;
-use App\Http\Controllers\Citizen\CitizenController;
-use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Citizen\CitizenController;
+use App\Http\Controllers\EnumController;
+use App\Http\Controllers\MobileClinicEvent\MobileClinicEventController;
 use App\Http\Controllers\Protector\ProtectorController;
 use App\Http\Controllers\Registration\RegistrationController;
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Veterinarian\VeterinarianController;
-use App\Http\Controllers\MobileClinicEvent\MobileClinicEventController;
+use Illuminate\Support\Facades\Route;
 
 // Public authentication routes
 Route::group(['prefix' => 'auth'], function () {
@@ -48,7 +48,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('protector', [ProtectorController::class, 'index']);
     Route::get('protector/{uuid}', [ProtectorController::class, 'show']);
     Route::put('/protector/{uuid}', [ProtectorController::class, 'update']);
-    
+
 });
 
 Route::post('protector', [ProtectorController::class, 'store']);

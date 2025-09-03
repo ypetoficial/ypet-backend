@@ -2,8 +2,8 @@
 
 namespace App\Domains\Protector\Repositories;
 
-use App\Domains\Protector\Entities\ProtectorEntity;
 use App\Domains\Abstracts\AbstractRepository;
+use App\Domains\Protector\Entities\ProtectorEntity;
 
 class ProtectorRepository extends AbstractRepository
 {
