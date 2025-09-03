@@ -9,8 +9,11 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Citizen\CitizenController;
 use App\Http\Controllers\EnumController;
+use App\Http\Controllers\MobileClinicEvent\MobileClinicEventController;
+use App\Http\Controllers\Registration\RegistrationController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\UserProfileController;
+use App\Http\Controllers\Veterinarian\VeterinarianController;
 use Illuminate\Support\Facades\Route;
 
 // Public authentication routes
@@ -32,7 +35,10 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::apiResource('users', UserController::class);
+    Route::apiResource('veterinarians', VeterinarianController::class);
     Route::apiResource('animals', AnimalController::class);
+    Route::apiResource('mobile-clinic-events', MobileClinicEventController::class);
+    Route::apiResource('registrations', RegistrationController::class);
     Route::get('enums/{enum}', [EnumController::class, 'show']);
 
     Route::get('citizen', [CitizenController::class, 'index']);
