@@ -35,7 +35,7 @@ class AnimalEntity extends Animal
         'characteristics',
         'surname',
         'entry_date',
-        'profile_picture',
+        'picture',
         'collection_site',
         'collection_reason',
         'microchip_number',

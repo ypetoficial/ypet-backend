@@ -26,8 +26,8 @@ return new class extends Migration
             $table->boolean('castrated');
             $table->date('castration_at')->nullable();
             $table->string('castration_site')->nullable();
-            $table->string('size')->index();
-            $table->string('color');
+            $table->string('size')->nullable()->index();
+            $table->string('color')->nullable();
             $table->string('coat')->nullable();
             $table->string('characteristics')->nullable();
             $table->string('surname')->nullable();

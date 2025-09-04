@@ -14,20 +14,31 @@
     </testsuites>
     <source>
         <include>
-            <directory>app</directory>
+            <directory suffix=".php">app</directory>
         </include>
+        <exclude>
+            <directory suffix=".php">app/Ypet/Abstracts</directory>
+            <directory suffix=".php">app/Ypet/Common/Enums</directory>
+            <directory suffix=".php">app/Ypet/Common/Exceptions</directory>
+            <directory suffix=".php">app/Ypet/Common/Traits</directory>
+            <directory suffix=".php">app/Providers</directory>
+            <file>app/Http/Kernel.php</file>
+        </exclude>
     </source>
+    <coverage>
+        <report>
+            <html outputDirectory="build/coverage"/>
+            <text outputFile="build/coverage.txt"/>
+        </report>
+
+    </coverage>
     <php>
         <env name="APP_ENV" value="testing"/>
         <env name="APP_MAINTENANCE_DRIVER" value="file"/>
         <env name="BCRYPT_ROUNDS" value="4"/>
         <env name="CACHE_STORE" value="array"/>
-        <env name="DB_CONNECTION" value="mysql"/>
-        <env name="DB_HOST" value="test-db"/>
-        <env name="DB_PORT" value="3306"/>
-        <env name="DB_DATABASE" value="ypet_test"/>
-        <env name="DB_USERNAME" value="ypet_test"/>
-        <env name="DB_PASSWORD" value="password"/>
+        <env name="DB_CONNECTION" value="sqlite"/>
+        <env name="DB_DATABASE" value=":memory:"/>
         <env name="MAIL_MAILER" value="array"/>
         <env name="PULSE_ENABLED" value="false"/>
         <env name="QUEUE_CONNECTION" value="sync"/>

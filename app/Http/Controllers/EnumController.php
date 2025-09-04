@@ -16,10 +16,7 @@ class EnumController extends Controller
             return $this->error('Enum not found', [], 404);
         }
 
-        $data = [];
-        foreach ($enumClass::cases() as $case) {
-            $data[] = ($enumClass)::labels($locale);
-        }
+        $data = ($enumClass)::labels($locale);
 
         return $this->ok($data);
     }
