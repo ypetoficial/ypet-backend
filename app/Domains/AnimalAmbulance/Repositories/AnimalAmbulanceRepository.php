@@ -2,8 +2,8 @@
 
 namespace App\Domains\AnimalAmbulance\Repositories;
 
-use App\Domains\AnimalAmbulance\Entities\AnimalAmbulanceEntity;
 use App\Domains\Abstracts\AbstractRepository;
+use App\Domains\AnimalAmbulance\Entities\AnimalAmbulanceEntity;
 
 class AnimalAmbulanceRepository extends AbstractRepository
 {

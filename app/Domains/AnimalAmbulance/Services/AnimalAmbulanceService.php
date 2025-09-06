@@ -2,17 +2,19 @@
 
 namespace App\Domains\AnimalAmbulance\Services;
 
-use Illuminate\Support\Facades\Storage;
 use App\Domains\Abstracts\AbstractService;
 use App\Domains\Address\Services\ReverseGeoCoderService;
 use App\Domains\AnimalAmbulance\Repositories\AnimalAmbulanceRepository;
 use App\Models\AnimalAmbulenceReason;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class AnimalAmbulanceService extends AbstractService
 {
     protected ReverseGeoCoderService $reverseGeoCoderService;
+
     protected AnimalAmbulenceReason $animalAmbulenceReason;
+
     public function __construct(AnimalAmbulanceRepository $repository)
     {
         $this->repository = $repository;
@@ -49,7 +51,7 @@ class AnimalAmbulanceService extends AbstractService
 
     public function afterSave($entity, array $params): void
     {
-       $address = $this->reverseGeoCoderService->saveTheReversedAddress(
+        $address = $this->reverseGeoCoderService->saveTheReversedAddress(
             data_get($params, 'raw_address'),
             $this->repository->getModel()::class,
             $entity->id

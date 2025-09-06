@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\AnimalAmbulenceReason;
 
-use App\Http\Controllers\AbstractController;
 use App\Domains\AnimalAmbulenceReason\Services\AnimalAmbulenceReasonService;
-
+use App\Http\Controllers\AbstractController;
 
 class AnimalAmbulenceReasonController extends AbstractController
 {

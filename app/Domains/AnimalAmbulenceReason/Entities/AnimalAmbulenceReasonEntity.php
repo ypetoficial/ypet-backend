@@ -8,7 +8,7 @@ use App\Models\AnimalAmbulenceReason;
 
 class AnimalAmbulenceReasonEntity extends AnimalAmbulenceReason
 {
-    protected $table = "animals_ambulences_reasons";
+    protected $table = 'animals_ambulences_reasons';
 
     protected $fillable = [
         'name',

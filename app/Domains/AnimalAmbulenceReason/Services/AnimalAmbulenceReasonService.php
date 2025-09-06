@@ -2,8 +2,8 @@
 
 namespace App\Domains\AnimalAmbulenceReason\Services;
 
-use App\Domains\AnimalAmbulenceReason\Repositories\AnimalAmbulenceReasonRepository;
 use App\Domains\Abstracts\AbstractService;
+use App\Domains\AnimalAmbulenceReason\Repositories\AnimalAmbulenceReasonRepository;
 
 class AnimalAmbulenceReasonService extends AbstractService
 {

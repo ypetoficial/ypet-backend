@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\AnimalAmbulence;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreAnimalAmbulenceRequest extends FormRequest
 {
@@ -25,8 +25,8 @@ class StoreAnimalAmbulenceRequest extends FormRequest
         return [
             'reason_id' => ['required', Rule::exists('animal_ambulence_reasons', 'id')],
             'evidence' => ['required', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
-            'latitude'   => ['required','numeric','between:-90,90'],
-            'longitude'  => ['required','numeric','between:-180,180']
+            'latitude' => ['required', 'numeric', 'between:-90,90'],
+            'longitude' => ['required', 'numeric', 'between:-180,180'],
         ];
     }
 

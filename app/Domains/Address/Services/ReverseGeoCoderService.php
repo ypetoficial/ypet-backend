@@ -8,7 +8,7 @@ class ReverseGeoCoderService
 {
     public function reverseGeoCode($latitude, $longitude)
     {
-        $baseUri = "https://nominatim.openstreetmap.org/reverse";
+        $baseUri = 'https://nominatim.openstreetmap.org/reverse';
 
         $response = Http::withHeaders([
             'User-Agent' => 'Ypet/1.0',
@@ -20,8 +20,8 @@ class ReverseGeoCoderService
             'addressdetails' => 1,
             'zoom' => 18,
         ])
-        ->throw()
-        ->json();
+            ->throw()
+            ->json();
 
         return $response['address'] ?? [];
     }
@@ -45,7 +45,7 @@ class ReverseGeoCoderService
             'city' => data_get($rawAddress, 'city'),
             'state' => data_get($rawAddress, 'state'),
             'zip_code' => data_get($rawAddress, 'postcode'),
-            'country' => data_get($rawAddress, 'country')
+            'country' => data_get($rawAddress, 'country'),
         ];
 
         return $addressService->save($address) ?: false;

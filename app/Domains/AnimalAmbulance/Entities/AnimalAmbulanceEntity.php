@@ -3,16 +3,16 @@
 namespace App\Domains\AnimalAmbulance\Entities;
 
 use App\Domains\Address\Entities\AddressEntity;
-use App\Models\AnimalAmbulance;
-use App\Enums\AnimalAmbulenceStatusEnum;
 use App\Domains\User\Entities\UserEntity;
 use App\Enums\AnimalAmbulencePriorityEnum;
+use App\Enums\AnimalAmbulenceStatusEnum;
+use App\Models\AnimalAmbulance;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class AnimalAmbulanceEntity extends AnimalAmbulance
 {
-    protected $table = "animal_ambulances";
+    protected $table = 'animal_ambulances';
 
     protected $fillable = [
         'user_id',

@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\AnimalAmbulence;
 
-use Illuminate\Validation\Rule;
 use App\Enums\AnimalAmbulenceStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateAnimalAmbulenceRequest extends FormRequest
 {
@@ -24,7 +24,7 @@ class UpdateAnimalAmbulenceRequest extends FormRequest
     public function rules(): array
     {
         return [
-           'status' => ['required', Rule::enum(AnimalAmbulenceStatusEnum::class)],
+            'status' => ['required', Rule::enum(AnimalAmbulenceStatusEnum::class)],
         ];
     }
 
