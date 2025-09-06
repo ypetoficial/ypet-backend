@@ -18,14 +18,16 @@ class AddressFactory extends Factory
     public function definition(): array
     {
         return [
-            'type' => 0,
-            'zipcode' => $this->faker->postcode(),
+            'zip_code' => $this->faker->postcode(),
             'street' => $this->faker->streetName(),
             'number' => $this->faker->buildingNumber(),
             'complement' => $this->faker->optional()->secondaryAddress(),
-            'neighborhood' => $this->faker->word(),
+            'district' => $this->faker->word(),
             'city' => $this->faker->city(),
             'state' => $this->faker->stateAbbr(),
+            'country' => $this->faker->country(),
+            'latitude' => $this->faker->latitude(-90, 90),
+            'longitude' => $this->faker->longitude(-180, 180),
             'addressable_id' => Citizen::first()?->id ?? Citizen::factory()->create(),
             'addressable_type' => Citizen::class,
         ];
