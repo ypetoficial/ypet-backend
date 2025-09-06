@@ -16,8 +16,7 @@ class CreateAnimalStatusListener
 
     public function __construct(
         protected readonly AnimalStatusService $animalStatusService
-    ) {
-    }
+    ) {}
 
     /**
      * Handle the event.

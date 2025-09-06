@@ -6,7 +6,7 @@ use App\Models\AnimalEntryData;
 
 class AnimalEntryDataEntity extends AnimalEntryData
 {
-    protected $table = "animal_entry_datas";
+    protected $table = 'animal_entry_datas';
 
     protected $fillable = [
         'animal_id',
