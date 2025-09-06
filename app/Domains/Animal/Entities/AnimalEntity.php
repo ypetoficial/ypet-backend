@@ -26,20 +26,12 @@ class AnimalEntity extends Animal
         'gender',
         'weight',
         'birth_date',
-        'castrated',
-        'castration_at',
-        'castration_site',
         'size',
         'color',
         'coat',
         'characteristics',
         'surname',
-        'entry_date',
         'picture',
-        'collection_site',
-        'collection_reason',
-        'microchip_number',
-        'registration_number',
     ];
 
     protected $casts = [
@@ -49,9 +41,6 @@ class AnimalEntity extends Animal
         'coat' => EnumCast::class.':'.AnimalCoatEnum::class,
         'weight' => 'float',
         'birth_date' => 'date',
-        'castrated' => 'boolean',
-        'entry_date' => 'date',
-        'castration_at' => 'date',
     ];
 
     public function tutor(): BelongsTo
@@ -67,5 +56,10 @@ class AnimalEntity extends Animal
     public function status(): HasOne
     {
         return $this->hasOne(AnimalStatusEntity::class, 'animal_id', 'id')->latest();
+    }
+
+    public function entryData(): HasOne
+    {
+        return $this->hasOne(AnimalEntryDataEntity::class, 'animal_id', 'id');
     }
 }
