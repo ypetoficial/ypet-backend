@@ -3,23 +3,28 @@
 namespace App\Domains\Address\Entities;
 
 use App\Models\Address;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class AddressEntity extends Address
 {
     protected $table = 'addresses';
 
     protected $fillable = [
-        'type',
-        'zipcode',
+        'addressable_id',
+        'addressable_type',
         'street',
         'number',
         'complement',
-        'neighborhood',
+        'district',
         'city',
         'state',
+        'zip_code',
+        'country',
+        'latitude',
+        'longitude',
     ];
 
-    public function addressable()
+    public function addressable(): MorphTo
     {
         return $this->morphTo();
     }

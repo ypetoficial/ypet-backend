@@ -34,14 +34,16 @@ class StoreCitizenRequest extends FormRequest
             'can_mobile_castration' => ['required', 'boolean'],
             'status' => ['required', 'integer'],
             'address' => ['required', 'array'],
-            'address.type' => ['required', 'integer'],
-            'address.zipcode' => ['required', 'string', 'max:10'],
+            'address.zip_code' => ['required', 'string', 'max:10'],
             'address.street' => ['required', 'string', 'max:255'],
             'address.number' => ['required', 'string', 'max:20'],
             'address.complement' => ['nullable', 'string', 'max:255'],
-            'address.neighborhood' => ['required', 'string', 'max:255'],
+            'address.district' => ['required', 'string', 'max:255'],
             'address.city' => ['required', 'string', 'max:255'],
-            'address.state' => ['required', 'string', 'max:2'],
+            'address.state' => ['required', 'string', 'max:255'],
+            'address.country' => ['required', 'string', 'max:255'],
+            'address.latitude' => ['nullable', 'numeric'],
+            'address.longitude' => ['nullable', 'numeric'],
         ];
     }
 }
