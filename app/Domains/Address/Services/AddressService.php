@@ -8,12 +8,6 @@ use App\Models\Address;
 
 class AddressService extends AbstractService
 {
-    /**
-     * Method __construct
-     *
-     *
-     * @return void
-     */
     public function __construct(AddressRepository $addressRepository)
     {
         $this->repository = $addressRepository;
