@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Animal\AnimalController;
+use App\Http\Controllers\AnimalAmbulance\AnimalAmbulanceController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
@@ -40,4 +41,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('mobile-clinic-events', MobileClinicEventController::class);
     Route::apiResource('registrations', RegistrationController::class);
     Route::get('enums/{enum}', [EnumController::class, 'show']);
+    Route::apiResource('animal-ambulance', AnimalAmbulanceController::class)->except('destroy');
 });
