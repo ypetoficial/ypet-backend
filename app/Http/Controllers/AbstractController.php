@@ -76,6 +76,7 @@ abstract class AbstractController extends Controller
             DB::beginTransaction();
             $params = $request->all();
             data_set($params, 'created_by', $request->user()->id ?? null);
+            data_set($params, 'origin', $request->header('X-Client-Type'));
             $response = $this->service->save($params);
             DB::commit();
 
