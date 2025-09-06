@@ -36,15 +36,16 @@ namespace App\Docs\Citizens;
  *             @OA\Property(
  *                 property="address",
  *                 type="object",
- *                 required={"type", "zipcode", "street", "number", "neighborhood", "city", "state"},
+ *                 required={"type", "zip_code", "street", "number", "district", "city", "state", "country"},
  *                 @OA\Property(property="type", type="integer", example=0),
- *                 @OA\Property(property="zipcode", type="string", example="35010-600"),
+ *                 @OA\Property(property="zip_code", type="string", example="35010-600"),
  *                 @OA\Property(property="street", type="string", example="Rua Flores"),
  *                 @OA\Property(property="number", type="string", example="123"),
  *                 @OA\Property(property="complement", type="string", example="Apto 202"),
- *                 @OA\Property(property="neighborhood", type="string", example="Centro"),
+ *                 @OA\Property(property="district", type="string", example="Centro"),
  *                 @OA\Property(property="city", type="string", example="Governador Valadares"),
- *                 @OA\Property(property="state", type="string", example="MG")
+ *                 @OA\Property(property="state", type="string", example="MG"),
+ *                 @OA\Property(property="country", type="string", example="Brasil"),
  *             ),
  *         )
  *     ),

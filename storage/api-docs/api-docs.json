@@ -1131,19 +1131,20 @@
                                     "address": {
                                         "required": [
                                             "type",
-                                            "zipcode",
+                                            "zip_code",
                                             "street",
                                             "number",
-                                            "neighborhood",
+                                            "district",
                                             "city",
-                                            "state"
+                                            "state",
+                                            "country"
                                         ],
                                         "properties": {
                                             "type": {
                                                 "type": "integer",
                                                 "example": 0
                                             },
-                                            "zipcode": {
+                                            "zip_code": {
                                                 "type": "string",
                                                 "example": "35010-600"
                                             },
@@ -1159,7 +1160,7 @@
                                                 "type": "string",
                                                 "example": "Apto 202"
                                             },
-                                            "neighborhood": {
+                                            "district": {
                                                 "type": "string",
                                                 "example": "Centro"
                                             },
@@ -1170,6 +1171,10 @@
                                             "state": {
                                                 "type": "string",
                                                 "example": "MG"
+                                            },
+                                            "country": {
+                                                "type": "string",
+                                                "example": "Brasil"
                                             }
                                         },
                                         "type": "object"
@@ -1320,7 +1325,7 @@
                                                 },
                                                 "address": {
                                                     "properties": {
-                                                        "zipcode": {
+                                                        "zip_code": {
                                                             "type": "string",
                                                             "example": "35010-600"
                                                         },
@@ -1332,7 +1337,7 @@
                                                             "type": "string",
                                                             "example": "123"
                                                         },
-                                                        "neighborhood": {
+                                                        "district": {
                                                             "type": "string",
                                                             "example": "Centro"
                                                         },
@@ -1343,6 +1348,10 @@
                                                         "state": {
                                                             "type": "string",
                                                             "example": "MG"
+                                                        },
+                                                        "country": {
+                                                            "type": "string",
+                                                            "example": "Brasil"
                                                         }
                                                     },
                                                     "type": "object"
