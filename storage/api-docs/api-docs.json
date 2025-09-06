@@ -463,9 +463,92 @@
                                         "type": "string",
                                         "example": "Buddy"
                                     },
+                                    "species": {
+                                        "type": "string",
+                                        "example": "dog"
+                                    },
                                     "status": {
                                         "type": "string",
                                         "example": "for_adoption"
+                                    },
+                                    "gender": {
+                                        "type": "string",
+                                        "example": "male"
+                                    },
+                                    "weight": {
+                                        "type": "number",
+                                        "example": 12.5
+                                    },
+                                    "birth_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2020-05-10"
+                                    },
+                                    "color": {
+                                        "type": "string",
+                                        "example": "brown"
+                                    },
+                                    "castrated": {
+                                        "type": "boolean",
+                                        "example": true
+                                    },
+                                    "tutor_id": {
+                                        "type": "integer",
+                                        "example": 3
+                                    },
+                                    "size": {
+                                        "type": "string",
+                                        "example": "small"
+                                    },
+                                    "coat": {
+                                        "type": "string",
+                                        "example": "short"
+                                    },
+                                    "characteristics": {
+                                        "type": "string",
+                                        "example": "Friendly and playful"
+                                    },
+                                    "surname": {
+                                        "type": "string",
+                                        "example": "Smith"
+                                    },
+                                    "picture": {
+                                        "type": "string",
+                                        "format": "binary",
+                                        "example": "base64EncodedImageString"
+                                    },
+                                    "microchip_number": {
+                                        "type": "number",
+                                        "example": 123456789
+                                    },
+                                    "registration_number": {
+                                        "type": "number",
+                                        "example": 987654321
+                                    },
+                                    "dewormed": {
+                                        "type": "boolean",
+                                        "example": true
+                                    },
+                                    "infirmity": {
+                                        "type": "string",
+                                        "example": "None"
+                                    },
+                                    "entry_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-01-15"
+                                    },
+                                    "castration_site": {
+                                        "type": "string",
+                                        "example": "Local Vet Clinic"
+                                    },
+                                    "collection_site": {
+                                        "type": "string",
+                                        "example": "Downtown Shelter"
+                                    },
+                                    "collection_reason": {
+                                        "type": "string",
+                                        "example": "Stray"
                                     }
                                 },
                                 "type": "object"
