@@ -3,7 +3,7 @@
 namespace App\Domains\LostAnimal\Entities;
 
 use App\Casts\EnumCast;
-use App\Enums\LostAnimalStatusEnum;
+use App\Domains\Enums\LostAnimalStatusEnum;
 use App\Models\LostAnimal;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 

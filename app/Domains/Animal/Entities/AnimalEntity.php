@@ -3,10 +3,10 @@
 namespace App\Domains\Animal\Entities;
 
 use App\Casts\EnumCast;
-use App\Enums\AnimalCoatEnum;
-use App\Enums\AnimalSpeciesEnum;
-use App\Enums\GenderEnum;
-use App\Enums\SizeEnum;
+use App\Domains\Enums\AnimalCoatEnum;
+use App\Domains\Enums\AnimalSpeciesEnum;
+use App\Domains\Enums\GenderEnum;
+use App\Domains\Enums\SizeEnum;
 use App\Models\Animal;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;

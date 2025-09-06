@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests\Animal;
 
-use App\Enums\AnimalCoatEnum;
-use App\Enums\AnimalSpeciesEnum;
-use App\Enums\AnimalStatusEnum;
-use App\Enums\GenderEnum;
-use App\Enums\SizeEnum;
+use App\Domains\Enums\AnimalCoatEnum;
+use App\Domains\Enums\AnimalSpeciesEnum;
+use App\Domains\Enums\AnimalStatusEnum;
+use App\Domains\Enums\GenderEnum;
+use App\Domains\Enums\SizeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

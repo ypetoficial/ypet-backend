@@ -10,7 +10,7 @@ class EnumController extends Controller
     public function show(Request $request, string $enum)
     {
         $locale = $request->get('locale', config('app.locale', 'en'));
-        $enumClass = 'App\\Enums\\'.Str::studly($enum).'Enum';
+        $enumClass = 'App\\Domains\\Enums\\'.Str::studly($enum).'Enum';
 
         if (! enum_exists($enumClass)) {
             return $this->error('Enum not found', [], 404);

@@ -1,35 +1,31 @@
 <?php
 
-namespace App\Enums;
+namespace App\Domains\Enums;
 
 use App\Domains\Abstracts\EnumInterface;
 use App\Domains\Abstracts\EnumTrait;
 
-enum GenderEnum: string implements EnumInterface
+enum AnimalSpeciesEnum: string implements EnumInterface
 {
     use EnumTrait;
 
-    case MALE = 'male';
-    case FEMALE = 'female';
-    case UNKNOWN = 'unknown';
+    case DOG = 'dog';
+    case CAT = 'cat';
 
     public static function translations(string $locale = 'en'): array
     {
         $locations = [
             'en' => [
-                'MALE' => 'Male',
-                'FEMALE' => 'Female',
-                'UNKNOWN' => 'Unknown',
+                'DOG' => 'Dog',
+                'CAT' => 'Cat',
             ],
             'es' => [
-                'MALE' => 'Macho',
-                'FEMALE' => 'Hembra',
-                'UNKNOWN' => 'Desconocido',
+                'DOG' => 'Perro',
+                'CAT' => 'Gato',
             ],
             'pt_BR' => [
-                'MALE' => 'Macho',
-                'FEMALE' => 'Fêmea',
-                'UNKNOWN' => 'Desconhecido',
+                'DOG' => 'Cão',
+                'CAT' => 'Gato',
             ],
         ];
 

@@ -1,31 +1,31 @@
 <?php
 
-namespace App\Enums;
+namespace App\Domains\Enums;
 
 use App\Domains\Abstracts\EnumInterface;
 use App\Domains\Abstracts\EnumTrait;
 
-enum AnimalSpeciesEnum: string implements EnumInterface
+enum OriginEnum: string implements EnumInterface
 {
     use EnumTrait;
 
-    case DOG = 'dog';
-    case CAT = 'cat';
+    case WEB = 'web';
+    case MOBILE = 'mobile';
 
     public static function translations(string $locale = 'en'): array
     {
         $locations = [
             'en' => [
-                'DOG' => 'Dog',
-                'CAT' => 'Cat',
+                'WEB' => 'Painel',
+                'MOBILE' => 'App',
             ],
             'es' => [
-                'DOG' => 'Perro',
-                'CAT' => 'Gato',
+                'WEB' => 'Panel',
+                'MOBILE' => 'Aplicación',
             ],
             'pt_BR' => [
-                'DOG' => 'Cão',
-                'CAT' => 'Gato',
+                'WEB' => 'Painel',
+                'MOBILE' => 'Aplicativo',
             ],
         ];
 
