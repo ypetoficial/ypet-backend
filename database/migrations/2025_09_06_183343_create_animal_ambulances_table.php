@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('animal_ambulances', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('priority')->default(AnimalAmbulencePriorityEnum::LOW->value);
+            $table->string('priority');
             $table->string('status')->default(AnimalAmbulenceStatusEnum::OPEN->value);
             $table->string('evidence_path');
             $table->timestamps();

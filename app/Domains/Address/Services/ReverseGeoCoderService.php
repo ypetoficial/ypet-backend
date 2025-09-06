@@ -20,15 +20,13 @@ class ReverseGeoCoderService
             'addressdetails' => 1,
             'zoom' => 18,
         ])
-        ->timeout(8)
-        ->retry(2, 300)
         ->throw()
         ->json();
 
         return $response['address'] ?? [];
     }
 
-    public function saveTheReversedAddress(array $rawAddress, $latitude, $longitude, string $addressableType, int $addressableId)
+    public function saveTheReversedAddress(array $rawAddress, string $addressableType, int $addressableId)
     {
         $addressService = app(AddressService::class);
 
@@ -47,9 +45,7 @@ class ReverseGeoCoderService
             'city' => data_get($rawAddress, 'city'),
             'state' => data_get($rawAddress, 'state'),
             'zip_code' => data_get($rawAddress, 'postcode'),
-            'country' => data_get($rawAddress, 'country'),
-            'latitude' => $latitude,
-            'longitude' => $longitude,
+            'country' => data_get($rawAddress, 'country')
         ];
 
         return $addressService->save($address) ?: false;

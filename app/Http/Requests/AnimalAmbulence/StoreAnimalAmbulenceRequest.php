@@ -3,8 +3,6 @@
 namespace App\Http\Requests\AnimalAmbulence;
 
 use Illuminate\Validation\Rule;
-use App\Enums\AnimalAmbulenceStatusEnum;
-use App\Enums\AnimalAmbulencePriorityEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreAnimalAmbulenceRequest extends FormRequest
@@ -25,26 +23,18 @@ class StoreAnimalAmbulenceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'priority' => ['required', Rule::enum(AnimalAmbulencePriorityEnum::class)],
-            'status' => ['required', Rule::enum(AnimalAmbulenceStatusEnum::class)],
+            'reason_id' => ['required', Rule::exists('animal_ambulence_reasons', 'id')],
             'evidence' => ['required', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
             'latitude'   => ['required','numeric','between:-90,90'],
-            'longitude'  => ['required','numeric','between:-180,180'],
-            'accuracy'   => ['nullable','numeric','min:0', 'max:100'],
-            'altitude'   => ['nullable','numeric'],
-            'heading'    => ['nullable','numeric'],
-            'speed'      => ['nullable','numeric'],
-            'timestamp'  => ['nullable','date']
+            'longitude'  => ['required','numeric','between:-180,180']
         ];
     }
 
     public function messages(): array
     {
         return [
-            'priority.required' => 'A prioridade é obrigatória.',
-            'priority.enum' => 'A prioridade deve ser uma das opções disponíveis.',
-            'status.required' => 'O status é obrigatório.',
-            'status.enum' => 'O status deve ser uma das opções disponíveis.',
+            'reason_id.required' => 'A razão é obrigatória.',
+            'reason_id.exists' => 'A razão deve existir.',
             'evidence.required' => 'A evidência é obrigatória.',
             'evidence.file' => 'A evidência deve ser um arquivo.',
             'evidence.mimes' => 'A evidência deve ser uma imagem.',
@@ -55,13 +45,6 @@ class StoreAnimalAmbulenceRequest extends FormRequest
             'longitude.required' => 'A longitude é obrigatória.',
             'longitude.numeric' => 'A longitude deve ser um número.',
             'longitude.between' => 'A longitude deve estar entre -180 e 180.',
-            'accuracy.numeric' => 'A precisão deve ser um número.',
-            'accuracy.min' => 'A precisão deve ser maior ou igual a 0.',
-            'accuracy.max' => 'A precisão deve ser menor ou igual a 100.',
-            'altitude.numeric' => 'A altitude deve ser um número.',
-            'heading.numeric' => 'A direção deve ser um número.',
-            'speed.numeric' => 'A velocidade deve ser um número.',
-            'timestamp.date' => 'A data deve ser uma data válida.',
         ];
     }
 }

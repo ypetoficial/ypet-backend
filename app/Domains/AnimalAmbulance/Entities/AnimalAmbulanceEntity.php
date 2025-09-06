@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class AnimalAmbulanceEntity extends AnimalAmbulance
 {
-    protected $table = "animals_ambulences";
+    protected $table = "animal_ambulances";
 
     protected $fillable = [
         'user_id',

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\AnimalAmbulencePriorityEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,10 @@ class AnimalAmbulenceReasonFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->name(),
+            'priority' => fake()->randomElement(AnimalAmbulencePriorityEnum::cases()),
+            'color' => fake()->hexColor(),
+            'description' => fake()->text(),
         ];
     }
 }

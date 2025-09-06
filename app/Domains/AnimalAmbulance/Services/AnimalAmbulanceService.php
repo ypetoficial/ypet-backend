@@ -6,20 +6,30 @@ use Illuminate\Support\Facades\Storage;
 use App\Domains\Abstracts\AbstractService;
 use App\Domains\Address\Services\ReverseGeoCoderService;
 use App\Domains\AnimalAmbulance\Repositories\AnimalAmbulanceRepository;
+use App\Models\AnimalAmbulenceReason;
 use Illuminate\Http\UploadedFile;
 
 class AnimalAmbulanceService extends AbstractService
 {
     protected ReverseGeoCoderService $reverseGeoCoderService;
+    protected AnimalAmbulenceReason $animalAmbulenceReason;
     public function __construct(AnimalAmbulanceRepository $repository)
     {
         $this->repository = $repository;
         $this->reverseGeoCoderService = app(ReverseGeoCoderService::class);
+        $this->animalAmbulenceReason = app(AnimalAmbulenceReason::class);
     }
 
     public function beforeSave(array $data): array
     {
         $data['user_id'] = auth()->user()->id;
+        $reason = $this->animalAmbulenceReason->find($data['reason_id']);
+
+        if (! $reason) {
+            throw new \Exception('Razão não encontrada');
+        }
+
+        $data['priority'] = $reason->priority;
 
         if (isset($data['evidence'])) {
             $data['evidence_path'] = $this->handleEvidence($data['evidence']);
@@ -41,10 +51,8 @@ class AnimalAmbulanceService extends AbstractService
     {
        $address = $this->reverseGeoCoderService->saveTheReversedAddress(
             data_get($params, 'raw_address'),
-            $entity->id,
             $this->repository->getModel()::class,
-            data_get($params, 'latitude'),
-            data_get($params, 'longitude')
+            $entity->id
         );
 
         if (! $address) {
