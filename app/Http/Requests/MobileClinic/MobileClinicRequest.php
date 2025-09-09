@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\MobileClinic;
 
-use App\Enums\GenderEnum;
+use App\Domains\Enums\GenderEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

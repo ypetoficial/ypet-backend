@@ -3,7 +3,7 @@
 namespace App\Domains\MobileClinicEvent\Entities;
 
 use App\Casts\EnumCast;
-use App\Enums\MobileEventStatusEnum;
+use App\Domains\Enums\MobileEventStatusEnum;
 use App\Models\MobileClinicEvent;
 
 class MobileClinicEventEntity extends MobileClinicEvent

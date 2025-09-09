@@ -1,35 +1,31 @@
 <?php
 
-namespace App\Enums;
+namespace App\Domains\Enums;
 
 use App\Domains\Abstracts\EnumInterface;
 use App\Domains\Abstracts\EnumTrait;
 
-enum GenderEnum: string implements EnumInterface
+enum MobileEventStatusEnum: string implements EnumInterface
 {
     use EnumTrait;
 
-    case MALE = 'male';
-    case FEMALE = 'female';
-    case UNKNOWN = 'unknown';
+    case OPEN = 'open';
+    case CLOSED = 'closed';
 
     public static function translations(string $locale = 'en'): array
     {
         $locations = [
             'en' => [
-                'MALE' => 'Male',
-                'FEMALE' => 'Female',
-                'UNKNOWN' => 'Unknown',
+                'OPEN' => 'Open',
+                'CLOSED' => 'Closed',
             ],
             'es' => [
-                'MALE' => 'Macho',
-                'FEMALE' => 'Hembra',
-                'UNKNOWN' => 'Desconocido',
+                'OPEN' => 'Abierto',
+                'CLOSED' => 'Cerrado',
             ],
             'pt_BR' => [
-                'MALE' => 'Macho',
-                'FEMALE' => 'Fêmea',
-                'UNKNOWN' => 'Desconhecido',
+                'OPEN' => 'Aberto',
+                'CLOSED' => 'Fechado',
             ],
         ];
 

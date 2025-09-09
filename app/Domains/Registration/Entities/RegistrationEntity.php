@@ -4,9 +4,9 @@ namespace App\Domains\Registration\Entities;
 
 use App\Casts\EnumCast;
 use App\Domains\Animal\Entities\AnimalEntity;
+use App\Domains\Enums\RegistrationStatusEnum;
 use App\Domains\MobileClinicEvent\Entities\MobileClinicEventEntity;
 use App\Domains\User\Entities\UserEntity;
-use App\Enums\RegistrationStatusEnum;
 use App\Models\Registration;
 
 class RegistrationEntity extends Registration
