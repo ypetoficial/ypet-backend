@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\User;
 
-use App\Enums\RolesEnum;
-use App\Enums\UserStatusEnum;
+use App\Domains\Enums\RolesEnum;
+use App\Domains\Enums\UserStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

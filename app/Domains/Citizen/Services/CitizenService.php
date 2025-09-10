@@ -4,8 +4,8 @@ namespace App\Domains\Citizen\Services;
 
 use App\Domains\Abstracts\AbstractService;
 use App\Domains\Citizen\Repositories\CitizenRepository;
+use App\Domains\Enums\AddressTypeEnum;
 use App\Domains\User\Services\UserService;
-use App\Enums\AddressTypeEnum;
 use Illuminate\Support\Facades\Auth;
 
 class CitizenService extends AbstractService

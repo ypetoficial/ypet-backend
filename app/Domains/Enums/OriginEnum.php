@@ -1,31 +1,31 @@
 <?php
 
-namespace App\Enums;
+namespace App\Domains\Enums;
 
 use App\Domains\Abstracts\EnumInterface;
 use App\Domains\Abstracts\EnumTrait;
 
-enum MobileEventStatusEnum: string implements EnumInterface
+enum OriginEnum: string implements EnumInterface
 {
     use EnumTrait;
 
-    case OPEN = 'open';
-    case CLOSED = 'closed';
+    case WEB = 'web';
+    case MOBILE = 'mobile';
 
     public static function translations(string $locale = 'en'): array
     {
         $locations = [
             'en' => [
-                'OPEN' => 'Open',
-                'CLOSED' => 'Closed',
+                'WEB' => 'Painel',
+                'MOBILE' => 'App',
             ],
             'es' => [
-                'OPEN' => 'Abierto',
-                'CLOSED' => 'Cerrado',
+                'WEB' => 'Panel',
+                'MOBILE' => 'Aplicación',
             ],
             'pt_BR' => [
-                'OPEN' => 'Aberto',
-                'CLOSED' => 'Fechado',
+                'WEB' => 'Painel',
+                'MOBILE' => 'Aplicativo',
             ],
         ];
 

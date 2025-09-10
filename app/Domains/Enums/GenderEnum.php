@@ -1,35 +1,35 @@
 <?php
 
-namespace App\Enums;
+namespace App\Domains\Enums;
 
 use App\Domains\Abstracts\EnumInterface;
 use App\Domains\Abstracts\EnumTrait;
 
-enum SizeEnum: string implements EnumInterface
+enum GenderEnum: string implements EnumInterface
 {
     use EnumTrait;
 
-    case SMALL = 'small';
-    case MEDIUM = 'medium';
-    case LARGE = 'large';
+    case MALE = 'male';
+    case FEMALE = 'female';
+    case UNKNOWN = 'unknown';
 
     public static function translations(string $locale = 'en'): array
     {
         $locations = [
             'en' => [
-                'SMALL' => 'Small',
-                'MEDIUM' => 'Medium',
-                'LARGE' => 'Large',
+                'MALE' => 'Male',
+                'FEMALE' => 'Female',
+                'UNKNOWN' => 'Unknown',
             ],
             'es' => [
-                'SMALL' => 'Pequeño',
-                'MEDIUM' => 'Mediano',
-                'LARGE' => 'Grande',
+                'MALE' => 'Macho',
+                'FEMALE' => 'Hembra',
+                'UNKNOWN' => 'Desconocido',
             ],
             'pt_BR' => [
-                'SMALL' => 'Pequeno',
-                'MEDIUM' => 'Médio',
-                'LARGE' => 'Grande',
+                'MALE' => 'Macho',
+                'FEMALE' => 'Fêmea',
+                'UNKNOWN' => 'Desconhecido',
             ],
         ];
 
