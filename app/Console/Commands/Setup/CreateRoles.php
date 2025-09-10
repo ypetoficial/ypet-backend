@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\Setup;
 
-use App\Enums\RolesEnum;
+use App\Domains\Enums\RolesEnum;
 use Illuminate\Console\Command;
 use Spatie\Permission\Models\Role;
 

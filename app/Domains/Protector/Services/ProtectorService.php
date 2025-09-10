@@ -3,9 +3,9 @@
 namespace App\Domains\Protector\Services;
 
 use App\Domains\Abstracts\AbstractService;
+use App\Domains\Enums\AddressTypeEnum;
 use App\Domains\Protector\Repositories\ProtectorRepository;
 use App\Domains\User\Services\UserService;
-use App\Enums\AddressTypeEnum;
 use Illuminate\Support\Facades\Auth;
 
 class ProtectorService extends AbstractService

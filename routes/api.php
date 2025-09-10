@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Address\AddressController;
 use App\Http\Controllers\Animal\AnimalController;
+use App\Http\Controllers\AnimalAmbulance\AnimalAmbulanceController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
@@ -51,6 +52,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('protector/{uuid}', [ProtectorController::class, 'show']);
     Route::put('/protector/{uuid}', [ProtectorController::class, 'update']);
 
+    Route::apiResource('animal-ambulance', AnimalAmbulanceController::class)->except('destroy');
 });
 
 Route::post('protector', [ProtectorController::class, 'store']);

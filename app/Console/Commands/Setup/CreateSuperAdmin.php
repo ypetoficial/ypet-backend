@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands\Setup;
 
+use App\Domains\Enums\RolesEnum;
+use App\Domains\Enums\UserStatusEnum;
 use App\Domains\User\Entities\UserStatusEntity;
-use App\Enums\RolesEnum;
-use App\Enums\UserStatusEnum;
 use App\Models\User;
 use Illuminate\Console\Command;
 

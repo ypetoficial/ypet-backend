@@ -4,14 +4,9 @@ namespace App\Listeners\AnimalCreated;
 
 use App\Domains\Animal\Services\AnimalStatusService;
 use App\Events\AnimalCreated;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
-class CreateAnimalStatusListener implements ShouldQueue
+class CreateAnimalStatusListener
 {
-    use InteractsWithQueue, Queueable;
-
     public function tags(): array
     {
         return [
@@ -21,9 +16,7 @@ class CreateAnimalStatusListener implements ShouldQueue
 
     public function __construct(
         protected readonly AnimalStatusService $animalStatusService
-    ) {
-        $this->onQueue('animal-created');
-    }
+    ) {}
 
     /**
      * Handle the event.
