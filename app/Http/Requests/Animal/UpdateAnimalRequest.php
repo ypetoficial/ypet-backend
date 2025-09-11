@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests\Animal;
 
-use App\Enums\AnimalCoatEnum;
-use App\Enums\AnimalSpeciesEnum;
-use App\Enums\AnimalStatusEnum;
-use App\Enums\GenderEnum;
-use App\Enums\SizeEnum;
+use App\Domains\Enums\AnimalCoatEnum;
+use App\Domains\Enums\AnimalSpeciesEnum;
+use App\Domains\Enums\AnimalStatusEnum;
+use App\Domains\Enums\GenderEnum;
+use App\Domains\Enums\SizeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -33,7 +33,6 @@ class UpdateAnimalRequest extends FormRequest
             'gender' => ['sometimes', 'string', 'max:255', Rule::in(GenderEnum::values())],
             'weight' => ['nullable', 'numeric', 'min:0'],
             'birth_date' => ['nullable', 'date', 'before_or_equal:today'],
-            'castrated' => ['sometimes', 'boolean'],
             'size' => ['sometimes', 'string', Rule::in(SizeEnum::values())],
             'color' => ['nullable', 'string', 'max:255'],
             'coat' => ['nullable', 'string', Rule::in(AnimalCoatEnum::values())],
@@ -42,11 +41,22 @@ class UpdateAnimalRequest extends FormRequest
             'tutor_id' => ['nullable', 'exists:users,id'],
             'entry_date' => ['nullable', 'date', 'before_or_equal:today'],
             'status' => ['sometimes', 'string', 'max:255', Rule::in(AnimalStatusEnum::values())],
+            'microchip_number' => [
+                'sometimes',
+                'numeric',
+                Rule::unique('animal_entry_datas', 'microchip_number')->ignore($this->animal),
+            ],
+            'registration_number' => [
+                'nullable',
+                'numeric',
+                Rule::unique('animal_entry_datas', 'registration_number')->ignore($this->animal),
+            ],
+            'castrated' => ['sometimes', 'boolean'],
+            'dewormed' => ['sometimes', 'boolean'],
+            'infirmity' => ['nullable', 'string', 'max:255'],
             'castration_site' => ['nullable', 'string', 'max:255'],
             'collection_site' => ['nullable', 'string', 'max:255'],
             'collection_reason' => ['nullable', 'string', 'max:255'],
-            'microchip_number' => ['sometimes', 'numeric', Rule::unique('animals', 'microchip_number')->ignore($this->animal)],
-            'registration_number' => ['nullable', 'numeric', Rule::unique('animals', 'registration_number')->ignore($this->animal)],
         ];
     }
 }

@@ -4,9 +4,9 @@ namespace App\Domains\Registration\Services;
 
 use App\Domains\Abstracts\AbstractService;
 use App\Domains\Animal\Services\AnimalService;
+use App\Domains\Enums\MobileEventStatusEnum;
 use App\Domains\MobileClinicEvent\Services\MobileClinicEventService;
 use App\Domains\Registration\Repositories\RegistrationRepository;
-use App\Enums\MobileEventStatusEnum;
 
 class RegistrationService extends AbstractService
 {

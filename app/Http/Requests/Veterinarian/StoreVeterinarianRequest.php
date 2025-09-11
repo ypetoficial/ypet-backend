@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Veterinarian;
 
-use App\Enums\LinkedTypeEnum;
-use App\Enums\UserStatusEnum;
+use App\Domains\Enums\LinkedTypeEnum;
+use App\Domains\Enums\UserStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

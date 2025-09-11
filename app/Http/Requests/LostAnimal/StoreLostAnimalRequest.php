@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\LostAnimal;
 
-use App\Enums\LostAnimalStatusEnum;
+use App\Domains\Enums\LostAnimalStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
