@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Veterinarian;
 
 use App\Domains\Veterinarian\Services\VeterinarianService;
 use App\Http\Controllers\AbstractController;
-use App\Http\Requests\StoreVetenirarianRequest;
-use App\Http\Requests\UpdateVetenirarianRequest;
+use App\Http\Requests\Veterinarian\StoreVeterinarianRequest;
+use App\Http\Requests\Veterinarian\UpdateVeterinarianRequest;
 
 class VeterinarianController extends AbstractController
 {
-    protected $requestValidate = StoreVetenirarianRequest::class;
+    protected $requestValidate = StoreVeterinarianRequest::class;
 
-    protected $requestUpdateValidate = UpdateVetenirarianRequest::class;
+    protected $requestUpdateValidate = UpdateVeterinarianRequest::class;
 
     public function __construct(VeterinarianService $service)
     {

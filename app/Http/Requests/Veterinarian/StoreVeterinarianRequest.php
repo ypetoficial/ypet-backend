@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Veterinarian;
 
 use App\Enums\LinkedTypeEnum;
 use App\Enums\UserStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreVetenirarianRequest extends FormRequest
+class StoreVeterinarianRequest extends FormRequest
 {
     public function authorize(): bool
     {
