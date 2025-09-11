@@ -17,7 +17,10 @@ class TenantFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_name' => $this->faker->name(),
+            'user_email' => $this->faker->unique()->safeEmail(),
+            'company_name' => $this->faker->company(),
+            'status' => $this->faker->randomElement([0, 1]),
         ];
     }
 }

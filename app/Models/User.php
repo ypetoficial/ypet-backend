@@ -3,8 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Domains\User\Entities\UserStatusEntity;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -54,5 +56,10 @@ class User extends Authenticatable
     public function guardName(): string
     {
         return 'api';
+    }
+
+    public function status(): HasOne
+    {
+        return $this->hasOne(UserStatusEntity::class, 'user_id', 'id')->latest('created_at');
     }
 }
