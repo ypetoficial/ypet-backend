@@ -3,8 +3,8 @@
 namespace App\Domains\Veterinarian\Entities;
 
 use App\Casts\EnumCast;
+use App\Domains\Enums\LinkedTypeEnum;
 use App\Domains\User\Entities\UserStatusEntity;
-use App\Enums\LinkedTypeEnum;
 use App\Models\User;
 use App\Models\Veterinarian;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
