@@ -3,6 +3,7 @@
 namespace App\Domains\Citizen\Entities;
 
 use App\Domains\Address\Entities\AddressEntity;
+use App\Domains\AdoptionVisit\Entities\AdoptionVisitEntity;
 use App\Models\Citizen;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -37,5 +38,10 @@ class CitizenEntity extends Citizen
     public function addresses()
     {
         return $this->morphMany(AddressEntity::class, 'addressable');
+    }
+
+    public function AdoptionVisit()
+    {
+        return $this->hasMany(AdoptionVisitEntity::class, 'citizen_id');
     }
 }

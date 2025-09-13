@@ -2,16 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\Animal;
+use App\Models\AdoptionVisit;
 use Illuminate\Database\Seeder;
 
-class AnimalSeeder extends Seeder
+class AdoptionVisitSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Animal::factory()->create();
+        AdoptionVisit::factory()->create();
     }
 }

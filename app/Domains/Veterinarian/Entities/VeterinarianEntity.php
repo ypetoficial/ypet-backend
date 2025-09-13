@@ -27,7 +27,7 @@ class VeterinarianEntity extends Veterinarian
     ];
 
     protected $casts = [
-        'linked_type' => EnumCast::class . ':' . LinkedTypeEnum::class,
+        'linked_type' => EnumCast::class.':'.LinkedTypeEnum::class,
     ];
 
     protected $appends = [
@@ -47,11 +47,11 @@ class VeterinarianEntity extends Veterinarian
 
     public function getCanAccessCastroMobileAttribute(): bool
     {
-        if (!$this->user) {
+        if (! $this->user) {
             return false;
         }
 
-        if (!$this->user->permissions) {
+        if (! $this->user->permissions) {
             return false;
         }
 
@@ -60,11 +60,11 @@ class VeterinarianEntity extends Veterinarian
 
     public function getCanApplyVaccineAttribute(): bool
     {
-        if (!$this->user) {
+        if (! $this->user) {
             return false;
         }
 
-        if (!$this->user->permissions) {
+        if (! $this->user->permissions) {
             return false;
         }
 

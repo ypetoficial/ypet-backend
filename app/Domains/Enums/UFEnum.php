@@ -14,7 +14,6 @@ enum UFEnum: string implements EnumInterface
     case RJ = 'RJ';
     case ES = 'ES';
 
-
     public static function translations(string $locale = 'en'): array
     {
         $locations = [

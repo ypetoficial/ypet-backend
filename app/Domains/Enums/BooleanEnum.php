@@ -12,7 +12,6 @@ enum BooleanEnum: int implements EnumInterface
     case TRUE = 1;
     case FALSE = 0;
 
-
     public static function translations(string $locale = 'en'): array
     {
         $locations = [

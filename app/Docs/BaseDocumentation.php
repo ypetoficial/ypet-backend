@@ -16,6 +16,7 @@ namespace App\Docs;
  *     @OA\Tag(name="Users", description="Gerenciamento de usuários"),
  *     @OA\Tag(name="Animals", description="Cadastro e controle de animais"),
  *     @OA\Tag(name="Citizens", description="Gerenciamento de cidadãos"),
+ *     @OA\Tag(name="AdoptionVisit", description="Gerenciamento de cidadãos"),
  *
  *      @OA\Server(
  *      url="{scheme}://{host}:{port}",

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Address\AddressController;
+use App\Http\Controllers\AdoptionVisit\AdoptionVisitController;
 use App\Http\Controllers\Animal\AnimalController;
 use App\Http\Controllers\AnimalAmbulance\AnimalAmbulanceController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -48,7 +49,18 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('citizen/{uuid}', [CitizenController::class, 'show']);
     Route::put('/citizen/{uuid}', [CitizenController::class, 'update']);
     Route::apiResource('animal-ambulance', AnimalAmbulanceController::class)->except('destroy');
+
+    Route::prefix('adoption-visits')->group(function () {
+        Route::get('/', [AdoptionVisitController::class, 'index']);
+        Route::get('/{uuid}', [AdoptionVisitController::class, 'show']);
+        Route::put('/{uuid}', [AdoptionVisitController::class, 'update']);
+        Route::post('/{uuid}/confirm', [AdoptionVisitController::class, 'confirm']);
+        Route::post('/{uuid}/reschedule', [AdoptionVisitController::class, 'reschedule']);
+        Route::post('/{uuid}/complete', [AdoptionVisitController::class, 'complete']);
+        Route::post('/{uuid}/cancel', [AdoptionVisitController::class, 'cancel']);
+    });
 });
 
+Route::post('adoption-visits', [AdoptionVisitController::class, 'store']);
 Route::post('citizen', [CitizenController::class, 'store']);
 Route::get('busca/cep/{cep}', [AddressController::class, 'searchCep']);
