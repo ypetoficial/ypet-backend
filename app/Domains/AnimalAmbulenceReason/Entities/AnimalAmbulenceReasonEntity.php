@@ -3,7 +3,7 @@
 namespace App\Domains\AnimalAmbulenceReason\Entities;
 
 use App\Casts\EnumCast;
-use App\Enums\AnimalAmbulencePriorityEnum;
+use App\Domains\Enums\AnimalAmbulencePriorityEnum;
 use App\Models\AnimalAmbulenceReason;
 
 class AnimalAmbulenceReasonEntity extends AnimalAmbulenceReason
