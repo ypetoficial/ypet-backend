@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\AnimalAmbulence;
 
-use App\Enums\AnimalAmbulenceStatusEnum;
+use App\Domains\Enums\AnimalAmbulenceStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
