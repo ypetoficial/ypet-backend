@@ -3,9 +3,9 @@
 namespace App\Domains\AnimalAmbulance\Entities;
 
 use App\Domains\Address\Entities\AddressEntity;
-use App\Domains\User\Entities\UserEntity;
 use App\Domains\Enums\AnimalAmbulencePriorityEnum;
 use App\Domains\Enums\AnimalAmbulenceStatusEnum;
+use App\Domains\User\Entities\UserEntity;
 use App\Models\AnimalAmbulance;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
