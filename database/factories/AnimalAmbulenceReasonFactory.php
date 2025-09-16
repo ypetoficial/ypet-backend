@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enums\AnimalAmbulencePriorityEnum;
+use App\Domains\Enums\AnimalAmbulencePriorityEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

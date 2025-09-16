@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Enums\AnimalAmbulencePriorityEnum;
+use App\Domains\Enums\AnimalAmbulencePriorityEnum;
 use App\Models\AnimalAmbulenceReason;
 use Illuminate\Database\Seeder;
 
