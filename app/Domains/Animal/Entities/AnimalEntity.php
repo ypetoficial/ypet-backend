@@ -7,6 +7,7 @@ use App\Domains\Enums\AnimalCoatEnum;
 use App\Domains\Enums\AnimalSpeciesEnum;
 use App\Domains\Enums\GenderEnum;
 use App\Domains\Enums\SizeEnum;
+use App\Domains\Registration\Entities\RegistrationEntity;
 use App\Models\Animal;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -61,5 +62,10 @@ class AnimalEntity extends Animal
     public function entryData(): HasOne
     {
         return $this->hasOne(AnimalEntryDataEntity::class, 'animal_id', 'id');
+    }
+
+    public function registrations(): HasMany
+    {
+        return $this->hasMany(RegistrationEntity::class, 'animal_id', 'id');
     }
 }

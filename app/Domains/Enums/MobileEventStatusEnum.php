@@ -5,12 +5,12 @@ namespace App\Domains\Enums;
 use App\Domains\Abstracts\EnumInterface;
 use App\Domains\Abstracts\EnumTrait;
 
-enum MobileEventStatusEnum: string implements EnumInterface
+enum MobileEventStatusEnum: int implements EnumInterface
 {
     use EnumTrait;
 
-    case OPEN = 'open';
-    case CLOSED = 'closed';
+    case OPEN = 1;
+    case CLOSED = 2;
 
     public static function translations(string $locale = 'en'): array
     {

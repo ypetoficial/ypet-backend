@@ -39,10 +39,8 @@ class RegistrationRepository extends AbstractRepository
             });
         });
 
-        $query->orderBy($orderByColumn, $orderByDirection)
+        return $query->orderBy($orderByColumn, $orderByDirection)
             ->paginate($perPage, $columns)
             ->withQueryString();
-
-        return $query;
     }
 }
