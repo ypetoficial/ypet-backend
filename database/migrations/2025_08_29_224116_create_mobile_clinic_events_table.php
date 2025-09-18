@@ -21,6 +21,7 @@ return new class extends Migration
             $table->tinyInteger('status')->default(1);
             $table->string('species')->nullable();
             $table->string('gender')->nullable();
+            $table->integer('max_registrations')->nullable();
             $table->timestamps();
         });
     }
