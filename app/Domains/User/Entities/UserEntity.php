@@ -2,6 +2,8 @@
 
 namespace App\Domains\User\Entities;
 
+use App\Domains\Citizen\Entities\CitizenEntity;
+use App\Models\AdoptionVisit;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -27,5 +29,15 @@ class UserEntity extends User
     public function status(): HasOne
     {
         return $this->hasOne(UserStatusEntity::class, 'user_id', 'id')->latest('created_at');
+    }
+
+    // public function adoptionVisit(): HasMany
+    // {
+    //     return $this->hasMany(AdoptionVisit::class, 'user_id');
+    // }
+
+    public function citizen(): HasOne
+    {
+        return $this->hasOne(CitizenEntity::class, 'user_id', 'id');
     }
 }
