@@ -32,6 +32,457 @@
         }
     ],
     "paths": {
+        "/api/animal-ambulances": {
+            "get": {
+                "tags": [
+                    "Animal Ambulances"
+                ],
+                "summary": "Lista todas as ambulâncias de animais (com ou sem paginação)",
+                "operationId": "f9f9de153601f3806d77badd77c3a4ee",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT. Exemplo: Bearer {token}",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ...token..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Client type (e.g., web, mobile)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    },
+                    {
+                        "name": "with[]",
+                        "in": "query",
+                        "description": "Relações a serem carregadas. Ex: user, address",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "user,address"
+                        }
+                    },
+                    {
+                        "name": "without_pagination",
+                        "in": "query",
+                        "description": "Se true, desativa a paginação",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean",
+                            "example": false
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de ambulâncias retornada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "user_id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "priority": {
+                                                                "type": "string",
+                                                                "example": "high"
+                                                            },
+                                                            "status": {
+                                                                "type": "string",
+                                                                "example": "open"
+                                                            },
+                                                            "evidence_path": {
+                                                                "type": "string",
+                                                                "example": "/storage/evidence/animal_ambulance_1.jpg"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Animal Ambulances"
+                ],
+                "summary": "Cadastra uma nova ambulância de animal",
+                "operationId": "9f8a3af166ca61fe8dfd799493c39495",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "reason_id",
+                                    "evidence",
+                                    "latitude",
+                                    "longitude"
+                                ],
+                                "properties": {
+                                    "reason_id": {
+                                        "description": "ID da razão da ambulância",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "evidence": {
+                                        "description": "Arquivo de evidência (imagem)",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "latitude": {
+                                        "description": "Latitude da localização",
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": -23.5505
+                                    },
+                                    "longitude": {
+                                        "description": "Longitude da localização",
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": -46.6333
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Ambulância cadastrada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "response": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": 5
+                                                        },
+                                                        "user_id": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "priority": {
+                                                            "type": "string",
+                                                            "example": "high"
+                                                        },
+                                                        "status": {
+                                                            "type": "string",
+                                                            "example": "open"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/animal-ambulances/{id}": {
+            "get": {
+                "tags": [
+                    "Animal Ambulances"
+                ],
+                "summary": "Exibe os detalhes de uma ambulância de animal",
+                "operationId": "f6516fa4021a261c03c77411c63a933a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da ambulância",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    },
+                    {
+                        "name": "with[]",
+                        "in": "query",
+                        "description": "Relações. Ex: user, address",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "user,address"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ambulância encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "priority": {
+                                                    "type": "string",
+                                                    "example": "high"
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "open"
+                                                },
+                                                "evidence_path": {
+                                                    "type": "string",
+                                                    "example": "/storage/evidence/animal_ambulance_1.jpg"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-01-15T10:30:00Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-01-15T10:30:00Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Animal Ambulances"
+                ],
+                "summary": "Atualiza os dados de uma ambulância de animal",
+                "operationId": "838d73a773a92ab73af44a87e8ef5074",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da ambulância",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "open",
+                                            "designated",
+                                            "in_attendance",
+                                            "completed"
+                                        ],
+                                        "example": "designated"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ambulância atualizada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "designated"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/animals": {
             "get": {
                 "tags": [
@@ -4247,6 +4698,613 @@
                     }
                 }
             }
+        },
+        "/api/vaccine": {
+            "get": {
+                "tags": [
+                    "Vaccines"
+                ],
+                "summary": "Lista todas as vacinas",
+                "operationId": "d842795468be7a6825e511b3e48193d9",
+                "parameters": [
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de vacinas retornada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "uuid": {
+                                                        "type": "string",
+                                                        "example": "a3f4c9b2-1234-5678-9abc-9876543210ff"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Rabies 2"
+                                                    },
+                                                    "type": {
+                                                        "type": "string",
+                                                        "example": "Viral"
+                                                    },
+                                                    "purpose": {
+                                                        "type": "string",
+                                                        "example": "Prevenção da raiva"
+                                                    },
+                                                    "target_specie": {
+                                                        "type": "string",
+                                                        "example": "Dog"
+                                                    },
+                                                    "dose_count": {
+                                                        "type": "integer",
+                                                        "example": 3
+                                                    },
+                                                    "dose_interval": {
+                                                        "type": "integer",
+                                                        "example": 21
+                                                    },
+                                                    "manu_facturer": {
+                                                        "type": "string",
+                                                        "example": "XYZ Pharma"
+                                                    },
+                                                    "expiration_date": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2026-12-31"
+                                                    },
+                                                    "batch": {
+                                                        "type": "string",
+                                                        "example": "RB-2025-002"
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "active"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Vaccines"
+                ],
+                "summary": "Cadastra uma nova vacina",
+                "operationId": "a88ab92722a46aa695489e7152de99c6",
+                "parameters": [
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "type",
+                                    "dose_count",
+                                    "dose_interval",
+                                    "expiration_date",
+                                    "batch"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Rabies"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "example": "Viral"
+                                    },
+                                    "purpose": {
+                                        "type": "string",
+                                        "example": "Prevenção da raiva"
+                                    },
+                                    "target_specie": {
+                                        "type": "string",
+                                        "example": "Dog"
+                                    },
+                                    "dose_count": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "dose_interval": {
+                                        "type": "integer",
+                                        "example": 30
+                                    },
+                                    "manu_facturer": {
+                                        "type": "string",
+                                        "example": "Pfizer"
+                                    },
+                                    "expiration_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-12-31"
+                                    },
+                                    "batch": {
+                                        "type": "string",
+                                        "example": "VX123456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Vacina cadastrada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "uuid": {
+                                                    "type": "string",
+                                                    "example": "cebee980-7772-49f2-b2eb-33b72b09f2b7"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Rabies"
+                                                },
+                                                "type": {
+                                                    "type": "string",
+                                                    "example": "Viral"
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "active"
+                                                },
+                                                "purpose": {
+                                                    "type": "string",
+                                                    "example": "Prevenção da raiva"
+                                                },
+                                                "target_specie": {
+                                                    "type": "string",
+                                                    "example": "Dog"
+                                                },
+                                                "dose_count": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "dose_interval": {
+                                                    "type": "integer",
+                                                    "example": 30
+                                                },
+                                                "manu_facturer": {
+                                                    "type": "string",
+                                                    "example": "Pfizer"
+                                                },
+                                                "expiration_date": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2025-12-31"
+                                                },
+                                                "batch": {
+                                                    "type": "string",
+                                                    "example": "VX123456"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/vaccine/{uuid}": {
+            "get": {
+                "tags": [
+                    "Vaccines"
+                ],
+                "summary": "Exibe os detalhes de uma vacina",
+                "operationId": "0e7abc3af4b0ea4c126397d22bbaeb26",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "UUID da vacina",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "cebee980-7772-49f2-b2eb-33b72b09f2b7"
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    },
+                    {
+                        "name": "with[]",
+                        "in": "query",
+                        "description": "Relações para carregar",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "manufacturer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Vacina encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 4
+                                                },
+                                                "uuid": {
+                                                    "type": "string",
+                                                    "example": "cebee980-7772-49f2-b2eb-33b72b09f2b7"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Vaccine4"
+                                                },
+                                                "type": {
+                                                    "type": "string",
+                                                    "example": "Bacterial"
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "active"
+                                                },
+                                                "purpose": {
+                                                    "type": "string",
+                                                    "example": "Ullam quis sed ut laudantium cupiditate neque."
+                                                },
+                                                "alert_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-09-19 10:42:33"
+                                                },
+                                                "alert_sent": {
+                                                    "type": "integer",
+                                                    "example": 0
+                                                },
+                                                "target_specie": {
+                                                    "type": "string",
+                                                    "example": "Cat"
+                                                },
+                                                "dose_count": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "dose_interval": {
+                                                    "type": "integer",
+                                                    "example": 30
+                                                },
+                                                "manu_facturer": {
+                                                    "type": "string",
+                                                    "example": "Walter LLC"
+                                                },
+                                                "expiration_date": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2025-09-23"
+                                                },
+                                                "batch": {
+                                                    "type": "string",
+                                                    "example": "VXHBFATEGK"
+                                                },
+                                                "updated_by": {
+                                                    "type": "integer",
+                                                    "example": null,
+                                                    "nullable": true
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-09-19T10:39:28.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-09-19T10:42:33.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Vaccines"
+                ],
+                "summary": "Atualiza os dados de uma vacina",
+                "operationId": "2068ef14520d14df0600fd2955170e3a",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "UUID da vacina",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "cebee980-7772-49f2-b2eb-33b72b09f2b7"
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Rabies",
+                                        "nullable": true
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "example": "Viral",
+                                        "nullable": true
+                                    },
+                                    "purpose": {
+                                        "type": "string",
+                                        "example": "Prevenção da raiva",
+                                        "nullable": true
+                                    },
+                                    "target_specie": {
+                                        "type": "string",
+                                        "example": "Dog",
+                                        "nullable": true
+                                    },
+                                    "dose_count": {
+                                        "type": "integer",
+                                        "example": 2,
+                                        "nullable": true
+                                    },
+                                    "dose_interval": {
+                                        "type": "integer",
+                                        "example": 30,
+                                        "nullable": true
+                                    },
+                                    "manu_facturer": {
+                                        "type": "string",
+                                        "example": "Pfizer",
+                                        "nullable": true
+                                    },
+                                    "expiration_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-12-31",
+                                        "nullable": true
+                                    },
+                                    "batch": {
+                                        "type": "string",
+                                        "example": "VX123456",
+                                        "nullable": true
+                                    },
+                                    "alert_at": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2025-09-19 10:42:33",
+                                        "nullable": true
+                                    },
+                                    "alert_sent": {
+                                        "type": "integer",
+                                        "example": 0,
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Vacina atualizada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "uuid": {
+                                                    "type": "string",
+                                                    "example": "cebee980-7772-49f2-b2eb-33b72b09f2b7"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Rabies"
+                                                },
+                                                "type": {
+                                                    "type": "string",
+                                                    "example": "Viral"
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "active"
+                                                },
+                                                "purpose": {
+                                                    "type": "string",
+                                                    "example": "Prevenção da raiva"
+                                                },
+                                                "target_specie": {
+                                                    "type": "string",
+                                                    "example": "Dog"
+                                                },
+                                                "dose_count": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "dose_interval": {
+                                                    "type": "integer",
+                                                    "example": 30
+                                                },
+                                                "manu_facturer": {
+                                                    "type": "string",
+                                                    "example": "Pfizer"
+                                                },
+                                                "expiration_date": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2025-12-31"
+                                                },
+                                                "batch": {
+                                                    "type": "string",
+                                                    "example": "VX123456"
+                                                },
+                                                "alert_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-09-19 10:42:33"
+                                                },
+                                                "alert_sent": {
+                                                    "type": "integer",
+                                                    "example": 0
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -4282,6 +5340,14 @@
         {
             "name": "Protectors",
             "description": "Gerenciamento de protetores"
+        },
+        {
+            "name": "Vaccines",
+            "description": "Gerenciamento de vacinas"
+        },
+        {
+            "name": "Animal Ambulances",
+            "description": "Animal Ambulances"
         },
         {
             "name": "Lost Animals",
