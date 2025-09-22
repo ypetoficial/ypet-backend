@@ -11,6 +11,7 @@ enum AnimalSpeciesEnum: string implements EnumInterface
 
     case DOG = 'dog';
     case CAT = 'cat';
+    case ALL = 'all';
 
     public static function translations(string $locale = 'en'): array
     {
@@ -18,14 +19,17 @@ enum AnimalSpeciesEnum: string implements EnumInterface
             'en' => [
                 'DOG' => 'Dog',
                 'CAT' => 'Cat',
+                'ALL' => 'All',
             ],
             'es' => [
                 'DOG' => 'Perro',
                 'CAT' => 'Gato',
+                'ALL' => 'Todos',
             ],
             'pt_BR' => [
                 'DOG' => 'Cão',
                 'CAT' => 'Gato',
+                'ALL' => 'Todos',
             ],
         ];
 
