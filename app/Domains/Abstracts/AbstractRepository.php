@@ -89,6 +89,7 @@ abstract class AbstractRepository implements RepositoryInterface
      */
     public function find($id, $with = [])
     {
+        
         if (is_numeric($id)) {
             return $this->getModel()->with($with)->find($id);
         }

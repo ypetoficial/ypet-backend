@@ -3,7 +3,8 @@
 namespace App\Http\Requests\Citizen;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Validation\Rule;
+use App\Domains\Enums\UserStatusEnum;
 class UpdateCitizenRequest extends FormRequest
 {
     /**
@@ -26,16 +27,15 @@ class UpdateCitizenRequest extends FormRequest
             'special_permissions' => ['nullable', 'boolean'],
             'can_report_abuse' => ['nullable', 'boolean'],
             'can_mobile_castration' => ['nullable', 'boolean'],
-            'status' => ['nullable', 'integer'],
+            'status' => ['required', Rule::in(UserStatusEnum::values())],
             'address' => ['nullable', 'array'],
-            'address.type' => ['nullable', 'integer'],
-            'address.zipcode' => ['nullable', 'string', 'max:10'],
-            'address.street' => ['nullable', 'string', 'max:255'],
-            'address.number' => ['nullable', 'string', 'max:20'],
-            'address.complement' => ['nullable', 'string', 'max:255'],
-            'address.neighborhood' => ['nullable', 'string', 'max:255'],
-            'address.city' => ['nullable', 'string', 'max:255'],
-            'address.state' => ['nullable', 'string', 'max:2'],
+            'address.*.zip_code' => ['nullable', 'string', 'max:10'],
+            'address.*.street' => ['nullable', 'string', 'max:255'],
+            'address.*.number' => ['nullable', 'string', 'max:20'],
+            'address.*.complement' => ['nullable', 'string', 'max:255'],
+            'address.*.district' => ['nullable', 'string', 'max:255'],
+            'address.*.city' => ['nullable', 'string', 'max:255'],
+            'address.*.state' => ['nullable', 'string', 'max:255'],
         ];
     }
 }
