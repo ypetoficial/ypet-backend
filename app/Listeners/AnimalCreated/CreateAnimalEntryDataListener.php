@@ -20,6 +20,16 @@ class CreateAnimalEntryDataListener
             'params' => $params,
         ]);
 
+        if (empty($params)) {
+            logger()->info('No params provided, skipping AnimalEntryData creation');
+            return;
+        }
+
+        if (!$this->checkFieldsExistence($params)) {
+            logger()->info('No relevant fields provided in params, skipping AnimalEntryData creation');
+            return;
+        }
+
         $this->animalEntryDataService->save([
             'animal_id' => $entity->id,
             'registration_number' => data_get($params, 'registration_number'),
@@ -34,5 +44,30 @@ class CreateAnimalEntryDataListener
             'collection_site' => data_get($params, 'collection_site'),
             'collection_reason' => data_get($params, 'collection_reason'),
         ]);
+    }
+
+    public function checkFieldsExistence(array $params): bool
+    {
+        $fields = [
+            'registration_number',
+            'microchip_number',
+            'entry_date',
+            'castrated',
+            'castration_at',
+            'castration_site',
+            'dewormed',
+            'infirmity',
+            'origin',
+            'collection_site',
+            'collection_reason',
+        ];
+
+        foreach ($fields as $field) {
+            if (array_key_exists($field, $params) && !is_null($params[$field])) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
