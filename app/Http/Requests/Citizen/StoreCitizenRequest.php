@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Citizen;
 
+use App\Domains\Enums\UserStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use App\Domains\Enums\UserStatusEnum;
+
 class StoreCitizenRequest extends FormRequest
 {
     /**

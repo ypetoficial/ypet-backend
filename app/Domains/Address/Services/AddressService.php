@@ -15,7 +15,7 @@ class AddressService extends AbstractService
 
     public function beforeSave(array $data): array
     {
-        
+
         $data['cep'] = $this->onlyNumbers($data['cep']);
         $data['city_code'] = $this->getCityCode($data['city'], $data['state']);
 
