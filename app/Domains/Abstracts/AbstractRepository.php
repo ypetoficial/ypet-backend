@@ -53,6 +53,7 @@ abstract class AbstractRepository implements RepositoryInterface
         $orderByDirection = data_get($options, 'order_by.direction', 'asc');
         $columns = data_get($options, 'columns', '*');
         $columns = is_array($columns) ? $columns : explode(',', $columns);
+        $limit = data_get($options, 'limit');
 
         $params = array_filter(
             $params,
@@ -63,6 +64,7 @@ abstract class AbstractRepository implements RepositoryInterface
         return $model->with($with)
             ->where($params)
             ->orderBy($orderByColumn, $orderByDirection)
+            ->limit($limit)
             ->get($columns);
     }
 
@@ -89,6 +91,7 @@ abstract class AbstractRepository implements RepositoryInterface
      */
     public function find($id, $with = [])
     {
+
         if (is_numeric($id)) {
             return $this->getModel()->with($with)->find($id);
         }

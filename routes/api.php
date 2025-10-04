@@ -13,6 +13,7 @@ use App\Http\Controllers\Citizen\CitizenController;
 use App\Http\Controllers\EnumController;
 use App\Http\Controllers\LostAnimal\LostAnimalController;
 use App\Http\Controllers\MobileClinicEvent\MobileClinicEventController;
+use App\Http\Controllers\PreSurgeryAssessment\PreSurgeryAssessmentController;
 use App\Http\Controllers\Protector\ProtectorController;
 use App\Http\Controllers\Registration\RegistrationController;
 use App\Http\Controllers\User\UserController;
@@ -67,6 +68,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/{uuid}/complete', [AdoptionVisitController::class, 'complete']);
         Route::post('/{uuid}/cancel', [AdoptionVisitController::class, 'cancel']);
     });
+
+    Route::apiResource('pre-surgery-assessment', PreSurgeryAssessmentController::class)->only('store');
 });
 
 Route::post('adoption-visits', [AdoptionVisitController::class, 'store']);
