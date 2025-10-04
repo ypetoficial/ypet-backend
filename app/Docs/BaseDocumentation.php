@@ -18,6 +18,7 @@ namespace App\Docs;
  *     @OA\Tag(name="Citizens", description="Gerenciamento de cidadãos"),
  *     @OA\Tag(name="AdoptionVisit", description="Gerenciamento de cidadãos"),
  *     @OA\Tag(name="Protectors", description="Gerenciamento de protetores"),
+ *     @OA\Tag(name="PanelConfig", description="Configuração do Painel"),
  *
  *      @OA\Server(
  *      url="{scheme}://{host}:{port}",

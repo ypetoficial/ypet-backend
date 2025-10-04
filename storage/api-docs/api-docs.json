@@ -3949,6 +3949,212 @@
                 }
             }
         },
+        "/api/panel-config": {
+            "get": {
+                "tags": [
+                    "PanelConfig"
+                ],
+                "summary": "Exibe as configurações do painel do usuário logado",
+                "operationId": "3caf5041a5e451912d2abcf6e778f227",
+                "responses": {
+                    "200": {
+                        "description": "Configurações do usuário retornadas com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "user": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Super User"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "super.user@ypet.com"
+                                                },
+                                                "password": {
+                                                    "type": "string",
+                                                    "example": "passwordFake"
+                                                },
+                                                "city": {
+                                                    "type": "string",
+                                                    "example": "Governador Valadares"
+                                                },
+                                                "state": {
+                                                    "type": "string",
+                                                    "example": "MG"
+                                                },
+                                                "timezone": {
+                                                    "type": "string",
+                                                    "example": "America/Rio_Branco"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Acesso negado. Permissão não autorizada.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Acesso negado. Permissão não autorizada."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "PanelConfig"
+                ],
+                "summary": "Altera a senha no painel do usuário logado",
+                "description": "* @OA\\Put(\n    path=\"/api/panel-config\",\n    summary=\"Altera a senha no painel do usuário logado\",\n    tags={\"PanelConfig\"},\n    security={{\"bearerAuth\":{}}},",
+                "operationId": "3ef87da5548312e0b86c2ebd1ed6e97f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "current_password",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "current_password": {
+                                        "type": "string",
+                                        "example": "oldPassword123"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "newPassword123"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "newPassword123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Senha atualizada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Senha atualizada com sucesso."
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "A confirmação da nova senha não confere."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "password": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "A nova senha deve ter no mínimo 8 caracteres."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Acesso negado. Permissão não autorizada.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Acesso negado. Permissão não autorizada."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/protector": {
             "get": {
                 "tags": [
@@ -5478,6 +5684,10 @@
         {
             "name": "Protectors",
             "description": "Gerenciamento de protetores"
+        },
+        {
+            "name": "PanelConfig",
+            "description": "Configuração do Painel"
         },
         {
             "name": "Adoption Visit",

@@ -38,6 +38,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/me/password', [UserProfileController::class, 'changePassword']);
     });
 
+    Route::get('panel-config', [UserController::class, 'panelConfig']);
+    Route::put('panel-config', [UserController::class, 'changePasswordPanel']);
+
     Route::apiResource('users', UserController::class);
     Route::apiResource('veterinarians', VeterinarianController::class);
     Route::apiResource('animals', AnimalController::class);
