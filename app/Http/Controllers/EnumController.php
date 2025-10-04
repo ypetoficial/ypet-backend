@@ -8,24 +8,23 @@ use Illuminate\Support\Str;
 class EnumController extends Controller
 {
     public function show(Request $request, string $enum)
-        {
-            $locale = $request->get('locale', config('app.locale', 'en'));
+    {
+        $locale = $request->get('locale', config('app.locale', 'en'));
 
-            $specialEnums = [
-                'uf' => 'UF',
-            ];
+        $specialEnums = [
+            'uf' => 'UF',
+        ];
 
-           $enumClass = $specialEnums[strtolower($enum)] ?? Str::studly($enum);
-            
-            $enumClass = 'App\\Domains\\Enums\\'.$enumClass.'Enum';
+        $enumClass = $specialEnums[strtolower($enum)] ?? Str::studly($enum);
 
-            if (! enum_exists($enumClass)) {
-                return $this->error('Enum not found', [], 404);
-            }
+        $enumClass = 'App\\Domains\\Enums\\'.$enumClass.'Enum';
 
-            $data = ($enumClass)::labels($locale);
-
-            return $this->ok($data);
+        if (! enum_exists($enumClass)) {
+            return $this->error('Enum not found', [], 404);
         }
 
+        $data = ($enumClass)::labels($locale);
+
+        return $this->ok($data);
+    }
 }
