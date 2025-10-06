@@ -2,6 +2,7 @@
 
 namespace App\Domains\Veterinarian\Services;
 
+use App\Events\UserCreated;
 use App\Domains\Abstracts\AbstractService;
 use App\Domains\User\Services\UserService;
 use App\Domains\Veterinarian\Repositories\VeterinarianRepository;
@@ -19,6 +20,7 @@ class VeterinarianService extends AbstractService
     public function beforeSave(array $data): array
     {
         $data['is_veterinarian'] = true;
+        $data['cellphone'] = data_get($data, 'phone');
 
         $permissions = $data['permissions'] ?? [];
         $data['permissions'] = $permissions;
