@@ -22,11 +22,13 @@ class CreateAnimalEntryDataListener
 
         if (empty($params)) {
             logger()->info('No params provided, skipping AnimalEntryData creation');
+
             return;
         }
 
-        if (!$this->checkFieldsExistence($params)) {
+        if (! $this->checkFieldsExistence($params)) {
             logger()->info('No relevant fields provided in params, skipping AnimalEntryData creation');
+
             return;
         }
 
@@ -63,7 +65,7 @@ class CreateAnimalEntryDataListener
         ];
 
         foreach ($fields as $field) {
-            if (array_key_exists($field, $params) && !is_null($params[$field])) {
+            if (array_key_exists($field, $params) && ! is_null($params[$field])) {
                 return true;
             }
         }

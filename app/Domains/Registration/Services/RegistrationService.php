@@ -19,8 +19,7 @@ class RegistrationService extends AbstractService
         protected readonly AnimalService $animalService,
         protected readonly MobileClinicEventService $mobileClinicEventService,
         protected readonly UserService $userService
-    )
-    {
+    ) {
         $this->repository = $repository;
     }
 
@@ -111,7 +110,7 @@ class RegistrationService extends AbstractService
         ];
 
         /** @var AnimalEntity $animal */
-        $animal =  $this->animalService->save($payload);
+        $animal = $this->animalService->save($payload);
 
         return $animal;
     }
@@ -125,7 +124,7 @@ class RegistrationService extends AbstractService
 
         if ($tutor_id) {
             /** @var UserEntity $tutor */
-            $tutor =  $this->userService->find($tutor_id);
+            $tutor = $this->userService->find($tutor_id);
 
             return $tutor;
         }

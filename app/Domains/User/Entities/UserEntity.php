@@ -2,6 +2,7 @@
 
 namespace App\Domains\User\Entities;
 
+use App\Domains\Address\Entities\AddressEntity;
 use App\Domains\Citizen\Entities\CitizenEntity;
 use App\Models\AdoptionVisit;
 use App\Models\User;
@@ -39,5 +40,11 @@ class UserEntity extends User
     public function citizen(): HasOne
     {
         return $this->hasOne(CitizenEntity::class, 'user_id', 'id');
+    }
+
+    public function address(): HasOne
+    {
+        return $this->hasOne(AddressEntity::class, 'addressable_id', 'id')
+            ->where('addressable_type', self::class);
     }
 }
