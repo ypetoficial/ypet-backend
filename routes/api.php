@@ -48,6 +48,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('lost-animals', LostAnimalController::class);
     Route::apiResource('mobile-clinic-events', MobileClinicEventController::class);
     Route::apiResource('registrations', RegistrationController::class);
+    Route::get('registrations/{id}/term', [RegistrationController::class, 'term']);
     Route::get('enums/{enum}', [EnumController::class, 'show']);
     Route::get('citizen', [CitizenController::class, 'index']);
     Route::get('citizen/{uuid}', [CitizenController::class, 'show']);
