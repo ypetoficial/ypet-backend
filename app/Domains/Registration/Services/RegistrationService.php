@@ -2,16 +2,16 @@
 
 namespace App\Domains\Registration\Services;
 
-use Illuminate\Support\Arr;
-use App\Domains\Enums\AnimalSpeciesEnum;
-use App\Domains\User\Entities\UserEntity;
 use App\Domains\Abstracts\AbstractService;
-use App\Domains\User\Services\UserService;
 use App\Domains\Animal\Entities\AnimalEntity;
-use App\Domains\Enums\RegistrationStatusEnum;
 use App\Domains\Animal\Services\AnimalService;
-use App\Domains\Registration\Repositories\RegistrationRepository;
+use App\Domains\Enums\AnimalSpeciesEnum;
+use App\Domains\Enums\RegistrationStatusEnum;
 use App\Domains\MobileClinicEvent\Services\MobileClinicEventService;
+use App\Domains\Registration\Repositories\RegistrationRepository;
+use App\Domains\User\Entities\UserEntity;
+use App\Domains\User\Services\UserService;
+use Illuminate\Support\Arr;
 
 class RegistrationService extends AbstractService
 {
