@@ -33,6 +33,8 @@ class RegistrationController extends AbstractController
         }
 
         $data = [
+            'ficha_number' => $registration->id,
+            'microchip_number' => $animal->entryData->microchip_number ?? null,
             'name' => $user->name ?? 'N/A',
             'cpf' => $user->document ?? 'N/A',
             'cellphone' => $user->cellphone ?? $user->telephone ?? 'N/A',
