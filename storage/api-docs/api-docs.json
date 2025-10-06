@@ -3949,6 +3949,520 @@
                 }
             }
         },
+        "/api/panel-config": {
+            "get": {
+                "tags": [
+                    "PanelConfig"
+                ],
+                "summary": "Exibe as configurações do painel do usuário logado",
+                "operationId": "3caf5041a5e451912d2abcf6e778f227",
+                "responses": {
+                    "200": {
+                        "description": "Configurações do usuário retornadas com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "user": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Super User"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "super.user@ypet.com"
+                                                },
+                                                "password": {
+                                                    "type": "string",
+                                                    "example": "passwordFake"
+                                                },
+                                                "city": {
+                                                    "type": "string",
+                                                    "example": "Governador Valadares"
+                                                },
+                                                "state": {
+                                                    "type": "string",
+                                                    "example": "MG"
+                                                },
+                                                "timezone": {
+                                                    "type": "string",
+                                                    "example": "America/Rio_Branco"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Acesso negado. Permissão não autorizada.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Acesso negado. Permissão não autorizada."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "PanelConfig"
+                ],
+                "summary": "Altera a senha no painel do usuário logado",
+                "operationId": "3ef87da5548312e0b86c2ebd1ed6e97f",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "current_password",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "current_password": {
+                                        "type": "string",
+                                        "example": "oldPassword123"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "newPassword123"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "newPassword123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Senha atualizada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Senha atualizada com sucesso."
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "A confirmação da nova senha não confere."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "password": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "A nova senha deve ter no mínimo 8 caracteres."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Acesso negado. Permissão não autorizada.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Acesso negado. Permissão não autorizada."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/pre-surgery-assessment": {
+            "post": {
+                "tags": [
+                    "PreSurgeryAssessment"
+                ],
+                "summary": "Cadastra uma nova avaliação pré-cirúrgica",
+                "operationId": "44766977eb84226ad8ffff67162e95b7",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token JWT",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Bearer eyJ..."
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "animal_id",
+                                    "mucosa",
+                                    "hydration",
+                                    "adequate_fasting",
+                                    "escore_corporal",
+                                    "heart_rate",
+                                    "respiratory_rate",
+                                    "abdominal_palpation",
+                                    "palpation_of_lymph_nodes",
+                                    "vulvar_discharge",
+                                    "foreskin_discharge",
+                                    "ectopic_testicle"
+                                ],
+                                "properties": {
+                                    "animal_id": {
+                                        "description": "ID do animal",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "mucosa": {
+                                        "description": "Mucosa (pink, pale, cyanotic, jaundice)",
+                                        "type": "string",
+                                        "example": "pink"
+                                    },
+                                    "hydration": {
+                                        "description": "Hidratação (hydrated, dehydrated)",
+                                        "type": "string",
+                                        "example": "hydrated"
+                                    },
+                                    "adequate_fasting": {
+                                        "description": "Jejum adequado",
+                                        "type": "boolean",
+                                        "example": true
+                                    },
+                                    "fasting_time": {
+                                        "description": "Tempo de jejum em horas",
+                                        "type": "integer",
+                                        "example": 8,
+                                        "nullable": true
+                                    },
+                                    "escore_corporal": {
+                                        "description": "Escore corporal",
+                                        "type": "integer",
+                                        "example": 3
+                                    },
+                                    "heart_rate": {
+                                        "description": "Frequência cardíaca",
+                                        "type": "integer",
+                                        "example": 90
+                                    },
+                                    "respiratory_rate": {
+                                        "description": "Frequência respiratória",
+                                        "type": "integer",
+                                        "example": 25
+                                    },
+                                    "abdominal_palpation": {
+                                        "description": "Palpação abdominal (normal, altered)",
+                                        "type": "string",
+                                        "example": "normal"
+                                    },
+                                    "abdominal_palpation_description": {
+                                        "description": "Descrição da palpação abdominal",
+                                        "type": "string",
+                                        "example": null,
+                                        "nullable": true
+                                    },
+                                    "palpation_of_lymph_nodes": {
+                                        "description": "Palpação de linfonodos (normal, enlarged)",
+                                        "type": "string",
+                                        "example": "normal"
+                                    },
+                                    "palpation_of_lymph_nodes_description": {
+                                        "description": "Descrição da palpação de linfonodos",
+                                        "type": "string",
+                                        "example": null,
+                                        "nullable": true
+                                    },
+                                    "vulvar_discharge": {
+                                        "description": "Secreção vulvar",
+                                        "type": "boolean",
+                                        "example": false
+                                    },
+                                    "foreskin_discharge": {
+                                        "description": "Secreção prepucial",
+                                        "type": "boolean",
+                                        "example": false
+                                    },
+                                    "ectopic_testicle": {
+                                        "description": "Testículo ectópico",
+                                        "type": "boolean",
+                                        "example": false
+                                    },
+                                    "obervations": {
+                                        "description": "Observações gerais",
+                                        "type": "string",
+                                        "example": "Animal apresentou bom estado geral",
+                                        "nullable": true
+                                    },
+                                    "transsurgical_intercurrences": {
+                                        "description": "Intercorrências transcirúrgicas",
+                                        "type": "string",
+                                        "example": null,
+                                        "nullable": true
+                                    },
+                                    "measures_taken": {
+                                        "description": "Medidas tomadas",
+                                        "type": "string",
+                                        "example": null,
+                                        "nullable": true
+                                    },
+                                    "animal_data": {
+                                        "description": "Dados do animal (caso não esteja cadastrado)",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Rex",
+                                                "nullable": true
+                                            },
+                                            "species": {
+                                                "description": "Espécie (dog, cat, all)",
+                                                "type": "string",
+                                                "example": "dog",
+                                                "nullable": true
+                                            },
+                                            "gender": {
+                                                "description": "Gênero (male, female, unknown)",
+                                                "type": "string",
+                                                "example": "male",
+                                                "nullable": true
+                                            },
+                                            "weight": {
+                                                "type": "number",
+                                                "format": "float",
+                                                "example": 15.5,
+                                                "nullable": true
+                                            },
+                                            "birth_date": {
+                                                "type": "string",
+                                                "format": "date",
+                                                "example": "2020-05-15",
+                                                "nullable": true
+                                            }
+                                        },
+                                        "type": "object",
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Avaliação pré-cirúrgica cadastrada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "response": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": 5
+                                                        },
+                                                        "animal_id": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "mucosa": {
+                                                            "type": "string",
+                                                            "example": "pink"
+                                                        },
+                                                        "hydration": {
+                                                            "type": "string",
+                                                            "example": "hydrated"
+                                                        },
+                                                        "adequate_fasting": {
+                                                            "type": "boolean",
+                                                            "example": true
+                                                        },
+                                                        "fasting_time": {
+                                                            "type": "integer",
+                                                            "example": 8
+                                                        },
+                                                        "escore_corporal": {
+                                                            "type": "integer",
+                                                            "example": 3
+                                                        },
+                                                        "heart_rate": {
+                                                            "type": "integer",
+                                                            "example": 90
+                                                        },
+                                                        "respiratory_rate": {
+                                                            "type": "integer",
+                                                            "example": 25
+                                                        },
+                                                        "abdominal_palpation": {
+                                                            "type": "string",
+                                                            "example": "normal"
+                                                        },
+                                                        "palpation_of_lymph_nodes": {
+                                                            "type": "string",
+                                                            "example": "normal"
+                                                        },
+                                                        "vulvar_discharge": {
+                                                            "type": "boolean",
+                                                            "example": false
+                                                        },
+                                                        "foreskin_discharge": {
+                                                            "type": "boolean",
+                                                            "example": false
+                                                        },
+                                                        "ectopic_testicle": {
+                                                            "type": "boolean",
+                                                            "example": false
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 422
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "O animal é obrigatório."
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/protector": {
             "get": {
                 "tags": [
@@ -5478,6 +5992,14 @@
         {
             "name": "Protectors",
             "description": "Gerenciamento de protetores"
+        },
+        {
+            "name": "PanelConfig",
+            "description": "Configuração do Painel"
+        },
+        {
+            "name": "PreSurgeryAssessment",
+            "description": "Triagem do animal para castração"
         },
         {
             "name": "Adoption Visit",

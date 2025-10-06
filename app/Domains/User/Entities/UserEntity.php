@@ -8,6 +8,7 @@ use App\Models\AdoptionVisit;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class UserEntity extends User
 {
@@ -37,14 +38,18 @@ class UserEntity extends User
     //     return $this->hasMany(AdoptionVisit::class, 'user_id');
     // }
 
-    public function citizen(): HasOne
+    public function citizen(): ?HasOne
     {
         return $this->hasOne(CitizenEntity::class, 'user_id', 'id');
     }
 
-    public function address(): HasOne
+    public function addresses(): MorphMany
     {
-        return $this->hasOne(AddressEntity::class, 'addressable_id', 'id')
-            ->where('addressable_type', self::class);
+        return $this->morphMany(AddressEntity::class, 'addressable');
+    }
+
+    public function getMorphClass()
+    {
+        return User::class;
     }
 }

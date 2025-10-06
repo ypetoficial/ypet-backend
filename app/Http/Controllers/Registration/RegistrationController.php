@@ -36,7 +36,7 @@ class RegistrationController extends AbstractController
             'name' => $user->name ?? 'N/A',
             'cpf' => $user->document ?? 'N/A',
             'cellphone' => $user->cellphone ?? $user->telephone ?? 'N/A',
-            'address' => $user->address->street ?? 'N/A',
+            'address' => $user->addresses->first()->street ?? 'N/A',
             'animal_name' => $animal->name ?? 'N/A',
             'animal_species' => Arr::get($animal->species, 'label', 'N/A'),
             'animal_sex' => Arr::get($animal->gender, 'label', 'N/A'),
