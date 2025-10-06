@@ -15,6 +15,7 @@ class AnimalEntryDataEntity extends AnimalEntryData
     ];
 
     protected $fillable = [
+        'id',
         'animal_id',
         'entry_date',
         'castrated',
