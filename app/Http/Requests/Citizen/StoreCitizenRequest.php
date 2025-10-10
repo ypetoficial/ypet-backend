@@ -35,6 +35,7 @@ class StoreCitizenRequest extends FormRequest
             'can_report_abuse' => ['required', 'boolean'],
             'can_mobile_castration' => ['required', 'boolean'],
             'status' => ['required', Rule::in(UserStatusEnum::values())],
+            'fcm_token' => ['nullable', 'string', 'max:255'],
             'address' => ['array'],
             'address.*.zip_code' => ['required', 'string', 'max:10'],
             'address.*.street' => ['required', 'string', 'max:255'],

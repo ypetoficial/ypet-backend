@@ -5,7 +5,6 @@ namespace App\Domains\Animal\Services;
 use App\Domains\Abstracts\AbstractService;
 use App\Domains\Animal\Repositories\AnimalRepository;
 use App\Events\AnimalCreated;
-use App\Domains\Animal\Services\AnimalEntryDataService;
 use Illuminate\Support\Facades\Log;
 
 class AnimalService extends AbstractService
@@ -37,7 +36,6 @@ class AnimalService extends AbstractService
 
         return $entity;
     }
-
 
     private function checkFieldsExistence(array $params): bool
     {

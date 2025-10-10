@@ -71,6 +71,18 @@ services:
     networks:
       - ypet-network
 
+  redis:
+    image: redis:7-alpine
+    container_name: ypet-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - ypet-redis-data:/data
+    networks:
+      - ypet-network
+    command: redis-server --appendonly yes
+
 networks:
   ypet-network:
     driver: bridge
@@ -78,3 +90,4 @@ networks:
 volumes:
   ypet-db-data:
   ypet-test-db-data:
+  ypet-redis-data:

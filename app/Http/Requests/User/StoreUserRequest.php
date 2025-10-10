@@ -33,6 +33,7 @@ class StoreUserRequest extends FormRequest
             'roles' => ['required', 'array'],
             'roles.*' => ['string', 'max:50', Rule::in(RolesEnum::values()), 'exists:roles,name'],
             'status' => ['required', Rule::in(UserStatusEnum::values())],
+            'fcm_token' => ['nullable', 'string', 'max:255'],
         ];
     }
 }
