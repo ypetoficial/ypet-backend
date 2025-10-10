@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers\User;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Domains\Citizen\Services\CitizenService;
+use App\Domains\Protector\Services\ProtectorService;
 use App\Domains\User\Services\UserService;
 use App\Http\Controllers\AbstractController;
-use Illuminate\Validation\ValidationException;
-use App\Domains\Citizen\Entities\CitizenEntity;
-use App\Domains\Citizen\Services\CitizenService;
-use App\Http\Requests\User\UpdateProfileRequest;
 use App\Http\Requests\User\ChangePasswordRequest;
-use App\Domains\Protector\Entities\ProtectorEntity;
-use App\Domains\Protector\Services\ProtectorService;
+use App\Http\Requests\User\UpdateProfileRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class UserProfileController extends AbstractController
 {
@@ -33,7 +31,7 @@ class UserProfileController extends AbstractController
                 default => null,
             };
 
-            if($typeUser) {
+            if ($typeUser) {
                 $user->typeUser = $typeUser;
             }
 

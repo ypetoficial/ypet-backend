@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\User;
 
+use App\Domains\Enums\UserStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use App\Domains\Enums\UserStatusEnum;
 
 class UpdateProfileRequest extends FormRequest
 {
@@ -27,7 +27,7 @@ class UpdateProfileRequest extends FormRequest
                     if (! is_null($value) && ! filter_var($value, FILTER_VALIDATE_EMAIL)) {
                         $fail('E-mail inválido.');
                     }
-                }
+                },
             ],
             'telephone' => ['sometimes', 'string', 'max:20'],
             'cellphone' => ['sometimes', 'string', 'max:20'],
