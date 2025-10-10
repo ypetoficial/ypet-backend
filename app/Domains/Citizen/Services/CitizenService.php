@@ -7,6 +7,7 @@ use App\Domains\Citizen\Repositories\CitizenRepository;
 use App\Domains\Enums\AddressTypeEnum;
 use App\Domains\User\Services\UserService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class CitizenService extends AbstractService
 {
@@ -30,6 +31,8 @@ class CitizenService extends AbstractService
 
     public function beforeUpdate($id, array $data): array
     {
+        Log::info('Editar citizen', $data);
+
         $data['updated_by'] = Auth::user()?->id;
         $citizen = $this->find($id);
         $permissions = $data['permissions'] ?? [];
@@ -38,6 +41,14 @@ class CitizenService extends AbstractService
         $this->userService->update($citizen->user_id, $data);
 
         return $data;
+    }
+
+    public function afterUpdate($entity, array $params)
+    {
+        $addresses = data_get($params, 'address', []);
+        foreach ($addresses as $addressData) {
+            $entity->addresses()->update($addressData);
+        }
     }
 
     public function afterSave($entity, array $params)

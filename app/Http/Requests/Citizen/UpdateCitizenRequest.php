@@ -21,7 +21,7 @@ class UpdateCitizenRequest extends FormRequest
         return [
             'name' => ['nullable', 'string', 'max:255'],
             'document' => ['nullable', 'string', 'max:11', 'min:11'],
-            'email' => ['nullable', 'email', 'max:255', 'unique:citizens,email'],
+            'email' => ['nullable', 'email', 'max:255'],
             'telephone' => ['nullable', 'string', 'max:20'],
             'birth_date' => ['nullable', 'date'],
             'gender' => ['nullable', 'string', 'max:20'],
