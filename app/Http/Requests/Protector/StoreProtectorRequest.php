@@ -31,6 +31,7 @@ class StoreProtectorRequest extends FormRequest
             'birth_date' => ['required', 'date'],
             'gender' => ['required', 'string', 'max:20'],
             'special_permissions' => ['required', 'integer'],
+            'fcm_token' => ['nullable', 'string', 'max:255'],
             'address' => ['required', 'array'],
             'address.type' => ['required', 'integer'],
             'address.zipcode' => ['required', 'string', 'max:10'],

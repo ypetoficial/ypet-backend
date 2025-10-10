@@ -34,6 +34,7 @@ class UpdateProfileRequest extends FormRequest
             'document' => ['sometimes', 'string', 'min:11', 'max:11'],
             'onboarding_done' => ['sometimes', 'boolean'],
             'permissions' => ['sometimes', 'array'],
+            'fcm_token' => ['sometimes', 'string', 'max:255'],
         ];
 
         $type = $this->input('type');

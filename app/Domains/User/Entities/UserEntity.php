@@ -20,6 +20,7 @@ class UserEntity extends User
         'name',
         'email',
         'onboarding_done',
+        'fcm_token',
         'telephone',
         'cellphone',
         'password',
