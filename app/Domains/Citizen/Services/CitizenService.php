@@ -7,7 +7,6 @@ use App\Domains\Citizen\Repositories\CitizenRepository;
 use App\Domains\Enums\AddressTypeEnum;
 use App\Domains\User\Services\UserService;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class CitizenService extends AbstractService
 {
@@ -31,7 +30,6 @@ class CitizenService extends AbstractService
 
     public function beforeUpdate($id, array $data): array
     {
-        Log::info('Editar citizen', $data);
 
         $data['updated_by'] = Auth::user()?->id;
         $citizen = $this->find($id);
