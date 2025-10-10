@@ -4,6 +4,7 @@ namespace App\Domains\User\Entities;
 
 use App\Domains\Address\Entities\AddressEntity;
 use App\Domains\Citizen\Entities\CitizenEntity;
+use App\Domains\Protector\Entities\ProtectorEntity;
 use App\Models\AdoptionVisit;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,8 +16,10 @@ class UserEntity extends User
     public $table = 'users';
 
     protected $fillable = [
+        'id',
         'name',
         'email',
+        'onboarding_done',
         'telephone',
         'cellphone',
         'password',
@@ -41,6 +44,11 @@ class UserEntity extends User
     public function citizen(): ?HasOne
     {
         return $this->hasOne(CitizenEntity::class, 'user_id', 'id');
+    }
+
+    public function protector(): HasOne
+    {
+        return $this->hasOne(ProtectorEntity::class, 'user_id', 'id');
     }
 
     public function addresses(): MorphMany
