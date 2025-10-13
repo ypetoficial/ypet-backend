@@ -20,7 +20,7 @@ enum CollaboratorRoleEnum: string implements EnumInterface
                 'USER_AGENT' => 'User Agent',
             ],
             'es' => [
-                'MANAGER_ADMINISTRATOR' => 'Administrador de gerente',
+                'MANAGER_ADMINISTRATOR' => 'Administrador Gerente',
                 'USER_AGENT' => 'Agente de usuario',
             ],
             'pt_BR' => [
