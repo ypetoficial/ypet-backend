@@ -5,7 +5,8 @@ namespace App\Domains\Protector\Entities;
 use App\Domains\Address\Entities\AddressEntity;
 use App\Models\Protector;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 class ProtectorEntity extends Protector
 {
@@ -27,9 +28,9 @@ class ProtectorEntity extends Protector
         'updated_at',
     ];
 
-    public function user(): HasOne
+    public function user(): BelongsTo
     {
-        return $this->hasOne(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function addresses()

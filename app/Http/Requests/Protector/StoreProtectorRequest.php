@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Protector;
 
+use App\Domains\Enums\UserStatusEnum;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreProtectorRequest extends FormRequest
@@ -27,20 +29,19 @@ class StoreProtectorRequest extends FormRequest
             'email' => ['required', 'email', 'max:255'],
             'password' => 'required|string|min:8|confirmed',
             'telephone' => ['required', 'string', 'max:20'],
-            'status' => ['required', 'boolean'],
+            'status'  => ['required', Rule::in(UserStatusEnum::values())],
             'birth_date' => ['required', 'date'],
             'gender' => ['required', 'string', 'max:20'],
             'special_permissions' => ['required', 'integer'],
             'fcm_token' => ['nullable', 'string', 'max:255'],
-            'address' => ['required', 'array'],
-            'address.type' => ['required', 'integer'],
-            'address.zipcode' => ['required', 'string', 'max:10'],
-            'address.street' => ['required', 'string', 'max:255'],
-            'address.number' => ['required', 'string', 'max:20'],
-            'address.complement' => ['nullable', 'string', 'max:255'],
-            'address.neighborhood' => ['required', 'string', 'max:255'],
-            'address.city' => ['required', 'string', 'max:255'],
-            'address.state' => ['required', 'string', 'max:2'],
+            'address' => ['array'],
+            'address.*.zip_code' => ['required', 'string', 'max:10'],
+            'address.*.street' => ['required', 'string', 'max:255'],
+            'address.*.number' => ['required', 'string', 'max:20'],
+            'address.*.complement' => ['nullable', 'string', 'max:255'],
+            'address.*.neighborhood' => ['sometimes', 'string', 'max:255'],
+            'address.*.city' => ['required', 'string', 'max:255'],
+            'address.*.state' => ['required', 'string', 'max:2'],
         ];
     }
 }
