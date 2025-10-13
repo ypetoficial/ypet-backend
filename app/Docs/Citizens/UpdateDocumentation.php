@@ -38,7 +38,8 @@ namespace App\Docs\Citizens;
  *             @OA\Property(property="gender", type="string", example="male"),
  *             @OA\Property(property="special_permissions", type="integer", example=0),
  *             @OA\Property(property="can_report_abuse", type="integer", example=0),
- *             @OA\Property(property="can_mobile_castration", type="integer", example=0)
+ *             @OA\Property(property="can_mobile_castration", type="integer", example=0),
+ *             @OA\Property(property="photo", type="string", example="photo.jpg")
  *         )
  *     ),
  *
@@ -61,7 +62,7 @@ namespace App\Docs\Citizens;
  *                 @OA\Property(property="gender", type="string", example="male"),
  *                 @OA\Property(property="special_permissions", type="integer", example=0),
  *                 @OA\Property(property="can_report_abuse", type="integer", example=0),
- *                 @OA\Property(property="can_mobile_castration", type="integer", example=0)
+ *                 @OA\Property(property="can_mobile_castration", type="integer", example=0),
  *             ),
  *             @OA\Property(property="show", type="boolean", example=true)
  *         )

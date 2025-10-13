@@ -28,6 +28,7 @@ class UpdateCitizenRequest extends FormRequest
             'special_permissions' => ['nullable', 'boolean'],
             'can_report_abuse' => ['nullable', 'boolean'],
             'can_mobile_castration' => ['nullable', 'boolean'],
+            'photo' => ['nullable', 'image', 'max:2048'],
             'status' => ['required', Rule::in(UserStatusEnum::values())],
             'address' => ['nullable', 'array'],
             'address.*.zip_code' => ['nullable', 'string', 'max:10'],

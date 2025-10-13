@@ -32,6 +32,7 @@ class UpdateProtectorRequest extends FormRequest
             'birth_date' => ['nullable', 'date'],
             'gender' => ['nullable', 'string', 'max:20'],
             'special_permissions' => ['nullable', 'integer'],
+            'photo' => ['nullable', 'image', 'max:2048'],
             'address' => ['nullable', 'array'],
             'address.*.zipcode' => ['nullable', 'string', 'max:10'],
             'addresPs.*.street' => ['nullable', 'string', 'max:255'],

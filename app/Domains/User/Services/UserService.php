@@ -22,7 +22,7 @@ class UserService extends AbstractService
 
     public function beforeSave(array $data): array
     {
-        if ($data['photo']) {
+        if (data_get($data, 'photo')) {
             $data['photo_url'] = $this->filesService->processImage($data['photo'], self::PHOTO_PATH);
             unset($data['photo']);
         }
@@ -39,7 +39,7 @@ class UserService extends AbstractService
 
     public function beforeUpdate($id, array $data): array
     {
-        if ($data['photo']) {
+        if (data_get($data, 'photo')) {
             $user = $this->find($id);
             $this->filesService->delete($user->photo_url);
             $data['photo_url'] = $this->filesService->processImage($data['photo'], self::PHOTO_PATH);
