@@ -43,4 +43,14 @@ class UserService extends AbstractService
             ],
         ]);
     }
+
+    public function findByEmail(string $email): ?UserEntity
+    {
+        /** @var UserEntity $user */
+        $user = $this->repository->findOneWhere([
+            'email' => $email,
+        ]);
+
+        return $user;
+    }
 }

@@ -19,6 +19,8 @@ use App\Http\Controllers\Registration\RegistrationController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Veterinarian\VeterinarianController;
+use App\Http\Controllers\Collaborator\CollaboratorController;
+use App\Http\Controllers\BankAccount\BankAccountController;
 use Illuminate\Support\Facades\Route;
 
 // Public authentication routes
@@ -70,7 +72,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/{uuid}/cancel', [AdoptionVisitController::class, 'cancel']);
     });
 
-    Route::apiResource('pre-surgery-assessment', PreSurgeryAssessmentController::class)->only('store');
+    Route::apiResource('pre-surgery-assessment', PreSurgeryAssessmentController::class)
+        ->only('store');
+    Route::apiResource('collaborators', CollaboratorController::class)
+        ->only('index', 'show', 'store', 'update');
+    Route::apiResource('bank-accounts', BankAccountController::class)
+        ->only( 'index', 'show', 'update');
 });
 
 Route::post('adoption-visits', [AdoptionVisitController::class, 'store']);
