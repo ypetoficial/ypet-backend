@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Protector;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Domains\Enums\UserStatusEnum;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateProtectorRequest extends FormRequest
@@ -28,10 +28,11 @@ class UpdateProtectorRequest extends FormRequest
             'document' => ['nullable', 'string', 'max:11', 'min:11'],
             'email' => ['nullable', 'email', 'max:255'],
             'telephone' => ['nullable', 'string', 'max:20'],
-            'status'  => ['required', Rule::in(UserStatusEnum::values())],
+            'status' => ['required', Rule::in(UserStatusEnum::values())],
             'birth_date' => ['nullable', 'date'],
             'gender' => ['nullable', 'string', 'max:20'],
             'special_permissions' => ['nullable', 'integer'],
+            'photo' => ['nullable', 'image', 'max:2048'],
             'address' => ['nullable', 'array'],
             'address.*.zipcode' => ['nullable', 'string', 'max:10'],
             'addresPs.*.street' => ['nullable', 'string', 'max:255'],

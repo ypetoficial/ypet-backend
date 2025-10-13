@@ -27,6 +27,7 @@ class StoreCitizenRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'document' => ['required', 'string', 'max:11', 'min:11'],
             'email' => ['required', 'email', 'max:255'],
+            'photo' => ['nullable', 'image', 'max:2048'],
             'password' => 'nullable|string|min:8|confirmed',
             'telephone' => ['required', 'string', 'max:20'],
             'birth_date' => ['required', 'date'],

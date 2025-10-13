@@ -33,6 +33,7 @@ namespace App\Docs\Citizens;
  *             @OA\Property(property="can_report_abuse", type="integer", example=1),
  *             @OA\Property(property="can_mobile_castration", type="integer", example=1),
  *             @OA\Property(property="status", type="integer", example=1),
+ *             @OA\Property(property="photo", type="string", example="photo.jpg"),
  *             @OA\Property(
  *                 property="address",
  *                 type="object",

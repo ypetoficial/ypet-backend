@@ -37,6 +37,7 @@ namespace App\Docs\Protector;
  *             @OA\Property(property="birth_date", type="string", format="date", example="1990-05-15"),
  *             @OA\Property(property="gender", type="string", example="male"),
  *             @OA\Property(property="special_permissions", type="integer", example=0),
+ *             @OA\Property(property="photo", type="string", example="photo.jpg"),
  *         )
  *     ),
  *

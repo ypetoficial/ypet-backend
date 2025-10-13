@@ -35,7 +35,8 @@ namespace App\Docs\Auth\Me;
  *             @OA\Property(property="id", type="integer", example=1),
  *             @OA\Property(property="name", type="string", example="Marcus Silva"),
  *             @OA\Property(property="email", type="string", example="marcus@ypet.com"),
- *             @OA\Property(property="status", type="string", example="active")
+ *             @OA\Property(property="status", type="string", example="active"),
+ *             @OA\Property(property="photo_url", type="string", example="https://example.com/photo.jpg"),
  *         )
  *     ),
  *

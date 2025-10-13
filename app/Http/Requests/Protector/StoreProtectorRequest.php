@@ -3,8 +3,8 @@
 namespace App\Http\Requests\Protector;
 
 use App\Domains\Enums\UserStatusEnum;
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreProtectorRequest extends FormRequest
 {
@@ -29,11 +29,12 @@ class StoreProtectorRequest extends FormRequest
             'email' => ['required', 'email', 'max:255'],
             'password' => 'required|string|min:8|confirmed',
             'telephone' => ['required', 'string', 'max:20'],
-            'status'  => ['required', Rule::in(UserStatusEnum::values())],
+            'status' => ['required', Rule::in(UserStatusEnum::values())],
             'birth_date' => ['required', 'date'],
             'gender' => ['required', 'string', 'max:20'],
             'special_permissions' => ['required', 'integer'],
             'fcm_token' => ['nullable', 'string', 'max:255'],
+            'photo' => ['nullable', 'file', 'mimes:jpeg,jpg', 'max:2048'],
             'address' => ['array'],
             'address.*.zip_code' => ['required', 'string', 'max:10'],
             'address.*.street' => ['required', 'string', 'max:255'],
