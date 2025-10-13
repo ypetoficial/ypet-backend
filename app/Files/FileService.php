@@ -2,14 +2,15 @@
 
 namespace App\Files;
 
-use SplFileInfo;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
-use Illuminate\Support\Facades\Storage;
+use SplFileInfo;
 
 class FileService
 {
     const PUBLIC_PATH = 'public/cdn/';
+
     private SplFileInfo $value;
 
     private string $hashName;

@@ -3,14 +3,15 @@
 namespace App\Domains\User\Services;
 
 use App\Domains\Abstracts\AbstractService;
+use App\Domains\Files\FilesService;
 use App\Domains\User\Entities\UserEntity;
 use App\Domains\User\Repositories\UserRepository;
 use App\Events\UserCreated;
-use App\Domains\Files\FilesService;
 
 class UserService extends AbstractService
 {
     const PHOTO_PATH = 'users/';
+
     public FilesService $filesService;
 
     public function __construct(UserRepository $repository)
@@ -21,7 +22,7 @@ class UserService extends AbstractService
 
     public function beforeSave(array $data): array
     {
-        if($data['photo']) {
+        if ($data['photo']) {
             $data['photo_url'] = $this->filesService->processImage($data['photo'], self::PHOTO_PATH);
             unset($data['photo']);
         }
@@ -38,7 +39,7 @@ class UserService extends AbstractService
 
     public function beforeUpdate($id, array $data): array
     {
-        if($data['photo']) {
+        if ($data['photo']) {
             $user = $this->find($id);
             $this->filesService->delete($user->photo_url);
             $data['photo_url'] = $this->filesService->processImage($data['photo'], self::PHOTO_PATH);

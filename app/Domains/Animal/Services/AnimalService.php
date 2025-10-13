@@ -2,11 +2,11 @@
 
 namespace App\Domains\Animal\Services;
 
-use App\Events\AnimalCreated;
-use App\Domains\Files\FilesService;
-use Illuminate\Support\Facades\Log;
 use App\Domains\Abstracts\AbstractService;
 use App\Domains\Animal\Repositories\AnimalRepository;
+use App\Domains\Files\FilesService;
+use App\Events\AnimalCreated;
+use Illuminate\Support\Facades\Log;
 
 class AnimalService extends AbstractService
 {
@@ -20,7 +20,7 @@ class AnimalService extends AbstractService
 
     public function beforeSave(array $data): array
     {
-        if($data['picture']) {
+        if ($data['picture']) {
             $data['picture'] = $this->filesService->processImage($data['picture']);
         }
 
@@ -36,7 +36,7 @@ class AnimalService extends AbstractService
 
     public function beforeUpdate($id, array $data): array
     {
-        if($data['picture']) {
+        if ($data['picture']) {
             $this->filesService->delete($this->find($id)->picture);
             $data['picture'] = $this->filesService->processImage($data['picture']);
         }
