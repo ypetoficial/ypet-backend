@@ -23,6 +23,7 @@ class UserEntity extends User
         'fcm_token',
         'telephone',
         'cellphone',
+        'photo_url',
         'password',
         'document',
     ];

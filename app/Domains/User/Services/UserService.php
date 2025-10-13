@@ -6,12 +6,27 @@ use App\Domains\Abstracts\AbstractService;
 use App\Domains\User\Entities\UserEntity;
 use App\Domains\User\Repositories\UserRepository;
 use App\Events\UserCreated;
+use App\Domains\Files\FilesService;
 
 class UserService extends AbstractService
 {
+    const PHOTO_PATH = 'users/';
+    public FilesService $filesService;
+
     public function __construct(UserRepository $repository)
     {
         $this->repository = $repository;
+        $this->filesService = app(FilesService::class);
+    }
+
+    public function beforeSave(array $data): array
+    {
+        if($data['photo']) {
+            $data['photo_url'] = $this->filesService->processImage($data['photo'], self::PHOTO_PATH);
+            unset($data['photo']);
+        }
+
+        return $data;
     }
 
     public function afterSave($entity, array $params)
@@ -19,6 +34,18 @@ class UserService extends AbstractService
         event(new UserCreated($entity, $params));
 
         return $entity;
+    }
+
+    public function beforeUpdate($id, array $data): array
+    {
+        if($data['photo']) {
+            $user = $this->find($id);
+            $this->filesService->delete($user->photo_url);
+            $data['photo_url'] = $this->filesService->processImage($data['photo'], self::PHOTO_PATH);
+            unset($data['photo']);
+        }
+
+        return $data;
     }
 
     public function panelConfig($user)

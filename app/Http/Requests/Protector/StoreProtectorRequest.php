@@ -34,6 +34,7 @@ class StoreProtectorRequest extends FormRequest
             'gender' => ['required', 'string', 'max:20'],
             'special_permissions' => ['required', 'integer'],
             'fcm_token' => ['nullable', 'string', 'max:255'],
+            'photo' => ['nullable', 'file', 'mimes:jpeg,jpg', 'max:2048'],
             'address' => ['array'],
             'address.*.zip_code' => ['required', 'string', 'max:10'],
             'address.*.street' => ['required', 'string', 'max:255'],

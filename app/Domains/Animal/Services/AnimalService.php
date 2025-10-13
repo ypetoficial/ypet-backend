@@ -2,16 +2,29 @@
 
 namespace App\Domains\Animal\Services;
 
+use App\Events\AnimalCreated;
+use App\Domains\Files\FilesService;
+use Illuminate\Support\Facades\Log;
 use App\Domains\Abstracts\AbstractService;
 use App\Domains\Animal\Repositories\AnimalRepository;
-use App\Events\AnimalCreated;
-use Illuminate\Support\Facades\Log;
 
 class AnimalService extends AbstractService
 {
+    public FilesService $filesService;
+
     public function __construct(AnimalRepository $repository)
     {
         $this->repository = $repository;
+        $this->filesService = app(FilesService::class);
+    }
+
+    public function beforeSave(array $data): array
+    {
+        if($data['picture']) {
+            $data['picture'] = $this->filesService->processImage($data['picture']);
+        }
+
+        return $data;
     }
 
     public function afterSave($entity, array $params)
@@ -19,6 +32,16 @@ class AnimalService extends AbstractService
         event(new AnimalCreated($entity, $params));
 
         return $entity;
+    }
+
+    public function beforeUpdate($id, array $data): array
+    {
+        if($data['picture']) {
+            $this->filesService->delete($this->find($id)->picture);
+            $data['picture'] = $this->filesService->processImage($data['picture']);
+        }
+
+        return $data;
     }
 
     public function afterUpdate($entity, array $params)
