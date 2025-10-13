@@ -6,10 +6,10 @@ use App\Domains\Address\Services\AddressService;
 use App\Events\AnimalCreated;
 use Illuminate\Support\Arr;
 
-readonly class CreateUserAddressListener
+class CreateUserAddressListener
 {
     public function __construct(
-        protected AddressService $addressService
+        protected readonly AddressService $addressService
     ) {}
 
     public function handle(AnimalCreated $event): void
