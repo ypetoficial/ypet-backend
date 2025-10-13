@@ -28,7 +28,7 @@ trait EnumTrait
 
     public static function labels($locale = ''): array
     {
-        $locale = !empty($locale) ?: self::getLocale();
+        $locale = ! empty($locale) ?: self::getLocale();
 
         return array_map(function ($case) use ($locale) {
             return [
@@ -77,7 +77,7 @@ trait EnumTrait
 
     private static function getDescription(string $name, $locale = ''): string
     {
-        $locale = !empty($locale) ?: self::getLocale();
+        $locale = ! empty($locale) ?: self::getLocale();
 
         return data_get(self::descriptions($locale), $name, '');
     }

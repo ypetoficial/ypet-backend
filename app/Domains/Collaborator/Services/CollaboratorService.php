@@ -2,12 +2,12 @@
 
 namespace App\Domains\Collaborator\Services;
 
-use App\Domains\Collaborator\Repositories\CollaboratorRepository;
 use App\Domains\Abstracts\AbstractService;
+use App\Domains\Collaborator\Repositories\CollaboratorRepository;
 use App\Domains\User\Entities\UserEntity;
 use App\Domains\User\Services\UserService;
-use App\Events\CollaboratorCreatedEvent;
-use App\Models\Collaborator;
+use App\Events\Collaborator\CollaboratorCreatedEvent;
+use App\Events\Collaborator\CollaboratorUpdatedEvent;
 
 class CollaboratorService extends AbstractService
 {
@@ -27,7 +27,13 @@ class CollaboratorService extends AbstractService
     public function afterSave($entity, array $params)
     {
         event(new CollaboratorCreatedEvent($entity, $params));
+
         return $entity;
+    }
+
+    public function afterUpdate($entity, array $params)
+    {
+        event(new CollaboratorUpdatedEvent($entity, $params));
     }
 
     private function findOrCreateUser(array $data): UserEntity
@@ -36,7 +42,7 @@ class CollaboratorService extends AbstractService
 
         $user = $userService->findByEmail(data_get($data, 'user_email'));
 
-        if (!$user) {
+        if (! $user) {
             $user_document = data_get($data, 'user_document', '');
             $userData = [
                 'name' => data_get($data, 'user_name'),
@@ -48,7 +54,7 @@ class CollaboratorService extends AbstractService
                 'roles' => [
                     data_get($data, 'user_role'),
                 ],
-                'created_by' => data_get($data, 'created_by', null)
+                'created_by' => data_get($data, 'created_by', null),
             ];
 
             /** @var UserEntity $user */

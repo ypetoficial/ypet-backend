@@ -9,7 +9,7 @@ use App\Models\BankAccount;
 
 class BankAccountEntity extends BankAccount
 {
-    protected $table = "bank_accounts";
+    protected $table = 'bank_accounts';
 
     public $fillable = [
         'accountable_type',
@@ -26,7 +26,7 @@ class BankAccountEntity extends BankAccount
     ];
 
     protected $casts = [
-        'account_type' => EnumCast::class . ':' . BankAccountTypeEnum::class,
-        'pix_key_type' => EnumCast::class . ':' . BankAccountPixTypeEnum::class,
+        'account_type' => EnumCast::class.':'.BankAccountTypeEnum::class,
+        'pix_key_type' => EnumCast::class.':'.BankAccountPixTypeEnum::class,
     ];
 }

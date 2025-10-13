@@ -2,8 +2,8 @@
 
 namespace App\Domains\BankAccount\Repositories;
 
-use App\Domains\BankAccount\Entities\BankAccountEntity;
 use App\Domains\Abstracts\AbstractRepository;
+use App\Domains\BankAccount\Entities\BankAccountEntity;
 
 class BankAccountRepository extends AbstractRepository
 {

@@ -2,8 +2,8 @@
 
 namespace App\Domains\Collaborator\Repositories;
 
-use App\Domains\Collaborator\Entities\CollaboratorEntity;
 use App\Domains\Abstracts\AbstractRepository;
+use App\Domains\Collaborator\Entities\CollaboratorEntity;
 
 class CollaboratorRepository extends AbstractRepository
 {

@@ -25,7 +25,7 @@ class BankAccountFactory extends Factory
             'bank_code' => fake()->randomNumber(3, true),
             'bank_name' => fake()->company(),
             'agency' => fake()->randomNumber(4, true),
-            'account_number' => fake()->randomNumber(6, true) . '-' . fake()->randomDigit(),
+            'account_number' => fake()->randomNumber(6, true).'-'.fake()->randomDigit(),
             'account_holder_name' => fake()->name(),
             'account_holder_document' => fake()->unique()->numerify('###########'),
             'pix_key' => fake()->unique()->email(),

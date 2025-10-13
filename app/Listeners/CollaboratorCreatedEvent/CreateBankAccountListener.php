@@ -6,7 +6,7 @@ use App\Domains\BankAccount\Entities\BankAccountEntity;
 use App\Domains\BankAccount\Services\BankAccountService;
 use App\Domains\Collaborator\Entities\CollaboratorEntity;
 use App\Domains\Enums\BankAccountTypeEnum;
-use App\Events\CollaboratorCreatedEvent;
+use App\Events\Collaborator\CollaboratorCreatedEvent;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -15,6 +15,7 @@ use mysql_xdevapi\Exception;
 class CreateBankAccountListener implements ShouldQueue
 {
     use InteractsWithQueue, Queueable;
+
     public function __construct(
         protected readonly BankAccountService $bankAccountService
     ) {
@@ -50,19 +51,19 @@ class CreateBankAccountListener implements ShouldQueue
             'account_number' => data_get($params, 'bank_account_number'),
             'account_holder_name' => data_get($params, 'bank_account_holder_name'),
             'account_holder_document' => data_get($params, 'bank_account_holder_document'),
-            'created_by' => data_get($params, 'created_by')
+            'created_by' => data_get($params, 'created_by'),
         ]);
     }
 
     private function createBankAccountPixAccount(CollaboratorEntity $collaborator, array $params): BankAccountEntity
     {
         return $this->bankAccountService->save([
-            'accountable_type' => get_class($collaborator),
+            'accountable_type' => 'collaborator',
             'accountable_id' => $collaborator->id,
             'account_type' => BankAccountTypeEnum::PIX_ACCOUNT->value,
             'pix_key' => data_get($params, 'bank_account_pix_key'),
             'pix_key_type' => data_get($params, 'bank_account_pix_key_type'),
-            'created_by' => data_get($params, 'created_by')
+            'created_by' => data_get($params, 'created_by'),
         ]);
     }
 

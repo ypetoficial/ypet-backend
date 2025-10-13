@@ -11,20 +11,24 @@ use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\RequiredIf;
 
-class StoreCollaboratorRequest extends FormRequest
+class UpdateCollaboratorRequest extends FormRequest
 {
     public function rules(): array
     {
+        $collaboratorId = $this->route('collaborator');
+
         return [
-            'cnpj' => ['nullable', 'string', 'max:20', 'unique:collaborators,cnpj'],
+            'cnpj' => [
+                'nullable',
+                'string',
+                'max:20',
+                'unique:collaborators,cnpj,'.$collaboratorId,
+            ],
             'work_started_at' => ['required', 'date'],
             'work_ended_at' => ['nullable', 'date', 'after_or_equal:work_started_at'],
             'observations' => ['nullable', 'string'],
 
-            'user_email' => ['required', 'email'],
             'user_name' => ['required', 'string', 'max:255'],
-            'user_password' => ['required', 'string', 'min:8', 'confirmed'],
-            'user_document' => ['nullable', 'string', 'max:20', 'unique:users,document'],
             'user_cellphone' => ['nullable', 'string', 'max:20'],
             'user_status' => ['required', Rule::in(UserStatusEnum::values())],
             'user_role' => ['required', Rule::in(CollaboratorRoleEnum::values())],
@@ -64,8 +68,8 @@ class StoreCollaboratorRequest extends FormRequest
             'bank_account_type.required' => 'O tipo de conta bancária é obrigatório. Tipos válidos: '.implode(', ', $typesAccount).'.',
             'bank_account_pix_key_type.in' => 'O tipo de chave Pix selecionado é inválido. Tipos válidos: '.implode(', ', $typesPix).'.',
             'bank_account_pix_key_type.required' => 'O tipo de chave Pix é obrigatório. Tipos válidos: '.implode(', ', $typesPix).'.',
-            'role.in' => 'O papel selecionado é inválido. Papéis válidos: '.implode(', ', $typesRole).'.',
-            'role.required' => 'O papel é obrigatório. Papéis válidos: '.implode(', ', $typesRole).'.',
+            'user_role.in' => 'O papel selecionado é inválido. Papéis válidos: '.implode(', ', $typesRole).'.',
+            'user_role.required' => 'O papel é obrigatório. Papéis válidos: '.implode(', ', $typesRole).'.',
             'user_status.in' => 'O status do usuário selecionado é inválido. Status válidos: '.implode(', ', $typesUserStatus).'.',
             'user_status.required' => 'O status do usuário é obrigatório. Status válidos: '.implode(', ', $typesUserStatus).'.',
         ];
