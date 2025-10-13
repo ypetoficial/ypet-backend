@@ -7,7 +7,6 @@ use App\Models\Protector;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-
 class ProtectorEntity extends Protector
 {
     protected $table = 'protectors';
