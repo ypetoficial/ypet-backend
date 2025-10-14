@@ -9,9 +9,7 @@ class CreateUserStatusListener
 {
     public function __construct(
         protected readonly UserStatusService $userStatusService
-    )
-    {
-    }
+    ) {}
 
     /**
      * Handle the event.

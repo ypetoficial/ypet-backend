@@ -3,9 +3,6 @@
 namespace App\Listeners\UserCreated;
 
 use App\Events\UserCreated;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Spatie\Permission\Models\Permission;
 
 class CreateVeterinarianPermissionsListener

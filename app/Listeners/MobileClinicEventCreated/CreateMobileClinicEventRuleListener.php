@@ -9,9 +9,7 @@ class CreateMobileClinicEventRuleListener
 {
     public function __construct(
         protected readonly MobileClinicEventRuleService $mobileClinicEventRuleService
-    )
-    {
-    }
+    ) {}
 
     public function handle(MobileClinicEventCreated $event): void
     {
