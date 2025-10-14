@@ -1959,7 +1959,7 @@
                                     },
                                     "password": {
                                         "type": "string",
-                                        "example": "password"
+                                        "example": "superuser123"
                                     }
                                 },
                                 "type": "object"
@@ -5466,6 +5466,1020 @@
                 }
             }
         },
+        "/api/suppliers": {
+            "get": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "summary": "Lista fornecedores",
+                "operationId": "95327c8a4977ed742c99a495d3e1454e",
+                "parameters": [
+                    {
+                        "name": "representative",
+                        "in": "query",
+                        "description": "Filtrar por representante",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "John Doe"
+                        }
+                    },
+                    {
+                        "name": "document",
+                        "in": "query",
+                        "description": "Filtrar por documento (CNPJ)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "12345678000199"
+                        }
+                    },
+                    {
+                        "name": "legal_name",
+                        "in": "query",
+                        "description": "Filtrar por razão social",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "Acme Corporation Ltda"
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    },
+                    {
+                        "name": "with[]",
+                        "in": "query",
+                        "description": "Relações. Ex: contacts, addresses",
+                        "required": false,
+                        "style": "form",
+                        "explode": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "example": "contacts"
+                            }
+                        },
+                        "example": [
+                            "contacts",
+                            "addresses"
+                        ]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de fornecedores",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "uuid": {
+                                                                "type": "string",
+                                                                "example": "d3d8dfca-16e2-455b-948b-24e88bb36a14"
+                                                            },
+                                                            "status": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "legal_name": {
+                                                                "type": "string",
+                                                                "example": "Acme Corporation Ltda"
+                                                            },
+                                                            "business_name": {
+                                                                "type": "string",
+                                                                "example": "Acme Pet Supplies"
+                                                            },
+                                                            "document": {
+                                                                "type": "string",
+                                                                "example": "12345678000199"
+                                                            },
+                                                            "municipal_registration": {
+                                                                "type": "string",
+                                                                "example": "123456"
+                                                            },
+                                                            "state_registration": {
+                                                                "type": "string",
+                                                                "example": "654321"
+                                                            },
+                                                            "representative": {
+                                                                "type": "string",
+                                                                "example": "John Doe"
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2025-10-13T22:22:15.000000Z"
+                                                            },
+                                                            "updated_at": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2025-10-13T22:22:15.000000Z"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "first_page_url": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8000/api/suppliers?document=12345678000199&page=1"
+                                                },
+                                                "from": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page_url": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8000/api/suppliers?document=12345678000199&page=1"
+                                                },
+                                                "links": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "url": {
+                                                                "type": "string",
+                                                                "example": null
+                                                            },
+                                                            "label": {
+                                                                "type": "string",
+                                                                "example": "pagination.previous"
+                                                            },
+                                                            "active": {
+                                                                "type": "boolean",
+                                                                "example": false
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "next_page_url": {
+                                                    "type": "string",
+                                                    "example": null
+                                                },
+                                                "path": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8000/api/suppliers"
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 20
+                                                },
+                                                "prev_page_url": {
+                                                    "type": "string",
+                                                    "example": null
+                                                },
+                                                "to": {
+                                                    "type": "integer",
+                                                    "example": 6
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 6
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "summary": "Register a new supplier",
+                "operationId": "8a23c954eddcf8d769fd296e3d7d1811",
+                "parameters": [
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Client type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "supplier",
+                                    "contact",
+                                    "address"
+                                ],
+                                "properties": {
+                                    "supplier": {
+                                        "required": [
+                                            "legal_name",
+                                            "business_name",
+                                            "document",
+                                            "representative"
+                                        ],
+                                        "properties": {
+                                            "legal_name": {
+                                                "type": "string",
+                                                "example": "Acme Corporation Ltda"
+                                            },
+                                            "business_name": {
+                                                "type": "string",
+                                                "example": "Acme Pet Supplies"
+                                            },
+                                            "document": {
+                                                "type": "string",
+                                                "example": "12345678000199"
+                                            },
+                                            "municipal_registration": {
+                                                "type": "string",
+                                                "example": "123456"
+                                            },
+                                            "state_registration": {
+                                                "type": "string",
+                                                "example": "654321"
+                                            },
+                                            "representative": {
+                                                "type": "string",
+                                                "example": "John Doe"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "contact": {
+                                        "required": [
+                                            "email",
+                                            "telephone",
+                                            "cellphone"
+                                        ],
+                                        "properties": {
+                                            "email": {
+                                                "type": "string",
+                                                "example": "contact@acmepet.com"
+                                            },
+                                            "telephone": {
+                                                "type": "string",
+                                                "example": "1123456789"
+                                            },
+                                            "cellphone": {
+                                                "type": "string",
+                                                "example": "11987654321"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "address": {
+                                        "required": [
+                                            "zip_code",
+                                            "street",
+                                            "number",
+                                            "district",
+                                            "city",
+                                            "state"
+                                        ],
+                                        "properties": {
+                                            "zip_code": {
+                                                "type": "string",
+                                                "example": "01234567"
+                                            },
+                                            "street": {
+                                                "type": "string",
+                                                "example": "Main Street"
+                                            },
+                                            "number": {
+                                                "type": "string",
+                                                "example": "123"
+                                            },
+                                            "complement": {
+                                                "type": "string",
+                                                "example": "Suite 101"
+                                            },
+                                            "district": {
+                                                "type": "string",
+                                                "example": "Downtown"
+                                            },
+                                            "city": {
+                                                "type": "string",
+                                                "example": "São Paulo"
+                                            },
+                                            "state": {
+                                                "type": "string",
+                                                "example": "SP"
+                                            },
+                                            "country": {
+                                                "type": "string",
+                                                "example": "Brazil"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Supplier registered successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "uuid": {
+                                                    "type": "string",
+                                                    "example": "2f2540fe-e48b-4326-8610-49c34f1455ad"
+                                                },
+                                                "supplier": {
+                                                    "properties": {
+                                                        "legal_name": {
+                                                            "type": "string",
+                                                            "example": "Acme Corporation Ltda"
+                                                        },
+                                                        "business_name": {
+                                                            "type": "string",
+                                                            "example": "Acme Pet Supplies"
+                                                        },
+                                                        "document": {
+                                                            "type": "string",
+                                                            "example": "12345678000199"
+                                                        },
+                                                        "municipal_registration": {
+                                                            "type": "string",
+                                                            "example": "123456"
+                                                        },
+                                                        "state_registration": {
+                                                            "type": "string",
+                                                            "example": "654321"
+                                                        },
+                                                        "representative": {
+                                                            "type": "string",
+                                                            "example": "John Doe"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "contact": {
+                                                    "properties": {
+                                                        "email": {
+                                                            "type": "string",
+                                                            "example": "contact@acmepet.com"
+                                                        },
+                                                        "telephone": {
+                                                            "type": "string",
+                                                            "example": "1123456789"
+                                                        },
+                                                        "cellphone": {
+                                                            "type": "string",
+                                                            "example": "11987654321"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "address": {
+                                                    "properties": {
+                                                        "zip_code": {
+                                                            "type": "string",
+                                                            "example": "01234567"
+                                                        },
+                                                        "street": {
+                                                            "type": "string",
+                                                            "example": "Main Street"
+                                                        },
+                                                        "number": {
+                                                            "type": "string",
+                                                            "example": "123"
+                                                        },
+                                                        "complement": {
+                                                            "type": "string",
+                                                            "example": "Suite 101"
+                                                        },
+                                                        "district": {
+                                                            "type": "string",
+                                                            "example": "Downtown"
+                                                        },
+                                                        "city": {
+                                                            "type": "string",
+                                                            "example": "São Paulo"
+                                                        },
+                                                        "state": {
+                                                            "type": "string",
+                                                            "example": "SP"
+                                                        },
+                                                        "country": {
+                                                            "type": "string",
+                                                            "example": "Brazil"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-09-03T02:46:00.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/suppliers/{uuid}": {
+            "get": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "summary": "Exibe os detalhes de um fornecedor",
+                "operationId": "95c36410e8153aadf5c3e36e2b8a2786",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "UUID do fornecedor",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "550e8400-e29b-41d4-a716-446655440000"
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    },
+                    {
+                        "name": "with[]",
+                        "in": "query",
+                        "description": "Relações. Ex: contacts, addresses",
+                        "required": false,
+                        "style": "form",
+                        "explode": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "example": "contacts"
+                            }
+                        },
+                        "example": [
+                            "contacts",
+                            "addresses"
+                        ]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Fornecedor encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "uuid": {
+                                                    "type": "string",
+                                                    "example": "d21d02ec-177a-45a3-b197-3d9752a027c5"
+                                                },
+                                                "status": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "legal_name": {
+                                                    "type": "string",
+                                                    "example": "Update Corporation Ltda"
+                                                },
+                                                "business_name": {
+                                                    "type": "string",
+                                                    "example": "Update Acme Pet Supplies"
+                                                },
+                                                "document": {
+                                                    "type": "string",
+                                                    "example": "12345678000198"
+                                                },
+                                                "municipal_registration": {
+                                                    "type": "string",
+                                                    "example": "888"
+                                                },
+                                                "state_registration": {
+                                                    "type": "string",
+                                                    "example": "999"
+                                                },
+                                                "representative": {
+                                                    "type": "string",
+                                                    "example": "John Doe Editado"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-10-13T23:11:58.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-10-14T10:27:30.000000Z"
+                                                },
+                                                "contacts": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 2
+                                                            },
+                                                            "uuid": {
+                                                                "type": "string",
+                                                                "example": "c933e0f4-ef6c-448c-b4a5-1c80adfde80b"
+                                                            },
+                                                            "contactable_type": {
+                                                                "type": "string",
+                                                                "example": "App\\\\Domains\\\\Supplier\\\\Entities\\\\SupplierEntity"
+                                                            },
+                                                            "contactable_id": {
+                                                                "type": "integer",
+                                                                "example": 14
+                                                            },
+                                                            "email": {
+                                                                "type": "string",
+                                                                "example": "contact@acmepet.com"
+                                                            },
+                                                            "telephone": {
+                                                                "type": "string",
+                                                                "example": "1123456789"
+                                                            },
+                                                            "cellphone": {
+                                                                "type": "string",
+                                                                "example": "11987654321"
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2025-10-13T23:11:58.000000Z"
+                                                            },
+                                                            "updated_at": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2025-10-13T23:11:58.000000Z"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "addresses": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 4
+                                                            },
+                                                            "addressable_type": {
+                                                                "type": "string",
+                                                                "example": "App\\\\Domains\\\\Supplier\\\\Entities\\\\SupplierEntity"
+                                                            },
+                                                            "addressable_id": {
+                                                                "type": "integer",
+                                                                "example": 14
+                                                            },
+                                                            "street": {
+                                                                "type": "string",
+                                                                "example": "Main Street"
+                                                            },
+                                                            "number": {
+                                                                "type": "string",
+                                                                "example": "123"
+                                                            },
+                                                            "complement": {
+                                                                "type": "string",
+                                                                "example": "Suite 101"
+                                                            },
+                                                            "district": {
+                                                                "type": "string",
+                                                                "example": "Downtown"
+                                                            },
+                                                            "city": {
+                                                                "type": "string",
+                                                                "example": "São Paulo"
+                                                            },
+                                                            "state": {
+                                                                "type": "string",
+                                                                "example": "SP"
+                                                            },
+                                                            "zip_code": {
+                                                                "type": "string",
+                                                                "example": "01234567"
+                                                            },
+                                                            "country": {
+                                                                "type": "string",
+                                                                "example": "Brazil"
+                                                            },
+                                                            "latitude": {
+                                                                "type": "number",
+                                                                "example": null
+                                                            },
+                                                            "longitude": {
+                                                                "type": "number",
+                                                                "example": null
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2025-10-13T23:11:58.000000Z"
+                                                            },
+                                                            "updated_at": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2025-10-13T23:11:58.000000Z"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Suppliers"
+                ],
+                "summary": "Update a supplier",
+                "operationId": "79db4f716cfba94a1ff07031bd99996f",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "UUID do fornecedor",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "550e8400-e29b-41d4-a716-446655440000"
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Client type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "supplier",
+                                    "contact",
+                                    "address"
+                                ],
+                                "properties": {
+                                    "supplier": {
+                                        "required": [
+                                            "legal_name",
+                                            "business_name",
+                                            "document",
+                                            "representative"
+                                        ],
+                                        "properties": {
+                                            "legal_name": {
+                                                "type": "string",
+                                                "example": "Acme Corporation Ltda"
+                                            },
+                                            "business_name": {
+                                                "type": "string",
+                                                "example": "Acme Pet Supplies"
+                                            },
+                                            "document": {
+                                                "type": "string",
+                                                "example": "12345678000199"
+                                            },
+                                            "municipal_registration": {
+                                                "type": "string",
+                                                "example": "123456"
+                                            },
+                                            "state_registration": {
+                                                "type": "string",
+                                                "example": "654321"
+                                            },
+                                            "representative": {
+                                                "type": "string",
+                                                "example": "John Doe"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "contact": {
+                                        "required": [
+                                            "email",
+                                            "telephone",
+                                            "cellphone"
+                                        ],
+                                        "properties": {
+                                            "email": {
+                                                "type": "string",
+                                                "example": "contact@acmepet.com"
+                                            },
+                                            "telephone": {
+                                                "type": "string",
+                                                "example": "1123456789"
+                                            },
+                                            "cellphone": {
+                                                "type": "string",
+                                                "example": "11987654321"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "address": {
+                                        "required": [
+                                            "zip_code",
+                                            "street",
+                                            "number",
+                                            "district",
+                                            "city",
+                                            "state"
+                                        ],
+                                        "properties": {
+                                            "zip_code": {
+                                                "type": "string",
+                                                "example": "01234567"
+                                            },
+                                            "street": {
+                                                "type": "string",
+                                                "example": "Main Street"
+                                            },
+                                            "number": {
+                                                "type": "string",
+                                                "example": "123"
+                                            },
+                                            "complement": {
+                                                "type": "string",
+                                                "example": "Suite 101"
+                                            },
+                                            "district": {
+                                                "type": "string",
+                                                "example": "Downtown"
+                                            },
+                                            "city": {
+                                                "type": "string",
+                                                "example": "São Paulo"
+                                            },
+                                            "state": {
+                                                "type": "string",
+                                                "example": "SP"
+                                            },
+                                            "country": {
+                                                "type": "string",
+                                                "example": "Brazil"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Supplier registered successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "uuid": {
+                                                    "type": "string",
+                                                    "example": "2f2540fe-e48b-4326-8610-49c34f1455ad"
+                                                },
+                                                "supplier": {
+                                                    "properties": {
+                                                        "legal_name": {
+                                                            "type": "string",
+                                                            "example": "Acme Corporation Ltda"
+                                                        },
+                                                        "business_name": {
+                                                            "type": "string",
+                                                            "example": "Acme Pet Supplies"
+                                                        },
+                                                        "document": {
+                                                            "type": "string",
+                                                            "example": "12345678000199"
+                                                        },
+                                                        "municipal_registration": {
+                                                            "type": "string",
+                                                            "example": "123456"
+                                                        },
+                                                        "state_registration": {
+                                                            "type": "string",
+                                                            "example": "654321"
+                                                        },
+                                                        "representative": {
+                                                            "type": "string",
+                                                            "example": "John Doe"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "contact": {
+                                                    "properties": {
+                                                        "email": {
+                                                            "type": "string",
+                                                            "example": "contact@acmepet.com"
+                                                        },
+                                                        "telephone": {
+                                                            "type": "string",
+                                                            "example": "1123456789"
+                                                        },
+                                                        "cellphone": {
+                                                            "type": "string",
+                                                            "example": "11987654321"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "address": {
+                                                    "properties": {
+                                                        "zip_code": {
+                                                            "type": "string",
+                                                            "example": "01234567"
+                                                        },
+                                                        "street": {
+                                                            "type": "string",
+                                                            "example": "Main Street"
+                                                        },
+                                                        "number": {
+                                                            "type": "string",
+                                                            "example": "123"
+                                                        },
+                                                        "complement": {
+                                                            "type": "string",
+                                                            "example": "Suite 101"
+                                                        },
+                                                        "district": {
+                                                            "type": "string",
+                                                            "example": "Downtown"
+                                                        },
+                                                        "city": {
+                                                            "type": "string",
+                                                            "example": "São Paulo"
+                                                        },
+                                                        "state": {
+                                                            "type": "string",
+                                                            "example": "SP"
+                                                        },
+                                                        "country": {
+                                                            "type": "string",
+                                                            "example": "Brazil"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-09-03T02:46:00.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/users": {
             "get": {
                 "tags": [
@@ -6020,6 +7034,10 @@
         {
             "name": "Registrations",
             "description": "Registrations"
+        },
+        {
+            "name": "Suppliers",
+            "description": "Suppliers"
         }
     ]
 }

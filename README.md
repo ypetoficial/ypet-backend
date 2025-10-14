@@ -94,6 +94,10 @@ Use as credenciais padrão para acessar o painel administrativo:
 - **Email:** ``super.user@ypet.com``
 - **Senha:** ``superuser123``
 
+## Formatando código
+```bash
+composer run pint:fix
+```
 ---
 
 ## 📖 Documentação da API (Swagger)

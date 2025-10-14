@@ -96,7 +96,7 @@ abstract class AbstractRepository implements RepositoryInterface
             return $this->getModel()->with($with)->find($id);
         }
 
-        return $this->findOneWhere(['uuid' => $id]);
+        return $this->findOneWhere(['uuid' => $id], $with);
     }
 
     /**
@@ -156,9 +156,9 @@ abstract class AbstractRepository implements RepositoryInterface
      *
      * @return mixed
      */
-    public function findOneWhere(array $where)
+    public function findOneWhere(array $where, $with = [])
     {
-        $object = $this->where($where);
+        $object = $this->where($where, $with);
 
         return $object->first();
     }
