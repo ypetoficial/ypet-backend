@@ -4,25 +4,13 @@ namespace App\Listeners\UserCreated;
 
 use App\Domains\User\Services\UserStatusService;
 use App\Events\UserCreated;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
-class CreateUserStatusListener implements ShouldQueue
+class CreateUserStatusListener
 {
-    use InteractsWithQueue, Queueable;
-
-    public function tags(): array
-    {
-        return [
-            'CreateUserStatusListener',
-        ];
-    }
-
     public function __construct(
         protected readonly UserStatusService $userStatusService
-    ) {
-        $this->onQueue('user-created');
+    )
+    {
     }
 
     /**

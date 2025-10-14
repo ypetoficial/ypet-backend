@@ -4,18 +4,13 @@ namespace App\Listeners\MobileClinicEventCreated;
 
 use App\Domains\MobileClinicEvent\Services\MobileClinicEventRuleService;
 use App\Events\MobileClinicEventCreated;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
-class CreateMobileClinicEventRuleListener implements ShouldQueue
+class CreateMobileClinicEventRuleListener
 {
-    use InteractsWithQueue, Queueable;
-
     public function __construct(
         protected readonly MobileClinicEventRuleService $mobileClinicEventRuleService
-    ) {
-        $this->onQueue('mobile-clinic-event-created');
+    )
+    {
     }
 
     public function handle(MobileClinicEventCreated $event): void

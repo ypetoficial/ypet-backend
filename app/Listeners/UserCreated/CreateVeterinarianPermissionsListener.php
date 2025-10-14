@@ -8,20 +8,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Spatie\Permission\Models\Permission;
 
-class CreateVeterinarianPermissionsListener implements ShouldQueue
+class CreateVeterinarianPermissionsListener
 {
-    use InteractsWithQueue, Queueable;
-
-    public function tags(): array
-    {
-        return ['CreateVeterinarianPermissionsListener'];
-    }
-
-    public function __construct()
-    {
-        $this->onQueue('user-created');
-    }
-
     public function handle(UserCreated $event): void
     {
         $entity = $event->userEntity;
