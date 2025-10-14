@@ -7,19 +7,14 @@ use App\Domains\BankAccount\Services\BankAccountService;
 use App\Domains\Collaborator\Entities\CollaboratorEntity;
 use App\Domains\Enums\BankAccountTypeEnum;
 use App\Events\Collaborator\CollaboratorUpdatedEvent;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use mysql_xdevapi\Exception;
 
-class ChangeCollaboratorBankAccountListener implements ShouldQueue
+class ChangeCollaboratorBankAccountListener
 {
-    use InteractsWithQueue, Queueable;
 
     public function __construct(
         protected readonly BankAccountService $bankAccountService
     ) {
-        $this->onQueue('collaborator-updated');
     }
 
     public function handle(CollaboratorUpdatedEvent $event): void

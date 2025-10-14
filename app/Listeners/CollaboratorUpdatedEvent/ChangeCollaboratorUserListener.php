@@ -7,20 +7,14 @@ use App\Domains\User\Entities\UserEntity;
 use App\Domains\User\Services\UserService;
 use App\Domains\User\Services\UserStatusService;
 use App\Events\Collaborator\CollaboratorUpdatedEvent;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
-class ChangeCollaboratorUserListener implements ShouldQueue
+class ChangeCollaboratorUserListener
 {
-    use InteractsWithQueue, Queueable;
 
     public function __construct(
         protected readonly UserService $userService,
         protected readonly UserStatusService $userStatusService
-    ) {
-        $this->onQueue('collaborator-updated');
-    }
+    ) {}
 
     public function handle(CollaboratorUpdatedEvent $event): void
     {

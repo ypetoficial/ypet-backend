@@ -32,7 +32,7 @@ class AssignRoleListener
         $entity->assignRole($roles);
         logger()->info('Role assigned to user', [
             'user_id' => $entity->id,
-            'role' => $this->role->name,
+            'roles' => $roles,
         ]);
     }
 }

@@ -43,7 +43,7 @@ class CollaboratorService extends AbstractService
         $user = $userService->findByEmail(data_get($data, 'user_email'));
 
         if (! $user) {
-            $user_document = data_get($data, 'user_document', '');
+            $user_document = data_get($data, 'user_document');
             $userData = [
                 'name' => data_get($data, 'user_name'),
                 'email' => data_get($data, 'user_email'),

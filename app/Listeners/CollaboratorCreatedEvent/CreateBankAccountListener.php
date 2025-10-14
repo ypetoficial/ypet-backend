@@ -7,20 +7,13 @@ use App\Domains\BankAccount\Services\BankAccountService;
 use App\Domains\Collaborator\Entities\CollaboratorEntity;
 use App\Domains\Enums\BankAccountTypeEnum;
 use App\Events\Collaborator\CollaboratorCreatedEvent;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-use mysql_xdevapi\Exception;
 
-class CreateBankAccountListener implements ShouldQueue
+class CreateBankAccountListener
 {
-    use InteractsWithQueue, Queueable;
-
     public function __construct(
         protected readonly BankAccountService $bankAccountService
-    ) {
-        $this->onQueue('collaborator-created');
-    }
+    ) 
+    {}
 
     public function handle(CollaboratorCreatedEvent $event): void
     {
@@ -35,7 +28,10 @@ class CreateBankAccountListener implements ShouldQueue
         match (data_get($params, 'bank_account_type')) {
             BankAccountTypeEnum::CURRENT_ACCOUNT->value => $this->createBankAccountCurrentAccount($entity, $params),
             BankAccountTypeEnum::PIX_ACCOUNT->value => $this->createBankAccountPixAccount($entity, $params),
-            default => $this->fail(new Exception('Tipo de conta bancária inválido')),
+            default => logger()->warning('No bank account created: invalid or no bank_account_type provided', [
+                'entity_id' => $entity->id,
+                'bank_account_type' => data_get($params, 'bank_account_type'),
+            ])
         };
     }
 

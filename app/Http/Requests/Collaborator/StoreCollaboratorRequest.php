@@ -29,7 +29,7 @@ class StoreCollaboratorRequest extends FormRequest
             'user_status' => ['required', Rule::in(UserStatusEnum::values())],
             'user_role' => ['required', Rule::in(CollaboratorRoleEnum::values())],
 
-            'bank_account_type' => ['required', Rule::in(BankAccountTypeEnum::values())],
+            'bank_account_type' => ['nullable', Rule::in(BankAccountTypeEnum::values())],
             'bank_account_bank_code' => [$this->requiredIfCurrentAccountRule(), 'nullable', 'string', 'max:10'],
             'bank_account_bank_name' => [$this->requiredIfCurrentAccountRule(), 'nullable', 'string', 'max:255'],
             'bank_account_agency' => [$this->requiredIfCurrentAccountRule(), 'nullable', 'string', 'max:20'],
@@ -64,8 +64,8 @@ class StoreCollaboratorRequest extends FormRequest
             'bank_account_type.required' => 'O tipo de conta bancária é obrigatório. Tipos válidos: '.implode(', ', $typesAccount).'.',
             'bank_account_pix_key_type.in' => 'O tipo de chave Pix selecionado é inválido. Tipos válidos: '.implode(', ', $typesPix).'.',
             'bank_account_pix_key_type.required' => 'O tipo de chave Pix é obrigatório. Tipos válidos: '.implode(', ', $typesPix).'.',
-            'role.in' => 'O papel selecionado é inválido. Papéis válidos: '.implode(', ', $typesRole).'.',
-            'role.required' => 'O papel é obrigatório. Papéis válidos: '.implode(', ', $typesRole).'.',
+            'user_role.in' => 'O papel selecionado é inválido. Papéis válidos: '.implode(', ', $typesRole).'.',
+            'user_role.required' => 'O papel é obrigatório. Papéis válidos: '.implode(', ', $typesRole).'.',
             'user_status.in' => 'O status do usuário selecionado é inválido. Status válidos: '.implode(', ', $typesUserStatus).'.',
             'user_status.required' => 'O status do usuário é obrigatório. Status válidos: '.implode(', ', $typesUserStatus).'.',
         ];
