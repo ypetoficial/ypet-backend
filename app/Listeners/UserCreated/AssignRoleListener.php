@@ -3,35 +3,14 @@
 namespace App\Listeners\UserCreated;
 
 use App\Events\UserCreated;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Spatie\Permission\Models\Role;
 
-class AssignRoleListener implements ShouldQueue
+class AssignRoleListener
 {
-    use InteractsWithQueue, Queueable;
-
     /**
      * The role to be assigned.
      */
     protected Role $role;
-
-    /**
-     * The tags for the listener.
-     */
-    public function tags(): array
-    {
-        return ['AssignRoleListener'];
-    }
-
-    /**
-     * Create the event listener.
-     */
-    public function __construct()
-    {
-        $this->onQueue('user-created');
-    }
 
     /**
      * Handle the event.
