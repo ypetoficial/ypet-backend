@@ -18,6 +18,7 @@ use App\Http\Controllers\MobileClinicEvent\MobileClinicEventController;
 use App\Http\Controllers\PreSurgeryAssessment\PreSurgeryAssessmentController;
 use App\Http\Controllers\Protector\ProtectorController;
 use App\Http\Controllers\Registration\RegistrationController;
+use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Veterinarian\VeterinarianController;
@@ -50,6 +51,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('lost-animals', LostAnimalController::class);
     Route::apiResource('mobile-clinic-events', MobileClinicEventController::class);
     Route::apiResource('registrations', RegistrationController::class);
+    Route::apiResource('suppliers', SupplierController::class);
     Route::get('registrations/{id}/term', [RegistrationController::class, 'term']);
     Route::get('enums/{enum}', [EnumController::class, 'show']);
     Route::get('citizen', [CitizenController::class, 'index']);
