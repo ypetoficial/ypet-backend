@@ -9,7 +9,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\BankAccount\BankAccountController;
 use App\Http\Controllers\Citizen\CitizenController;
+use App\Http\Controllers\Collaborator\CollaboratorController;
 use App\Http\Controllers\EnumController;
 use App\Http\Controllers\LostAnimal\LostAnimalController;
 use App\Http\Controllers\MobileClinicEvent\MobileClinicEventController;
@@ -70,7 +72,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/{uuid}/cancel', [AdoptionVisitController::class, 'cancel']);
     });
 
-    Route::apiResource('pre-surgery-assessment', PreSurgeryAssessmentController::class)->only('store');
+    Route::apiResource('pre-surgery-assessment', PreSurgeryAssessmentController::class)
+        ->only('store');
+    Route::apiResource('collaborators', CollaboratorController::class)
+        ->only('index', 'show', 'store', 'update');
+    Route::apiResource('bank-accounts', BankAccountController::class)
+        ->only('index', 'show', 'update');
 });
 
 Route::post('adoption-visits', [AdoptionVisitController::class, 'store']);

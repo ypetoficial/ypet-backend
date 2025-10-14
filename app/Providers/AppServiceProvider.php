@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Domains\Collaborator\Entities\CollaboratorEntity;
 use App\Models\User;
 use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -35,5 +37,9 @@ class AppServiceProvider extends ServiceProvider
 
             return "{$frontendUrl}/reset-password?token={$token}&email={$emailUrlEncode}";
         });
+
+        Relation::morphMap([
+            'collaborator' => CollaboratorEntity::class,
+        ]);
     }
 }

@@ -11,4 +11,9 @@ class UserStatusService extends AbstractService
     {
         $this->repository = $repository;
     }
+
+    public function findOneLast(array $where = [])
+    {
+        return $this->repository->where($where)->orderBy('created_at', 'desc')->first();
+    }
 }
