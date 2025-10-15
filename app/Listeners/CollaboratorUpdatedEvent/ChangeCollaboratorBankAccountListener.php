@@ -11,11 +11,9 @@ use mysql_xdevapi\Exception;
 
 class ChangeCollaboratorBankAccountListener
 {
-
     public function __construct(
         protected readonly BankAccountService $bankAccountService
-    ) {
-    }
+    ) {}
 
     public function handle(CollaboratorUpdatedEvent $event): void
     {
