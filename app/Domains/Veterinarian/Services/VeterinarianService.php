@@ -19,6 +19,7 @@ class VeterinarianService extends AbstractService
     public function beforeSave(array $data): array
     {
         $data['is_veterinarian'] = true;
+        $data['cellphone'] = data_get($data, 'phone');
 
         $permissions = $data['permissions'] ?? [];
         $data['permissions'] = $permissions;

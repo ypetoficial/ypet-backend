@@ -8,6 +8,7 @@ use App\Domains\Enums\RegistrationStatusEnum;
 use App\Domains\MobileClinicEvent\Entities\MobileClinicEventEntity;
 use App\Domains\User\Entities\UserEntity;
 use App\Models\Registration;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RegistrationEntity extends Registration
 {
@@ -25,17 +26,17 @@ class RegistrationEntity extends Registration
         'status' => EnumCast::class.':'.RegistrationStatusEnum::class,
     ];
 
-    public function mobileClinicEvent()
+    public function mobileClinicEvent(): BelongsTo
     {
         return $this->belongsTo(MobileClinicEventEntity::class);
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(UserEntity::class);
     }
 
-    public function animal()
+    public function animal(): BelongsTo
     {
         return $this->belongsTo(AnimalEntity::class);
     }

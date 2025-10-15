@@ -31,6 +31,7 @@ namespace App\Docs\Protector;
  *             @OA\Property(property="gender", type="string", example="male"),
  *             @OA\Property(property="special_permissions", type="integer", example=1),
  *             @OA\Property(property="status", type="integer", example=1),
+ *             @OA\Property(property="photo", type="string", example="photo.jpg"),
  *             @OA\Property(
  *                 property="address",
  *                 type="object",

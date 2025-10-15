@@ -19,6 +19,8 @@ namespace App\Docs;
  *     @OA\Tag(name="AdoptionVisit", description="Gerenciamento de cidadãos"),
  *     @OA\Tag(name="Protectors", description="Gerenciamento de protetores"),
  *     @OA\Tag(name="Vaccines", description="Gerenciamento de vacinas"),
+ *     @OA\Tag(name="PanelConfig", description="Configuração do Painel"),
+ *     @OA\Tag(name="PreSurgeryAssessment", description="Triagem do animal para castração"),
  *
  *      @OA\Server(
  *      url="{scheme}://{host}:{port}",

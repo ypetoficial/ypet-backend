@@ -44,12 +44,12 @@ class UpdateAnimalRequest extends FormRequest
             'microchip_number' => [
                 'sometimes',
                 'numeric',
-                Rule::unique('animal_entry_datas', 'microchip_number')->ignore($this->animal),
+                Rule::unique('animal_entry_datas', 'microchip_number')->ignore($this->animal, 'animal_id'),
             ],
             'registration_number' => [
                 'nullable',
                 'numeric',
-                Rule::unique('animal_entry_datas', 'registration_number')->ignore($this->animal),
+                Rule::unique('animal_entry_datas', 'registration_number')->ignore($this->animal, 'animal_id'),
             ],
             'castrated' => ['sometimes', 'boolean'],
             'dewormed' => ['sometimes', 'boolean'],

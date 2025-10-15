@@ -12,7 +12,6 @@ enum UserStatusEnum: string implements EnumInterface
     case ACTIVE = 'active';
     case INACTIVE = 'inactive';
     case SUSPENDED = 'suspended';
-    case DELETED = 'deleted';
 
     public static function translations(string $locale = 'en'): array
     {
@@ -21,19 +20,16 @@ enum UserStatusEnum: string implements EnumInterface
                 'ACTIVE' => 'Active',
                 'INACTIVE' => 'Inactive',
                 'SUSPENDED' => 'Suspended',
-                'DELETED' => 'Deleted',
             ],
             'es' => [
                 'ACTIVE' => 'Activo',
                 'INACTIVE' => 'Inactivo',
                 'SUSPENDED' => 'Suspendido',
-                'DELETED' => 'Eliminado',
             ],
             'pt_BR' => [
                 'ACTIVE' => 'Ativo',
                 'INACTIVE' => 'Inativo',
                 'SUSPENDED' => 'Suspenso',
-                'DELETED' => 'Deletado',
             ],
         ];
 

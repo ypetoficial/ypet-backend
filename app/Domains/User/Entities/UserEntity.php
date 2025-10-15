@@ -2,21 +2,28 @@
 
 namespace App\Domains\User\Entities;
 
+use App\Domains\Address\Entities\AddressEntity;
 use App\Domains\Citizen\Entities\CitizenEntity;
+use App\Domains\Protector\Entities\ProtectorEntity;
 use App\Models\AdoptionVisit;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class UserEntity extends User
 {
     public $table = 'users';
 
     protected $fillable = [
+        'id',
         'name',
         'email',
+        'onboarding_done',
+        'fcm_token',
         'telephone',
         'cellphone',
+        'photo_url',
         'password',
         'document',
     ];
@@ -36,8 +43,23 @@ class UserEntity extends User
     //     return $this->hasMany(AdoptionVisit::class, 'user_id');
     // }
 
-    public function citizen(): HasOne
+    public function citizen(): ?HasOne
     {
         return $this->hasOne(CitizenEntity::class, 'user_id', 'id');
+    }
+
+    public function protector(): HasOne
+    {
+        return $this->hasOne(ProtectorEntity::class, 'user_id', 'id');
+    }
+
+    public function addresses(): MorphMany
+    {
+        return $this->morphMany(AddressEntity::class, 'addressable');
+    }
+
+    public function getMorphClass()
+    {
+        return User::class;
     }
 }

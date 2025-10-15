@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Citizen;
 
+use App\Domains\Enums\UserStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreCitizenRequest extends FormRequest
 {
@@ -25,25 +27,27 @@ class StoreCitizenRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'document' => ['required', 'string', 'max:11', 'min:11'],
             'email' => ['required', 'email', 'max:255'],
-            'password' => 'required|string|min:8|confirmed',
+            'photo' => ['nullable', 'image', 'max:2048'],
+            'password' => 'nullable|string|min:8|confirmed',
             'telephone' => ['required', 'string', 'max:20'],
             'birth_date' => ['required', 'date'],
             'gender' => ['required', 'string', 'max:20'],
             'special_permissions' => ['required', 'boolean'],
             'can_report_abuse' => ['required', 'boolean'],
             'can_mobile_castration' => ['required', 'boolean'],
-            'status' => ['required', 'integer'],
-            'address' => ['required', 'array'],
-            'address.zip_code' => ['required', 'string', 'max:10'],
-            'address.street' => ['required', 'string', 'max:255'],
-            'address.number' => ['required', 'string', 'max:20'],
-            'address.complement' => ['nullable', 'string', 'max:255'],
-            'address.district' => ['required', 'string', 'max:255'],
-            'address.city' => ['required', 'string', 'max:255'],
-            'address.state' => ['required', 'string', 'max:255'],
-            'address.country' => ['required', 'string', 'max:255'],
-            'address.latitude' => ['nullable', 'numeric'],
-            'address.longitude' => ['nullable', 'numeric'],
+            'status' => ['required', Rule::in(UserStatusEnum::values())],
+            'fcm_token' => ['nullable', 'string', 'max:255'],
+            'address' => ['array'],
+            'address.*.zip_code' => ['required', 'string', 'max:10'],
+            'address.*.street' => ['required', 'string', 'max:255'],
+            'address.*.number' => ['required', 'string', 'max:20'],
+            'address.*.complement' => ['nullable', 'string', 'max:255'],
+            'address.*.district' => ['required', 'string', 'max:255'],
+            'address.*.city' => ['nullable', 'string', 'max:255'],
+            'address.*.state' => ['required', 'string', 'max:255'],
+            'address.*.country' => ['nullable', 'string', 'max:255'],
+            'address.*.latitude' => ['nullable', 'numeric'],
+            'address.*.longitude' => ['nullable', 'numeric'],
         ];
     }
 }

@@ -4,6 +4,11 @@ namespace App\Domains\Abstracts;
 
 trait EnumTrait
 {
+    public static function getLocale(): string
+    {
+        return app()->getLocale();
+    }
+
     public static function names(): array
     {
         return array_column(self::cases(), 'name');
@@ -21,8 +26,10 @@ trait EnumTrait
         return array_values($array)[0] ?? [];
     }
 
-    public static function labels($locale = 'en'): array
+    public static function labels($locale = ''): array
     {
+        $locale = ! empty($locale) ?: self::getLocale();
+
         return array_map(function ($case) use ($locale) {
             return [
                 'value' => $case->value,
@@ -34,21 +41,21 @@ trait EnumTrait
         }, self::cases());
     }
 
-    public static function labelByValue(string|int $value, $locale = 'en'): array
+    public static function labelByValue(string|int $value, $locale = ''): array
     {
         $array = array_filter(self::labels($locale), fn ($case) => $case['value'] == $value);
 
         return array_values($array)[0] ?? [];
     }
 
-    public static function labelByName(string $name, $locale = 'en'): array
+    public static function labelByName(string $name, $locale = ''): array
     {
         $array = array_filter(self::labels($locale), fn ($case) => $case['name'] === $name);
 
         return array_values($array)[0] ?? [];
     }
 
-    private static function getTranslatedLabel(string $name, $locale = 'en'): string
+    private static function getTranslatedLabel(string $name, $locale = ''): string
     {
         return data_get(self::translations($locale), $name, $name);
     }
@@ -68,8 +75,10 @@ trait EnumTrait
         return [];
     }
 
-    private static function getDescription(string $name, $locale = 'en'): string
+    private static function getDescription(string $name, $locale = ''): string
     {
+        $locale = ! empty($locale) ?: self::getLocale();
+
         return data_get(self::descriptions($locale), $name, '');
     }
 }

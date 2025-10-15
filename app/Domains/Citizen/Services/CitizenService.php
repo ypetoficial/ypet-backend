@@ -30,6 +30,7 @@ class CitizenService extends AbstractService
 
     public function beforeUpdate($id, array $data): array
     {
+
         $data['updated_by'] = Auth::user()?->id;
         $citizen = $this->find($id);
         $permissions = $data['permissions'] ?? [];
@@ -40,12 +41,20 @@ class CitizenService extends AbstractService
         return $data;
     }
 
+    public function afterUpdate($entity, array $params)
+    {
+        $addresses = data_get($params, 'address', []);
+        foreach ($addresses as $addressData) {
+            $entity->addresses()->update($addressData);
+        }
+    }
+
     public function afterSave($entity, array $params)
     {
-        $addressData = data_get($params, 'address');
-        if (isset($addressData)) {
-            $addressData['type'] = AddressTypeEnum::MAIN;
 
+        $addresses = data_get($params, 'address', []);
+        foreach ($addresses as $addressData) {
+            $addressData['type'] = AddressTypeEnum::MAIN;
             $entity->addresses()->create($addressData);
         }
     }

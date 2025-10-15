@@ -9,12 +9,16 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\BankAccount\BankAccountController;
 use App\Http\Controllers\Citizen\CitizenController;
+use App\Http\Controllers\Collaborator\CollaboratorController;
 use App\Http\Controllers\EnumController;
 use App\Http\Controllers\LostAnimal\LostAnimalController;
 use App\Http\Controllers\MobileClinicEvent\MobileClinicEventController;
+use App\Http\Controllers\PreSurgeryAssessment\PreSurgeryAssessmentController;
 use App\Http\Controllers\Protector\ProtectorController;
 use App\Http\Controllers\Registration\RegistrationController;
+use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Vaccine\VaccineController;
@@ -39,12 +43,17 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/me/password', [UserProfileController::class, 'changePassword']);
     });
 
+    Route::get('panel-config', [UserController::class, 'panelConfig']);
+    Route::put('panel-config', [UserController::class, 'changePasswordPanel']);
+
     Route::apiResource('users', UserController::class);
     Route::apiResource('veterinarians', VeterinarianController::class);
     Route::apiResource('animals', AnimalController::class);
     Route::apiResource('lost-animals', LostAnimalController::class);
     Route::apiResource('mobile-clinic-events', MobileClinicEventController::class);
     Route::apiResource('registrations', RegistrationController::class);
+    Route::apiResource('suppliers', SupplierController::class);
+    Route::get('registrations/{id}/term', [RegistrationController::class, 'term']);
     Route::get('enums/{enum}', [EnumController::class, 'show']);
     Route::get('citizen', [CitizenController::class, 'index']);
     Route::get('citizen/{uuid}', [CitizenController::class, 'show']);
@@ -67,6 +76,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/{uuid}/complete', [AdoptionVisitController::class, 'complete']);
         Route::post('/{uuid}/cancel', [AdoptionVisitController::class, 'cancel']);
     });
+
+    Route::apiResource('pre-surgery-assessment', PreSurgeryAssessmentController::class)
+        ->only('store');
+    Route::apiResource('collaborators', CollaboratorController::class)
+        ->only('index', 'show', 'store', 'update');
+    Route::apiResource('bank-accounts', BankAccountController::class)
+        ->only('index', 'show', 'update');
 });
 
 Route::post('adoption-visits', [AdoptionVisitController::class, 'store']);

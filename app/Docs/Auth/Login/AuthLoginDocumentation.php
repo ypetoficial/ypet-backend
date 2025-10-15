@@ -32,7 +32,7 @@ namespace App\Docs\Auth\Login;
  *             required={"email","password"},
  *
  *             @OA\Property(property="email", type="string", example="super.user@ypet.com"),
- *             @OA\Property(property="password", type="string", example="password")
+ *             @OA\Property(property="password", type="string", example="superuser123")
  *         )
  *     ),
  *

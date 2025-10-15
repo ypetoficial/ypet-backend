@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Protector;
 
+use App\Domains\Enums\UserStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateProtectorRequest extends FormRequest
 {
@@ -24,21 +26,21 @@ class UpdateProtectorRequest extends FormRequest
         return [
             'name' => ['nullable', 'string', 'max:255'],
             'document' => ['nullable', 'string', 'max:11', 'min:11'],
-            'email' => ['nullable', 'email', 'max:255', 'unique:citizens,email'],
+            'email' => ['nullable', 'email', 'max:255'],
             'telephone' => ['nullable', 'string', 'max:20'],
-            'status' => ['nullable', 'boolean'],
+            'status' => ['required', Rule::in(UserStatusEnum::values())],
             'birth_date' => ['nullable', 'date'],
             'gender' => ['nullable', 'string', 'max:20'],
             'special_permissions' => ['nullable', 'integer'],
+            'photo' => ['nullable', 'image', 'max:2048'],
             'address' => ['nullable', 'array'],
-            'address.type' => ['nullable', 'integer'],
-            'address.zipcode' => ['nullable', 'string', 'max:10'],
-            'address.street' => ['nullable', 'string', 'max:255'],
-            'address.number' => ['nullable', 'string', 'max:20'],
-            'address.complement' => ['nullable', 'string', 'max:255'],
-            'address.neighborhood' => ['nullable', 'string', 'max:255'],
-            'address.city' => ['nullable', 'string', 'max:255'],
-            'address.state' => ['nullable', 'string', 'max:2'],
+            'address.*.zipcode' => ['nullable', 'string', 'max:10'],
+            'addresPs.*.street' => ['nullable', 'string', 'max:255'],
+            'address.*.number' => ['nullable', 'string', 'max:20'],
+            'address.*.complement' => ['nullable', 'string', 'max:255'],
+            'address.*.neighborhood' => ['nullable', 'string', 'max:255'],
+            'address.*.city' => ['nullable', 'string', 'max:255'],
+            'address.*.state' => ['nullable', 'string', 'max:2'],
         ];
     }
 }
