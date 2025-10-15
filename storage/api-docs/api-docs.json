@@ -2101,6 +2101,10 @@
                                         "status": {
                                             "type": "string",
                                             "example": "active"
+                                        },
+                                        "photo_url": {
+                                            "type": "string",
+                                            "example": "https://example.com/photo.jpg"
                                         }
                                     },
                                     "type": "object"
@@ -2465,6 +2469,10 @@
                                         "type": "integer",
                                         "example": 1
                                     },
+                                    "photo": {
+                                        "type": "string",
+                                        "example": "photo.jpg"
+                                    },
                                     "address": {
                                         "required": [
                                             "type",
@@ -2775,6 +2783,10 @@
                                     "can_mobile_castration": {
                                         "type": "integer",
                                         "example": 0
+                                    },
+                                    "photo": {
+                                        "type": "string",
+                                        "example": "photo.jpg"
                                     }
                                 },
                                 "type": "object"
@@ -4637,6 +4649,10 @@
                                         "type": "integer",
                                         "example": 1
                                     },
+                                    "photo": {
+                                        "type": "string",
+                                        "example": "photo.jpg"
+                                    },
                                     "address": {
                                         "required": [
                                             "type",
@@ -4963,6 +4979,10 @@
                                     "special_permissions": {
                                         "type": "integer",
                                         "example": 0
+                                    },
+                                    "photo": {
+                                        "type": "string",
+                                        "example": "photo.jpg"
                                     }
                                 },
                                 "type": "object"
@@ -6971,6 +6991,613 @@
                     }
                 }
             }
+        },
+        "/api/vaccine": {
+            "get": {
+                "tags": [
+                    "Vaccines"
+                ],
+                "summary": "Lista todas as vacinas",
+                "operationId": "d842795468be7a6825e511b3e48193d9",
+                "parameters": [
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de vacinas retornada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "uuid": {
+                                                        "type": "string",
+                                                        "example": "a3f4c9b2-1234-5678-9abc-9876543210ff"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Rabies 2"
+                                                    },
+                                                    "type": {
+                                                        "type": "string",
+                                                        "example": "Viral"
+                                                    },
+                                                    "purpose": {
+                                                        "type": "string",
+                                                        "example": "Prevenção da raiva"
+                                                    },
+                                                    "target_specie": {
+                                                        "type": "string",
+                                                        "example": "Dog"
+                                                    },
+                                                    "dose_count": {
+                                                        "type": "integer",
+                                                        "example": 3
+                                                    },
+                                                    "dose_interval": {
+                                                        "type": "integer",
+                                                        "example": 21
+                                                    },
+                                                    "manu_facturer": {
+                                                        "type": "string",
+                                                        "example": "XYZ Pharma"
+                                                    },
+                                                    "expiration_date": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2026-12-31"
+                                                    },
+                                                    "batch": {
+                                                        "type": "string",
+                                                        "example": "RB-2025-002"
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "active"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Vaccines"
+                ],
+                "summary": "Cadastra uma nova vacina",
+                "operationId": "a88ab92722a46aa695489e7152de99c6",
+                "parameters": [
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "type",
+                                    "dose_count",
+                                    "dose_interval",
+                                    "expiration_date",
+                                    "batch"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Rabies"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "example": "Viral"
+                                    },
+                                    "purpose": {
+                                        "type": "string",
+                                        "example": "Prevenção da raiva"
+                                    },
+                                    "target_specie": {
+                                        "type": "string",
+                                        "example": "Dog"
+                                    },
+                                    "dose_count": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "dose_interval": {
+                                        "type": "integer",
+                                        "example": 30
+                                    },
+                                    "manu_facturer": {
+                                        "type": "string",
+                                        "example": "Pfizer"
+                                    },
+                                    "expiration_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-12-31"
+                                    },
+                                    "batch": {
+                                        "type": "string",
+                                        "example": "VX123456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Vacina cadastrada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "uuid": {
+                                                    "type": "string",
+                                                    "example": "cebee980-7772-49f2-b2eb-33b72b09f2b7"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Rabies"
+                                                },
+                                                "type": {
+                                                    "type": "string",
+                                                    "example": "Viral"
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "active"
+                                                },
+                                                "purpose": {
+                                                    "type": "string",
+                                                    "example": "Prevenção da raiva"
+                                                },
+                                                "target_specie": {
+                                                    "type": "string",
+                                                    "example": "Dog"
+                                                },
+                                                "dose_count": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "dose_interval": {
+                                                    "type": "integer",
+                                                    "example": 30
+                                                },
+                                                "manu_facturer": {
+                                                    "type": "string",
+                                                    "example": "Pfizer"
+                                                },
+                                                "expiration_date": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2025-12-31"
+                                                },
+                                                "batch": {
+                                                    "type": "string",
+                                                    "example": "VX123456"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/vaccine/{uuid}": {
+            "get": {
+                "tags": [
+                    "Vaccines"
+                ],
+                "summary": "Exibe os detalhes de uma vacina",
+                "operationId": "0e7abc3af4b0ea4c126397d22bbaeb26",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "UUID da vacina",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "cebee980-7772-49f2-b2eb-33b72b09f2b7"
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    },
+                    {
+                        "name": "with[]",
+                        "in": "query",
+                        "description": "Relações para carregar",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "manufacturer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Vacina encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 4
+                                                },
+                                                "uuid": {
+                                                    "type": "string",
+                                                    "example": "cebee980-7772-49f2-b2eb-33b72b09f2b7"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Vaccine4"
+                                                },
+                                                "type": {
+                                                    "type": "string",
+                                                    "example": "Bacterial"
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "active"
+                                                },
+                                                "purpose": {
+                                                    "type": "string",
+                                                    "example": "Ullam quis sed ut laudantium cupiditate neque."
+                                                },
+                                                "alert_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-09-19 10:42:33"
+                                                },
+                                                "alert_sent": {
+                                                    "type": "integer",
+                                                    "example": 0
+                                                },
+                                                "target_specie": {
+                                                    "type": "string",
+                                                    "example": "Cat"
+                                                },
+                                                "dose_count": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "dose_interval": {
+                                                    "type": "integer",
+                                                    "example": 30
+                                                },
+                                                "manu_facturer": {
+                                                    "type": "string",
+                                                    "example": "Walter LLC"
+                                                },
+                                                "expiration_date": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2025-09-23"
+                                                },
+                                                "batch": {
+                                                    "type": "string",
+                                                    "example": "VXHBFATEGK"
+                                                },
+                                                "updated_by": {
+                                                    "type": "integer",
+                                                    "example": null,
+                                                    "nullable": true
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-09-19T10:39:28.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-09-19T10:42:33.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Vaccines"
+                ],
+                "summary": "Atualiza os dados de uma vacina",
+                "operationId": "2068ef14520d14df0600fd2955170e3a",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "UUID da vacina",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "cebee980-7772-49f2-b2eb-33b72b09f2b7"
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Rabies",
+                                        "nullable": true
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "example": "Viral",
+                                        "nullable": true
+                                    },
+                                    "purpose": {
+                                        "type": "string",
+                                        "example": "Prevenção da raiva",
+                                        "nullable": true
+                                    },
+                                    "target_specie": {
+                                        "type": "string",
+                                        "example": "Dog",
+                                        "nullable": true
+                                    },
+                                    "dose_count": {
+                                        "type": "integer",
+                                        "example": 2,
+                                        "nullable": true
+                                    },
+                                    "dose_interval": {
+                                        "type": "integer",
+                                        "example": 30,
+                                        "nullable": true
+                                    },
+                                    "manu_facturer": {
+                                        "type": "string",
+                                        "example": "Pfizer",
+                                        "nullable": true
+                                    },
+                                    "expiration_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2025-12-31",
+                                        "nullable": true
+                                    },
+                                    "batch": {
+                                        "type": "string",
+                                        "example": "VX123456",
+                                        "nullable": true
+                                    },
+                                    "alert_at": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2025-09-19 10:42:33",
+                                        "nullable": true
+                                    },
+                                    "alert_sent": {
+                                        "type": "integer",
+                                        "example": 0,
+                                        "nullable": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Vacina atualizada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "uuid": {
+                                                    "type": "string",
+                                                    "example": "cebee980-7772-49f2-b2eb-33b72b09f2b7"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Rabies"
+                                                },
+                                                "type": {
+                                                    "type": "string",
+                                                    "example": "Viral"
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "active"
+                                                },
+                                                "purpose": {
+                                                    "type": "string",
+                                                    "example": "Prevenção da raiva"
+                                                },
+                                                "target_specie": {
+                                                    "type": "string",
+                                                    "example": "Dog"
+                                                },
+                                                "dose_count": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "dose_interval": {
+                                                    "type": "integer",
+                                                    "example": 30
+                                                },
+                                                "manu_facturer": {
+                                                    "type": "string",
+                                                    "example": "Pfizer"
+                                                },
+                                                "expiration_date": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2025-12-31"
+                                                },
+                                                "batch": {
+                                                    "type": "string",
+                                                    "example": "VX123456"
+                                                },
+                                                "alert_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-09-19 10:42:33"
+                                                },
+                                                "alert_sent": {
+                                                    "type": "integer",
+                                                    "example": 0
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -7006,6 +7633,10 @@
         {
             "name": "Protectors",
             "description": "Gerenciamento de protetores"
+        },
+        {
+            "name": "Vaccines",
+            "description": "Gerenciamento de vacinas"
         },
         {
             "name": "PanelConfig",

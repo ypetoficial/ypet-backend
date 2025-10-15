@@ -12,8 +12,7 @@ class CreateBankAccountListener
 {
     public function __construct(
         protected readonly BankAccountService $bankAccountService
-    ) 
-    {}
+    ) {}
 
     public function handle(CollaboratorCreatedEvent $event): void
     {

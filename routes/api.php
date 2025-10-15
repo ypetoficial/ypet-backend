@@ -21,6 +21,7 @@ use App\Http\Controllers\Registration\RegistrationController;
 use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\UserProfileController;
+use App\Http\Controllers\Vaccine\VaccineController;
 use App\Http\Controllers\Veterinarian\VeterinarianController;
 use Illuminate\Support\Facades\Route;
 
@@ -61,6 +62,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('protector', [ProtectorController::class, 'index']);
     Route::get('protector/{uuid}', [ProtectorController::class, 'show']);
     Route::put('/protector/{uuid}', [ProtectorController::class, 'update']);
+    Route::apiResource('vaccine', VaccineController::class);
+    Route::get('vaccine/alert', [VaccineController::class, 'vaccineAlert']);
 
     Route::apiResource('animal-ambulance', AnimalAmbulanceController::class)->except('destroy');
 

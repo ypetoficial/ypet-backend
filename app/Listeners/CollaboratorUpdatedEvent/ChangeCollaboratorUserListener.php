@@ -10,7 +10,6 @@ use App\Events\Collaborator\CollaboratorUpdatedEvent;
 
 class ChangeCollaboratorUserListener
 {
-
     public function __construct(
         protected readonly UserService $userService,
         protected readonly UserStatusService $userStatusService
