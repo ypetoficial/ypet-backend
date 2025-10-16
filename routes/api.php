@@ -9,7 +9,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\BankAccount\BankAccountController;
 use App\Http\Controllers\Citizen\CitizenController;
+use App\Http\Controllers\Collaborator\CollaboratorController;
 use App\Http\Controllers\EnumController;
 use App\Http\Controllers\Location\LocationController;
 use App\Http\Controllers\LostAnimal\LostAnimalController;
@@ -17,8 +19,10 @@ use App\Http\Controllers\MobileClinicEvent\MobileClinicEventController;
 use App\Http\Controllers\PreSurgeryAssessment\PreSurgeryAssessmentController;
 use App\Http\Controllers\Protector\ProtectorController;
 use App\Http\Controllers\Registration\RegistrationController;
+use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\UserProfileController;
+use App\Http\Controllers\Vaccine\VaccineController;
 use App\Http\Controllers\Veterinarian\VeterinarianController;
 use Illuminate\Support\Facades\Route;
 
@@ -49,6 +53,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('lost-animals', LostAnimalController::class);
     Route::apiResource('mobile-clinic-events', MobileClinicEventController::class);
     Route::apiResource('registrations', RegistrationController::class);
+    Route::apiResource('suppliers', SupplierController::class);
     Route::get('registrations/{id}/term', [RegistrationController::class, 'term']);
     Route::get('enums/{enum}', [EnumController::class, 'show']);
     Route::get('citizen', [CitizenController::class, 'index']);
@@ -58,6 +63,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('protector', [ProtectorController::class, 'index']);
     Route::get('protector/{uuid}', [ProtectorController::class, 'show']);
     Route::put('/protector/{uuid}', [ProtectorController::class, 'update']);
+    Route::apiResource('vaccine', VaccineController::class);
+    Route::get('vaccine/alert', [VaccineController::class, 'vaccineAlert']);
 
     Route::apiResource('animal-ambulance', AnimalAmbulanceController::class)->except('destroy');
 
@@ -73,6 +80,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('location', LocationController::class);
     Route::apiResource('pre-surgery-assessment', PreSurgeryAssessmentController::class)->only('store');
+    Route::apiResource('pre-surgery-assessment', PreSurgeryAssessmentController::class)
+        ->only('store');
+    Route::apiResource('collaborators', CollaboratorController::class)
+        ->only('index', 'show', 'store', 'update');
+    Route::apiResource('bank-accounts', BankAccountController::class)
+        ->only('index', 'show', 'update');
 });
 
 Route::post('adoption-visits', [AdoptionVisitController::class, 'store']);

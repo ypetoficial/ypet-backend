@@ -10,30 +10,34 @@ enum RolesEnum: string implements EnumInterface
     use EnumTrait;
 
     case SUPERUSER = 'superuser';
-    case USER_ADMINISTRATOR = 'user_administrator';
-    case USER_COLLABORATOR = 'user_collaborator';
-    case USER_COMMON = 'user_common';
+    case MANAGER_ADMINISTRATOR = 'manager_administrator';
+    case USER_VETERINARIAN = 'user_veterinarian';
+    case USER_AGENT = 'user_agent';
+    case USER_CITIZEN = 'user_citizen';
 
     public static function translations(string $locale = 'en'): array
     {
         $locations = [
             'en' => [
                 'SUPERUSER' => 'Superuser',
-                'USER_ADMINISTRATOR' => 'User Administrator',
-                'USER_COLLABORATOR' => 'User Collaborator',
-                'USER_COMMON' => 'User Common',
+                'MANAGER_ADMINISTRATOR' => 'Manager Administrator',
+                'USER_VETERINARIAN' => 'User Veterinarian',
+                'USER_AGENT' => 'User Agent',
+                'USER_CITIZEN' => 'User Citizen',
             ],
             'es' => [
                 'SUPERUSER' => 'Super usuario',
-                'USER_ADMINISTRATOR' => 'Administrador de usuário',
-                'USER_COLLABORATOR' => 'Colaborador de usuário',
-                'USER_COMMON' => 'Usuário comum',
+                'MANAGER_ADMINISTRATOR' => 'Administrador de gerente',
+                'USER_VETERINARIAN' => 'Usuario veterinario',
+                'USER_AGENT' => 'Agente de usuario',
+                'USER_CITIZEN' => 'Usuario ciudadano',
             ],
             'pt_BR' => [
                 'SUPERUSER' => 'Super usuário',
-                'USER_ADMINISTRATOR' => 'Administrador de função',
-                'USER_COLLABORATOR' => 'Colaborador de função',
-                'USER_COMMON' => 'Usuário comum',
+                'MANAGER_ADMINISTRATOR' => 'Administrador Gerente',
+                'USER_VETERINARIAN' => 'Usuário Veterinário',
+                'USER_AGENT' => 'Usuário Agente',
+                'USER_CITIZEN' => 'Usuário Cidadão',
             ],
         ];
 
