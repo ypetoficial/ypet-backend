@@ -2101,6 +2101,10 @@
                                         "status": {
                                             "type": "string",
                                             "example": "active"
+                                        },
+                                        "photo_url": {
+                                            "type": "string",
+                                            "example": "https://example.com/photo.jpg"
                                         }
                                     },
                                     "type": "object"
@@ -2465,6 +2469,10 @@
                                         "type": "integer",
                                         "example": 1
                                     },
+                                    "photo": {
+                                        "type": "string",
+                                        "example": "photo.jpg"
+                                    },
                                     "address": {
                                         "required": [
                                             "type",
@@ -2775,6 +2783,10 @@
                                     "can_mobile_castration": {
                                         "type": "integer",
                                         "example": 0
+                                    },
+                                    "photo": {
+                                        "type": "string",
+                                        "example": "photo.jpg"
                                     }
                                 },
                                 "type": "object"
@@ -2950,6 +2962,718 @@
                         }
                     }
                 }
+            }
+        },
+        "/api/location": {
+            "get": {
+                "tags": [
+                    "Locations"
+                ],
+                "summary": "Lista todos os locais cadastrados",
+                "operationId": "20df6c82d82437b5ffb718f57caeefac",
+                "parameters": [
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de locais retornada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Operação realizada com com sucesso"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "response": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 2
+                                                    },
+                                                    "uuid": {
+                                                        "type": "string",
+                                                        "example": "3ab7d7ef-4582-4c5a-8f50-74a6f1ab1fbd"
+                                                    },
+                                                    "location_name": {
+                                                        "type": "string",
+                                                        "example": "Happy Paws Shelter"
+                                                    },
+                                                    "location_type": {
+                                                        "type": "string",
+                                                        "example": "pet_hotel"
+                                                    },
+                                                    "responsible_name": {
+                                                        "type": "string",
+                                                        "example": "Daniel Andrade"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "contact@happypawssq.com"
+                                                    },
+                                                    "phone": {
+                                                        "type": "string",
+                                                        "example": "31987654321"
+                                                    },
+                                                    "status": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "notes": {
+                                                        "type": "string",
+                                                        "example": "Local especializado em hospedagem e cuidados temporários de animais resgatados."
+                                                    },
+                                                    "cnpj": {
+                                                        "type": "string",
+                                                        "example": "12.345.678/0001-99"
+                                                    },
+                                                    "bank_account_or_pix": {
+                                                        "type": "string",
+                                                        "example": "contato@happypawssq.com"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-10-16T17:06:42.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2025-10-16T17:06:42.000000Z"
+                                                    },
+                                                    "address": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "zipcode": {
+                                                                    "type": "string",
+                                                                    "example": "35000-000"
+                                                                },
+                                                                "street": {
+                                                                    "type": "string",
+                                                                    "example": "Rua das Palmeiras"
+                                                                },
+                                                                "number": {
+                                                                    "type": "string",
+                                                                    "example": "120"
+                                                                },
+                                                                "complement": {
+                                                                    "type": "string",
+                                                                    "example": "Casa 2"
+                                                                },
+                                                                "neighborhood": {
+                                                                    "type": "string",
+                                                                    "example": "Jardim Alice"
+                                                                },
+                                                                "city": {
+                                                                    "type": "string",
+                                                                    "example": "Governador Valadares"
+                                                                },
+                                                                "state": {
+                                                                    "type": "string",
+                                                                    "example": "MG"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Locations"
+                ],
+                "summary": "Cadastra uma nova localização",
+                "operationId": "483de6835634d81b3821a6d708e62dd6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "location_name",
+                                    "location_type",
+                                    "responsible_name",
+                                    "phone",
+                                    "status"
+                                ],
+                                "properties": {
+                                    "location_name": {
+                                        "type": "string",
+                                        "example": "Happy Paws Shelter"
+                                    },
+                                    "location_type": {
+                                        "description": "Enum de tipos de local (ver LocationTypeEnum)",
+                                        "type": "string",
+                                        "example": "pet_hotel"
+                                    },
+                                    "responsible_name": {
+                                        "type": "string",
+                                        "example": "Daniel Andrade"
+                                    },
+                                    "phone": {
+                                        "type": "integer",
+                                        "example": 31987654321
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "contact@happypawssq.com"
+                                    },
+                                    "address": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "zipcode": {
+                                                    "type": "string",
+                                                    "example": "35010-600"
+                                                },
+                                                "street": {
+                                                    "type": "string",
+                                                    "example": "Rua Flores"
+                                                },
+                                                "number": {
+                                                    "type": "string",
+                                                    "example": "123"
+                                                },
+                                                "complement": {
+                                                    "type": "string",
+                                                    "example": "Bloco B"
+                                                },
+                                                "neighborhood": {
+                                                    "type": "string",
+                                                    "example": "Centro"
+                                                },
+                                                "city": {
+                                                    "type": "string",
+                                                    "example": "Governador Valadares"
+                                                },
+                                                "state": {
+                                                    "type": "string",
+                                                    "example": "MG"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "cnpj": {
+                                        "type": "string",
+                                        "example": "12.345.678/0001-99"
+                                    },
+                                    "bank_account_or_pix": {
+                                        "type": "string",
+                                        "example": "contato@pix.com"
+                                    },
+                                    "status": {
+                                        "description": "1 = ativo, 0 = inativo",
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "notes": {
+                                        "type": "string",
+                                        "example": "Local especializado em hospedagem e cuidados temporários de animais resgatados."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Localização cadastrada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Operação realizada com com sucesso"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "response": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "uuid": {
+                                                    "type": "string",
+                                                    "example": "3ab7d7ef-4582-4c5a-8f50-74a6f1ab1fbd"
+                                                },
+                                                "location_name": {
+                                                    "type": "string",
+                                                    "example": "Happy Paws Shelter"
+                                                },
+                                                "location_type": {
+                                                    "type": "string",
+                                                    "example": "pet_hotel"
+                                                },
+                                                "responsible_name": {
+                                                    "type": "string",
+                                                    "example": "Daniel Andrade"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "contact@happypawssq.com"
+                                                },
+                                                "phone": {
+                                                    "type": "string",
+                                                    "example": "31987654321"
+                                                },
+                                                "status": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "notes": {
+                                                    "type": "string",
+                                                    "example": "Local especializado em hospedagem e cuidados temporários de animais resgatados."
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-10-16T17:06:42.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-10-16T17:06:42.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação nos campos enviados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 422
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Os dados fornecidos são inválidos."
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "location_name": [
+                                                    "O campo location_name é obrigatório."
+                                                ],
+                                                "status": [
+                                                    "O valor selecionado para status é inválido."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/location/{uuid}": {
+            "get": {
+                "tags": [
+                    "Locations"
+                ],
+                "summary": "Exibe os detalhes de um local",
+                "operationId": "590db4a30e4ae6fc92844f9a56d539eb",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "UUID do local",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "4a65ca27-b40a-4a53-8fcc-cdfa4c5063b3"
+                        }
+                    },
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Tipo do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Local encontrado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "uuid": {
+                                                    "type": "string",
+                                                    "example": "4a65ca27-b40a-4a53-8fcc-cdfa4c5063b3"
+                                                },
+                                                "location_name": {
+                                                    "type": "string",
+                                                    "example": "Happy Paws Shelter"
+                                                },
+                                                "location_type": {
+                                                    "type": "string",
+                                                    "example": "pet_hotel"
+                                                },
+                                                "responsible_name": {
+                                                    "type": "string",
+                                                    "example": "Daniel Andrade"
+                                                },
+                                                "phone": {
+                                                    "type": "string",
+                                                    "example": "31987654321"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "contact@happypawss.com"
+                                                },
+                                                "cnpj": {
+                                                    "type": "string",
+                                                    "example": null,
+                                                    "nullable": true
+                                                },
+                                                "bank_account_or_pix": {
+                                                    "type": "string",
+                                                    "example": null,
+                                                    "nullable": true
+                                                },
+                                                "status": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "notes": {
+                                                    "type": "string",
+                                                    "example": "Local especializado em hospedagem e cuidados temporários de animais resgatados."
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-10-16T16:34:36.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-10-16T16:34:36.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/locations/{uuid}": {
+            "put": {
+                "tags": [
+                    "Locations"
+                ],
+                "summary": "Atualiza uma localização existente",
+                "description": "Atualiza os dados de uma localização com base no UUID informado.",
+                "operationId": "5658713cd0580a846c34407f1377d06b",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "path",
+                        "description": "UUID da localização a ser atualizada",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "a3f4c9b2-1234-5678-9abc-9876543210ff"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "location_name": {
+                                        "type": "string",
+                                        "example": "Centro de Adoção São Francisco"
+                                    },
+                                    "location_type": {
+                                        "description": "Enum de tipos de local (ver LocationTypeEnum)",
+                                        "type": "string",
+                                        "example": "SHELTER"
+                                    },
+                                    "responsible_name": {
+                                        "type": "string",
+                                        "example": "João da Silva"
+                                    },
+                                    "phone": {
+                                        "type": "integer",
+                                        "example": 33999887766
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "contato@centroadocao.com"
+                                    },
+                                    "address": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "zipcode": {
+                                                    "type": "string",
+                                                    "example": "35000-000"
+                                                },
+                                                "street": {
+                                                    "type": "string",
+                                                    "example": "Rua das Flores"
+                                                },
+                                                "number": {
+                                                    "type": "string",
+                                                    "example": "123"
+                                                },
+                                                "complement": {
+                                                    "type": "string",
+                                                    "example": "Sala 4"
+                                                },
+                                                "neighborhood": {
+                                                    "type": "string",
+                                                    "example": "Centro"
+                                                },
+                                                "city": {
+                                                    "type": "string",
+                                                    "example": "Governador Valadares"
+                                                },
+                                                "state": {
+                                                    "type": "string",
+                                                    "example": "MG"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "cnpj": {
+                                        "type": "string",
+                                        "example": "12.345.678/0001-99"
+                                    },
+                                    "bank_account_or_pix": {
+                                        "type": "string",
+                                        "example": "contato@pix.com"
+                                    },
+                                    "status": {
+                                        "description": "Enum de status (ACTIVE ou INACTIVE)",
+                                        "type": "string",
+                                        "example": "ACTIVE"
+                                    },
+                                    "notes": {
+                                        "type": "string",
+                                        "example": "Local parceiro da prefeitura."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Operação realizada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Operação realizada com sucesso"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Localização não encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Localização não encontrada"
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erro de validação nos campos enviados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 422
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Os dados fornecidos são inválidos."
+                                        },
+                                        "show": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "email": [
+                                                    "O campo email já está em uso."
+                                                ],
+                                                "status": [
+                                                    "O valor selecionado para status é inválido."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/lost-animals": {
@@ -4637,6 +5361,10 @@
                                         "type": "integer",
                                         "example": 1
                                     },
+                                    "photo": {
+                                        "type": "string",
+                                        "example": "photo.jpg"
+                                    },
                                     "address": {
                                         "required": [
                                             "type",
@@ -4963,6 +5691,10 @@
                                     "special_permissions": {
                                         "type": "integer",
                                         "example": 0
+                                    },
+                                    "photo": {
+                                        "type": "string",
+                                        "example": "photo.jpg"
                                     }
                                 },
                                 "type": "object"
@@ -6000,6 +6732,10 @@
         {
             "name": "PreSurgeryAssessment",
             "description": "Triagem do animal para castração"
+        },
+        {
+            "name": "Locations",
+            "description": "Gerenciamento de locais de atendimento, abrigos e parceiros"
         },
         {
             "name": "Adoption Visit",

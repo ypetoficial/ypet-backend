@@ -20,6 +20,7 @@ namespace App\Docs;
  *     @OA\Tag(name="Protectors", description="Gerenciamento de protetores"),
  *     @OA\Tag(name="PanelConfig", description="Configuração do Painel"),
  *     @OA\Tag(name="PreSurgeryAssessment", description="Triagem do animal para castração"),
+ *     @OA\Tag(name="Locations", description="Gerenciamento de locais de atendimento, abrigos e parceiros"),
  *
  *      @OA\Server(
  *      url="{scheme}://{host}:{port}",
