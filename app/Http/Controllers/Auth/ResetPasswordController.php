@@ -38,7 +38,7 @@ class ResetPasswordController extends Controller
     {
         $user = User::where('email', $request->email)->first();
 
-        if (!$user) {
+        if (! $user) {
             throw ValidationException::withMessages([
                 'email' => ['Usuário não encontrado.'],
             ]);
