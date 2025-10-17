@@ -3,6 +3,7 @@
 namespace App\Domains\User\Entities;
 
 use App\Domains\Address\Entities\AddressEntity;
+use App\Domains\Animal\Entities\AnimalEntity;
 use App\Domains\Citizen\Entities\CitizenEntity;
 use App\Domains\Protector\Entities\ProtectorEntity;
 use App\Models\AdoptionVisit;
@@ -56,6 +57,11 @@ class UserEntity extends User
     public function addresses(): MorphMany
     {
         return $this->morphMany(AddressEntity::class, 'addressable');
+    }
+
+    public function animals(): HasMany
+    {
+        return $this->hasMany(AnimalEntity::class, 'tutor_id', 'id');
     }
 
     public function getMorphClass()
