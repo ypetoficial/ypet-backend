@@ -22,7 +22,7 @@ class UserProfileController extends AbstractController
     public function me(Request $request)
     {
         try {
-            $with = array_merge($request->get('with', []), ['citizen', 'protector', 'citizen.addresses', 'protector.addresses']);
+            $with = array_merge($request->get('with', []), ['citizen', 'protector', 'citizen.addresses', 'protector.addresses', 'animals']);
             $user = $this->service->find($request->user()->id, $with);
 
             $typeUser = match (true) {
