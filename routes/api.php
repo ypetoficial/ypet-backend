@@ -30,6 +30,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/register', [RegisterController::class, 'register']);
     Route::post('/login', [LoginController::class, 'login']);
     Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail']);
+    Route::post('/validate-reset-token', [ResetPasswordController::class, 'validateToken']);
     Route::post('/reset-password', [ResetPasswordController::class, 'reset']);
 });
 
