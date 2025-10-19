@@ -23,6 +23,8 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Vaccine\VaccineController;
 use App\Http\Controllers\Veterinarian\VeterinarianController;
+use App\Http\Controllers\Application\ApplicationController;
+use App\Http\Controllers\Product\ProductController; // added
 use Illuminate\Support\Facades\Route;
 
 // Public authentication routes
@@ -64,8 +66,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/protector/{uuid}', [ProtectorController::class, 'update']);
     Route::apiResource('vaccine', VaccineController::class);
     Route::get('vaccine/alert', [VaccineController::class, 'vaccineAlert']);
+    Route::apiResource('applications', ApplicationController::class)->only(['index', 'show', 'store']);
 
     Route::apiResource('animal-ambulance', AnimalAmbulanceController::class)->except('destroy');
+
+    // products routes
+    Route::apiResource('products', ProductController::class);
+    Route::get('products/{id}/supply', [ProductController::class, 'supply']);
 
     Route::prefix('adoption-visits')->group(function () {
         Route::get('/', [AdoptionVisitController::class, 'index']);
