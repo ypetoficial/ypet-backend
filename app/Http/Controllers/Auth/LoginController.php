@@ -14,18 +14,23 @@ class LoginController extends Controller
 {
     public function login(LoginRequest $request)
     {
-        if (! Auth::attempt($request->only('email', 'password'))) {
+        $login = $request->input('login');
+        $password = $request->input('password');
+
+        $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'document';
+
+        if (! Auth::attempt([$fieldType => $login, 'password' => $password])) {
             throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
+                'login' => ['As credenciais fornecidas estão incorretas.'],
             ]);
         }
 
-        $user = User::where('email', $request->email)->firstOrFail();
+        $user = User::where($fieldType, $login)->firstOrFail();
         $userstatus = UserStatus::where('user_id', $user?->id)->firstOrFail();
 
         if ($userstatus->status != UserStatusEnum::ACTIVE->value) {
             throw ValidationException::withMessages([
-                'email' => ['Sua conta está inativa. Entre em contato com o administrador.'],
+                'login' => ['Sua conta está inativa. Entre em contato com o administrador.'],
             ]);
         }
 
