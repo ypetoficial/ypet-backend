@@ -4,6 +4,7 @@ use App\Http\Controllers\Address\AddressController;
 use App\Http\Controllers\AdoptionVisit\AdoptionVisitController;
 use App\Http\Controllers\Animal\AnimalController;
 use App\Http\Controllers\AnimalAmbulance\AnimalAmbulanceController;
+use App\Http\Controllers\Application\ApplicationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
@@ -16,15 +17,14 @@ use App\Http\Controllers\EnumController;
 use App\Http\Controllers\LostAnimal\LostAnimalController;
 use App\Http\Controllers\MobileClinicEvent\MobileClinicEventController;
 use App\Http\Controllers\PreSurgeryAssessment\PreSurgeryAssessmentController;
+use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Protector\ProtectorController;
 use App\Http\Controllers\Registration\RegistrationController;
 use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Vaccine\VaccineController;
-use App\Http\Controllers\Veterinarian\VeterinarianController;
-use App\Http\Controllers\Application\ApplicationController;
-use App\Http\Controllers\Product\ProductController; // added
+use App\Http\Controllers\Veterinarian\VeterinarianController; // added
 use Illuminate\Support\Facades\Route;
 
 // Public authentication routes

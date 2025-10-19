@@ -3,11 +3,10 @@
 namespace App\Domains\Product\Services;
 
 use App\Domains\Abstracts\AbstractService;
+use App\Domains\Animal\Entities\AnimalEntity;
 use App\Domains\Application\Entities\ApplicationEntity;
 use App\Domains\Enums\ProductCategoryEnum;
 use App\Domains\Product\Repositories\ProductRepository;
-use App\Domains\Animal\Entities\AnimalEntity;
-use Illuminate\Support\Carbon;
 use Illuminate\Validation\ValidationException;
 
 class ProductService extends AbstractService
@@ -64,6 +63,7 @@ class ProductService extends AbstractService
 
         // Inactivate instead of hard delete
         $entity = $this->find($id);
+
         return $this->repository->update($entity, ['status' => false]);
     }
 

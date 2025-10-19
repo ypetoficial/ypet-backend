@@ -3,8 +3,8 @@
 namespace App\Domains\Product\Services;
 
 use App\Domains\Enums\ProductCategoryEnum;
-use App\Domains\Vaccine\Entities\VaccineEntity;
 use App\Domains\Product\Entities\ProductEntity;
+use App\Domains\Vaccine\Entities\VaccineEntity;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 
@@ -58,6 +58,7 @@ class ProductAdapterService
         }
 
         $date = Carbon::parse($expiration);
+
         return $date->isPast();
     }
 
@@ -113,6 +114,7 @@ class ProductAdapterService
             $new = max(0, (int) round($current - $quantity));
             $field = array_key_exists('stock', $attrs) ? 'stock' : 'stock_quantity';
             $product->product->update([$field => $new]);
+
             return;
         }
 
