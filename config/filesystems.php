@@ -69,7 +69,6 @@ return [
             'bucket' => env('DO_SPACES_BUCKET'),
         ],
 
-
     ],
 
     /*
