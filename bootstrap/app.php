@@ -1,11 +1,11 @@
 <?php
 
+use App\Common\ExceptionMessageMapper;
 use App\Http\Middleware\EnsureClientTypeHeader;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Log;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -24,22 +24,43 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        $exceptions->render(function (\Illuminate\Validation\ValidationException $e) {
-            return response()->json([
-                'type' => 'error',
-                'status' => 422,
-                'message' => $e->validator->getMessageBag()->first(),
-                'errors' => $e->validator->errors()->toArray(),
-                'show' => false,
-            ], 422);
-        });
+        $exceptions->render(function (\Throwable $e, $request) {
+            if (! $request->expectsJson() && ! $request->is('api/*')) {
+                return null;
+            }
 
-        $exceptions->render(function (AuthenticationException $e) {
-            return response()->json([
+            if (app()->environment('production')) {
+                Log::error('Exception caught', [
+                    'exception' => get_class($e),
+                    'message' => $e->getMessage(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                    'trace' => $e->getTraceAsString(),
+                ]);
+            }
+
+            $mapped = ExceptionMessageMapper::map($e);
+
+            $response = [
                 'type' => 'error',
-                'status' => Response::HTTP_UNAUTHORIZED,
-                'message' => $e->getMessage(),
-                'show' => false,
-            ], Response::HTTP_UNAUTHORIZED);
+                'status' => $mapped['status'],
+                'message' => $mapped['message'],
+                'show' => $mapped['show'] ?? true,
+            ];
+
+            if (isset($mapped['errors'])) {
+                $response['errors'] = $mapped['errors'];
+            }
+
+            if (app()->environment('local', 'development')) {
+                $response['debug'] = [
+                    'exception' => get_class($e),
+                    'message' => $e->getMessage(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                ];
+            }
+
+            return response()->json($response, $mapped['status']);
         });
     })->create();
