@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 class TestMailCommand extends Command
 {
     protected $signature = 'mail:test {email}';
+
     protected $description = 'Envia um e-mail de teste via SMTP configurado';
 
     public function handle()
@@ -23,8 +24,7 @@ class TestMailCommand extends Command
 
             $this->info('✅ E-mail enviado com sucesso!');
         } catch (\Throwable $e) {
-            $this->error('❌ Erro ao enviar: ' . $e->getMessage());
+            $this->error('❌ Erro ao enviar: '.$e->getMessage());
         }
     }
 }
-
