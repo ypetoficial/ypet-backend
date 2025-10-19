@@ -2,13 +2,13 @@
 
 namespace App\Common;
 
-use Illuminate\Database\QueryException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\QueryException;
 use Illuminate\Validation\ValidationException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ExceptionMessageMapper
 {
@@ -20,7 +20,6 @@ class ExceptionMessageMapper
     /**
      * Mapeia uma exceção para uma mensagem amigável
      *
-     * @param \Throwable $exception
      * @return array ['message' => string, 'status' => int, 'show' => bool]
      */
     public static function map(\Throwable $exception): array
@@ -110,9 +109,6 @@ class ExceptionMessageMapper
 
     /**
      * Mapeia exceções de banco de dados para mensagens amigáveis
-     *
-     * @param QueryException $exception
-     * @return array
      */
     private static function mapDatabaseException(QueryException $exception): array
     {
@@ -151,7 +147,7 @@ class ExceptionMessageMapper
             $field = $matches[1] ?? 'campo';
 
             return [
-                'message' => "O campo é obrigatório e não pode estar vazio.",
+                'message' => 'O campo é obrigatório e não pode estar vazio.',
                 'status' => 422,
                 'show' => true,
             ];
@@ -199,9 +195,6 @@ class ExceptionMessageMapper
     /**
      * Verifica se uma mensagem parece ser amigável para o usuário
      * (não contém termos técnicos ou SQL)
-     *
-     * @param string $message
-     * @return bool
      */
     private static function isFriendlyMessage(string $message): bool
     {
