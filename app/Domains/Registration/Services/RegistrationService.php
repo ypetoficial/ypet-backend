@@ -41,7 +41,6 @@ class RegistrationService extends AbstractService
 
         $this->validateAnimalRegistration($animal, $tutor);
         $this->validateEventAvailability($mobileClinicEvent);
-        $this->validateAnimalSpecies($animal, $mobileClinicEvent);
 
         return $data;
     }
@@ -74,16 +73,6 @@ class RegistrationService extends AbstractService
     {
         if (! $mobileClinicEvent->isStatusOpen()) {
             throw new \InvalidArgumentException('Evento não aberto para agendamento.');
-        }
-    }
-
-    private function validateAnimalSpecies($animal, $mobileClinicEvent): void
-    {
-        $animalSpecies = Arr::get($animal->species, 'value');
-        $mobileClinicEventSpecies = Arr::get($mobileClinicEvent->species, 'value');
-
-        if ($mobileClinicEventSpecies !== AnimalSpeciesEnum::ALL->value && $mobileClinicEventSpecies !== $animalSpecies) {
-            throw new \InvalidArgumentException('Espécie do animal não é permitida no evento.');
         }
     }
 
