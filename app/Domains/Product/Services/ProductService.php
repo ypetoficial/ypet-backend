@@ -4,8 +4,8 @@ namespace App\Domains\Product\Services;
 
 use App\Domains\Abstracts\AbstractService;
 use App\Domains\Animal\Entities\AnimalEntity;
-use App\Domains\Application\Entities\ApplicationEntity;
 use App\Domains\Enums\ProductCategoryEnum;
+use App\Domains\Enums\ProductSupplementTypeEnum;
 use App\Domains\Product\Repositories\ProductRepository;
 use Illuminate\Validation\ValidationException;
 
@@ -19,8 +19,13 @@ class ProductService extends AbstractService
     public function beforeSave(array $data): array
     {
         // Ensure default status and UUID
-        $data['status'] = (bool) ($data['status'] ?? true);
+        $data['status'] = filter_var($data['status'] ?? true, FILTER_VALIDATE_BOOLEAN);
         $data['uuid'] = $data['uuid'] ?? (string) str()->uuid();
+
+        // Normalize supplement_type: only allowed when category is 'supplement'
+        if (($data['category'] ?? null) !== ProductCategoryEnum::SUPPLEMENT->value) {
+            $data['supplement_type'] = null;
+        }
 
         return $data;
     }
@@ -37,6 +42,16 @@ class ProductService extends AbstractService
             }
         }
 
+        if ($category === ProductCategoryEnum::SUPPLEMENT->value) {
+            $supType = $params['supplement_type'] ?? null;
+            if (empty($supType)) {
+                throw ValidationException::withMessages(['supplement_type' => 'Campo obrigatório para categoria selecionada.']);
+            }
+            if (! in_array($supType, ProductSupplementTypeEnum::values(), true)) {
+                throw ValidationException::withMessages(['supplement_type' => 'Valor inválido para tipo de suplemento.']);
+            }
+        }
+
         if (! empty($params['standard_days']) && (int) $params['standard_days'] < 1) {
             throw ValidationException::withMessages(['standard_days' => 'O valor deve ser maior ou igual a 1.']);
         }
@@ -50,21 +65,26 @@ class ProductService extends AbstractService
             throw ValidationException::withMessages(['standard_days' => 'O valor deve ser maior ou igual a 1.']);
         }
 
-        return true;
-    }
+        $entity = $this->find($id);
+        $category = $params['category'] ?? $entity->category;
 
-    public function delete($id)
-    {
-        // Block deletion when there are application records
-        $hasApplications = ApplicationEntity::query()->where('product_id', $id)->exists();
-        if ($hasApplications) {
-            throw new \Exception('Exclusão bloqueada: há registros de aplicação vinculados ao produto.');
+        if ($category === ProductCategoryEnum::SUPPLEMENT->value) {
+            $currentSupType = $entity->supplement_type;
+            // supplement_type may be casted enum or string; normalize to string value
+            $currentSupTypeValue = is_object($currentSupType) && method_exists($currentSupType, 'value')
+                ? $currentSupType->value
+                : (is_string($currentSupType) ? $currentSupType : null);
+            $supType = $params['supplement_type'] ?? $currentSupTypeValue;
+
+            if (empty($supType)) {
+                throw ValidationException::withMessages(['supplement_type' => 'Campo obrigatório para categoria selecionada.']);
+            }
+            if (! in_array($supType, ProductSupplementTypeEnum::values(), true)) {
+                throw ValidationException::withMessages(['supplement_type' => 'Valor inválido para tipo de suplemento.']);
+            }
         }
 
-        // Inactivate instead of hard delete
-        $entity = $this->find($id);
-
-        return $this->repository->update($entity, ['status' => false]);
+        return true;
     }
 
     /**
