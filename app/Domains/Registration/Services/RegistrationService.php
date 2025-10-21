@@ -5,7 +5,6 @@ namespace App\Domains\Registration\Services;
 use App\Domains\Abstracts\AbstractService;
 use App\Domains\Animal\Entities\AnimalEntity;
 use App\Domains\Animal\Services\AnimalService;
-use App\Domains\Enums\AnimalSpeciesEnum;
 use App\Domains\Enums\RegistrationStatusEnum;
 use App\Domains\MobileClinicEvent\Services\MobileClinicEventService;
 use App\Domains\Registration\Repositories\RegistrationRepository;

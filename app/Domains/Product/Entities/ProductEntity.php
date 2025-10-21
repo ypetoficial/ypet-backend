@@ -3,8 +3,8 @@
 namespace App\Domains\Product\Entities;
 
 use App\Casts\EnumCast;
-use App\Domains\Enums\ProductBaseUnitEnum;
 use App\Domains\Enums\ProductCategoryEnum;
+use App\Domains\Enums\ProductSupplementTypeEnum;
 use App\Domains\Enums\ProductUnitEnum;
 use App\Domains\Enums\TargetSpeciesEnum;
 use App\Models\Product;
@@ -17,6 +17,7 @@ class ProductEntity extends Product
         'uuid',
         'name',
         'category',
+        'supplement_type',
         'manufacturer',
         'target_species',
         'unit',
@@ -36,13 +37,14 @@ class ProductEntity extends Product
 
     protected $casts = [
         'category' => EnumCast::class.':'.ProductCategoryEnum::class,
+        'supplement_type' => EnumCast::class.':'.ProductSupplementTypeEnum::class,
         'target_species' => EnumCast::class.':'.TargetSpeciesEnum::class,
         'unit' => EnumCast::class.':'.ProductUnitEnum::class,
-        'base_unit' => EnumCast::class.':'.ProductBaseUnitEnum::class,
+        'base_unit' => EnumCast::class.':'.ProductUnitEnum::class,
         'stock' => 'integer',
         'has_stock_control' => 'boolean',
         'min_stock' => 'integer',
-        'expiration_date' => 'date',
+        'expiration_date' => 'date:Y-m-d',
         'standard_quantity' => 'float',
         'reference_weight' => 'float',
         'standard_days' => 'integer',
