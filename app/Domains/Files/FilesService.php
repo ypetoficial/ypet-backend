@@ -21,7 +21,7 @@ class FilesService
         $fileService = new FileService($image, $path);
         $storedImage = $fileService->store();
 
-        if (app()->environment('production')) {
+        if (app()->environment('production') || app()->environment('staging')) {
             return $storedImage['path'];
         }
 

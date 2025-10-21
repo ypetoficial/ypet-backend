@@ -20,7 +20,7 @@ class AnimalService extends AbstractService
 
     public function beforeSave(array $data): array
     {
-        if ($data['picture']) {
+        if (data_get($data, 'picture')) {
             $data['picture'] = $this->filesService->processImage($data['picture']);
         }
 
@@ -36,7 +36,7 @@ class AnimalService extends AbstractService
 
     public function beforeUpdate($id, array $data): array
     {
-        if ($data['picture']) {
+        if (data_get($data, 'picture')) {
             $this->filesService->delete($this->find($id)->picture);
             $data['picture'] = $this->filesService->processImage($data['picture']);
         }

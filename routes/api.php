@@ -4,6 +4,7 @@ use App\Http\Controllers\Address\AddressController;
 use App\Http\Controllers\AdoptionVisit\AdoptionVisitController;
 use App\Http\Controllers\Animal\AnimalController;
 use App\Http\Controllers\AnimalAmbulance\AnimalAmbulanceController;
+use App\Http\Controllers\Application\ApplicationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
@@ -13,16 +14,18 @@ use App\Http\Controllers\BankAccount\BankAccountController;
 use App\Http\Controllers\Citizen\CitizenController;
 use App\Http\Controllers\Collaborator\CollaboratorController;
 use App\Http\Controllers\EnumController;
+use App\Http\Controllers\Location\LocationController;
 use App\Http\Controllers\LostAnimal\LostAnimalController;
 use App\Http\Controllers\MobileClinicEvent\MobileClinicEventController;
 use App\Http\Controllers\PreSurgeryAssessment\PreSurgeryAssessmentController;
+use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Protector\ProtectorController;
 use App\Http\Controllers\Registration\RegistrationController;
 use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\UserProfileController;
 use App\Http\Controllers\Vaccine\VaccineController;
-use App\Http\Controllers\Veterinarian\VeterinarianController;
+use App\Http\Controllers\Veterinarian\VeterinarianController; // added
 use Illuminate\Support\Facades\Route;
 
 // Public authentication routes
@@ -30,6 +33,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/register', [RegisterController::class, 'register']);
     Route::post('/login', [LoginController::class, 'login']);
     Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail']);
+    Route::post('/validate-reset-token', [ResetPasswordController::class, 'validateToken']);
     Route::post('/reset-password', [ResetPasswordController::class, 'reset']);
 });
 
@@ -64,8 +68,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/protector/{uuid}', [ProtectorController::class, 'update']);
     Route::apiResource('vaccine', VaccineController::class);
     Route::get('vaccine/alert', [VaccineController::class, 'vaccineAlert']);
+    Route::apiResource('applications', ApplicationController::class)->only(['index', 'show', 'store']);
 
     Route::apiResource('animal-ambulance', AnimalAmbulanceController::class)->except('destroy');
+
+    // products routes
+    Route::apiResource('products', ProductController::class);
+    Route::get('products/{id}/supply', [ProductController::class, 'supply']);
 
     Route::prefix('adoption-visits')->group(function () {
         Route::get('/', [AdoptionVisitController::class, 'index']);
@@ -77,6 +86,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/{uuid}/cancel', [AdoptionVisitController::class, 'cancel']);
     });
 
+    Route::apiResource('location', LocationController::class);
+    Route::apiResource('pre-surgery-assessment', PreSurgeryAssessmentController::class)->only('store');
     Route::apiResource('pre-surgery-assessment', PreSurgeryAssessmentController::class)
         ->only('store');
     Route::apiResource('collaborators', CollaboratorController::class)

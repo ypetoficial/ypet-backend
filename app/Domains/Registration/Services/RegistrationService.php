@@ -5,7 +5,6 @@ namespace App\Domains\Registration\Services;
 use App\Domains\Abstracts\AbstractService;
 use App\Domains\Animal\Entities\AnimalEntity;
 use App\Domains\Animal\Services\AnimalService;
-use App\Domains\Enums\AnimalSpeciesEnum;
 use App\Domains\Enums\RegistrationStatusEnum;
 use App\Domains\MobileClinicEvent\Services\MobileClinicEventService;
 use App\Domains\Registration\Repositories\RegistrationRepository;
@@ -41,7 +40,6 @@ class RegistrationService extends AbstractService
 
         $this->validateAnimalRegistration($animal, $tutor);
         $this->validateEventAvailability($mobileClinicEvent);
-        $this->validateAnimalSpecies($animal, $mobileClinicEvent);
 
         return $data;
     }
@@ -74,16 +72,6 @@ class RegistrationService extends AbstractService
     {
         if (! $mobileClinicEvent->isStatusOpen()) {
             throw new \InvalidArgumentException('Evento não aberto para agendamento.');
-        }
-    }
-
-    private function validateAnimalSpecies($animal, $mobileClinicEvent): void
-    {
-        $animalSpecies = Arr::get($animal->species, 'value');
-        $mobileClinicEventSpecies = Arr::get($mobileClinicEvent->species, 'value');
-
-        if ($mobileClinicEventSpecies !== AnimalSpeciesEnum::ALL->value && $mobileClinicEventSpecies !== $animalSpecies) {
-            throw new \InvalidArgumentException('Espécie do animal não é permitida no evento.');
         }
     }
 
