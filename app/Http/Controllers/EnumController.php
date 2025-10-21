@@ -9,7 +9,7 @@ class EnumController extends Controller
 {
     public function show(Request $request, string $enum)
     {
-        $locale = $request->get('locale', config('app.locale', 'en'));
+        $locale = $request->get('locale', 'pt_BR');
 
         $specialEnums = [
             'uf' => 'UF',
