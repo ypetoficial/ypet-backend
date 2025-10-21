@@ -29,7 +29,7 @@ class FileService
 
     public static function storageDefineDisk(): string
     {
-        if (config('app.env') == 'production') {
+        if (config('app.env') == 'production' || config('app.env') == 'staging') {
             return 'spaces';
         }
 
