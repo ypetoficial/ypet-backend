@@ -2,13 +2,13 @@
 
 namespace App\Domains\Report\Entities;
 
-use App\Models\Report;
-use App\Enums\ReportStatus;
-use Illuminate\Support\Str;
-use App\Domains\User\Entities\UserEntity;
 use App\Domains\Address\Entities\AddressEntity;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
+use App\Domains\User\Entities\UserEntity;
+use App\Enums\ReportStatus;
+use App\Models\Report;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Support\Str;
 
 class ReportEntity extends Report
 {
