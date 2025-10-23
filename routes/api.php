@@ -5,7 +5,6 @@ use App\Http\Controllers\AdoptionVisit\AdoptionVisitController;
 use App\Http\Controllers\Animal\AnimalController;
 use App\Http\Controllers\AnimalAmbulance\AnimalAmbulanceController;
 use App\Http\Controllers\AnimalEvaluationController;
-use App\Http\Controllers\Application\ApplicationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
@@ -18,6 +17,7 @@ use App\Http\Controllers\EnumController;
 use App\Http\Controllers\Location\LocationController;
 use App\Http\Controllers\LostAnimal\LostAnimalController;
 use App\Http\Controllers\MobileClinicEvent\MobileClinicEventController;
+use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\PreSurgeryAssessment\PreSurgeryAssessmentController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Protector\ProtectorController;
@@ -26,8 +26,8 @@ use App\Http\Controllers\Report\ReportController;
 use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\UserProfileController;
-use App\Http\Controllers\Vaccine\VaccineController;
-use App\Http\Controllers\Veterinarian\VeterinarianController; // added
+use App\Http\Controllers\Vaccine\VaccineController; // added
+use App\Http\Controllers\Veterinarian\VeterinarianController;
 use Illuminate\Support\Facades\Route;
 
 // Public authentication routes
@@ -47,6 +47,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/me', [UserProfileController::class, 'me']);
         Route::put('/me/profile', [UserProfileController::class, 'updateProfile']);
         Route::put('/me/password', [UserProfileController::class, 'changePassword']);
+        Route::post('/me/firebase-token', [UserProfileController::class, 'updateFirebaseToken']);
     });
 
     Route::get('panel-config', [UserController::class, 'panelConfig']);
@@ -70,7 +71,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/protector/{uuid}', [ProtectorController::class, 'update']);
     Route::apiResource('vaccine', VaccineController::class);
     Route::get('vaccine/alert', [VaccineController::class, 'vaccineAlert']);
-    Route::apiResource('applications', ApplicationController::class)->only(['index', 'show', 'store']);
 
     Route::apiResource('animal-ambulance', AnimalAmbulanceController::class)->except('destroy');
 
@@ -110,6 +110,15 @@ Route::middleware('auth:sanctum')->group(function () {
         ->only('index', 'show', 'store', 'update');
     Route::apiResource('bank-accounts', BankAccountController::class)
         ->only('index', 'show', 'update');
+
+    // Rotas de notificações
+    Route::prefix('notifications')->group(function () {
+        Route::get('/', [NotificationController::class, 'index']);
+        Route::get('/unread-count', [NotificationController::class, 'unreadCount']);
+        Route::patch('/{id}/read', [NotificationController::class, 'markAsRead']);
+        Route::patch('/mark-all-read', [NotificationController::class, 'markAllAsRead']);
+        Route::post('/test-push', [NotificationController::class, 'testPush']);
+    });
 });
 
 Route::post('adoption-visits', [AdoptionVisitController::class, 'store']);

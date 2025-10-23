@@ -5,6 +5,7 @@ namespace App\Domains\AdoptionVisit\Services;
 use App\Domains\Abstracts\AbstractService;
 use App\Domains\AdoptionVisit\Repositories\AdoptionVisitRepository;
 use App\Enums\AdoptionVisitStatus;
+use App\Events\AdoptionVisitConfirmed;
 use Illuminate\Support\Facades\Auth;
 
 class AdoptionVisitService extends AbstractService
@@ -21,6 +22,13 @@ class AdoptionVisitService extends AbstractService
         }
 
         return $this->repository->updateStatus($id, AdoptionVisitStatus::CONFIRMED);
+    }
+
+    public function afterUpdate($entity, array $params)
+    {
+        if ($entity->status == AdoptionVisitStatus::CONFIRMED) {
+            event(new AdoptionVisitConfirmed($entity));
+        }
     }
 
     public function reschedule($id, string $newDate)

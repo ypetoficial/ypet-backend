@@ -22,6 +22,7 @@ namespace App\Docs;
  *     @OA\Tag(name="PanelConfig", description="Configuração do Painel"),
  *     @OA\Tag(name="PreSurgeryAssessment", description="Triagem do animal para castração"),
  *     @OA\Tag(name="Locations", description="Gerenciamento de locais de atendimento, abrigos e parceiros"),
+ *     @OA\Tag(name="Notifications", description="Sistema de notificações do usuário"),
  *
  *      @OA\Server(
  *      url="{scheme}://{host}:{port}",
