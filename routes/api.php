@@ -21,6 +21,7 @@ use App\Http\Controllers\PreSurgeryAssessment\PreSurgeryAssessmentController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Protector\ProtectorController;
 use App\Http\Controllers\Registration\RegistrationController;
+use App\Http\Controllers\Report\ReportController;
 use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\UserProfileController;
@@ -86,6 +87,14 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/{uuid}/cancel', [AdoptionVisitController::class, 'cancel']);
     });
 
+    Route::prefix('reports')->group(function () {
+        Route::post('/{uuid}/receive', [ReportController::class, 'received']);
+        Route::post('/{uuid}/forward', [ReportController::class, 'forward']);
+        Route::post('/{uuid}/complete', [ReportController::class, 'complete']);
+        Route::post('/{uuid}/archive', [ReportController::class, 'archive']);
+    });
+
+    Route::apiResource('report', ReportController::class)->except('destroy');
     Route::apiResource('location', LocationController::class);
     Route::apiResource('pre-surgery-assessment', PreSurgeryAssessmentController::class)->only('store');
     Route::apiResource('pre-surgery-assessment', PreSurgeryAssessmentController::class)
