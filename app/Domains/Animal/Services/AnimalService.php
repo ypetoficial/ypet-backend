@@ -4,6 +4,9 @@ namespace App\Domains\Animal\Services;
 
 use App\Domains\Abstracts\AbstractService;
 use App\Domains\Animal\Repositories\AnimalRepository;
+use App\Domains\Enums\AnimalStatusEnum;
+use App\Domains\Enums\EvaluationAnimalStatusEnum;
+use App\Domains\EvaluationAnimal\Services\EvaluationAnimalStatusService;
 use App\Domains\Files\FilesService;
 use App\Events\AnimalCreated;
 use Illuminate\Support\Facades\Log;
@@ -11,15 +14,18 @@ use Illuminate\Support\Facades\Log;
 class AnimalService extends AbstractService
 {
     public FilesService $filesService;
+    public EvaluationAnimalStatusService $evaluationAnimalStatusService;
 
     public function __construct(AnimalRepository $repository)
     {
         $this->repository = $repository;
         $this->filesService = app(FilesService::class);
+        $this->evaluationAnimalStatusService = app(EvaluationAnimalStatusService::class);
     }
 
     public function beforeSave(array $data): array
     {
+
         if (data_get($data, 'picture')) {
             $data['picture'] = $this->filesService->processImage($data['picture']);
         }
@@ -29,7 +35,10 @@ class AnimalService extends AbstractService
 
     public function afterSave($entity, array $params)
     {
+
         event(new AnimalCreated($entity, $params));
+
+        $this->createEvaluationAnimal($entity, $params);
 
         return $entity;
     }
@@ -57,6 +66,7 @@ class AnimalService extends AbstractService
             Log::info('AnimalService afterUpdate - No entry data fields were modified');
         }
 
+
         return $entity;
     }
 
@@ -83,5 +93,16 @@ class AnimalService extends AbstractService
         }
 
         return false;
+    }
+
+    private function createEvaluationAnimal($entity, array $params) {
+
+        if ($params['status'] === AnimalStatusEnum::FOR_ADOPTION->value) {
+            $this->evaluationAnimalStatusService->save([
+                'animal_id' => $entity->id,
+                'status' => EvaluationAnimalStatusEnum::PENDING->value,
+                'tutor_id' => $params['tutor_id'],
+            ]);
+        }
     }
 }
