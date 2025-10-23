@@ -57,6 +57,7 @@ class UpdateAnimalRequest extends FormRequest
             'castration_site' => ['nullable', 'string', 'max:255'],
             'collection_site' => ['nullable', 'string', 'max:255'],
             'collection_reason' => ['nullable', 'string', 'max:255'],
+            'picture' => ['nullable', 'image', 'max:2048'],
         ];
     }
 }
