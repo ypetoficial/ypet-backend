@@ -16,8 +16,7 @@ return new class extends Migration
             $table->uuid('uuid')->unique();
             $table->string('type');
             $table->foreignId('reporter_id')->nullable()->constrained('users');
-            $table->string('location');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('picture')->nullable();
             $table->string('status');
             $table->timestamps();

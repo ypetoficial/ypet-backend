@@ -25,7 +25,7 @@ class FilesService
             return $storedImage['path'];
         }
 
-        return config('app.url').$storedImage['path'];
+        return $storedImage['path'];
     }
 
     public function delete(string $imageUrl): void

@@ -2,10 +2,12 @@
 
 namespace App\Domains\Report\Entities;
 
+use App\Domains\Address\Entities\AddressEntity;
+use App\Domains\User\Entities\UserEntity;
 use App\Enums\ReportStatus;
 use App\Models\Report;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class ReportEntity extends Report
 {
@@ -14,7 +16,6 @@ class ReportEntity extends Report
     protected $fillable = [
         'type',
         'reporter_id',
-        'location',
         'description',
         'picture',
         'status',
@@ -34,6 +35,16 @@ class ReportEntity extends Report
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(UserEntity::class);
+    }
+
+    public function address(): MorphOne
+    {
+        return $this->morphOne(AddressEntity::class, 'addressable');
+    }
+
+    public function reporter(): BelongsTo
+    {
+        return $this->belongsTo(UserEntity::class, 'reporter_id', 'id');
     }
 }
