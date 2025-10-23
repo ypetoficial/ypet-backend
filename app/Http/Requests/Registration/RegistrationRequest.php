@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Registration;
 
 use App\Domains\Enums\AnimalSpeciesEnum;
-use App\Domains\Enums\AnimalStatusEnum;
 use App\Domains\Enums\GenderEnum;
 use App\Domains\Enums\SizeEnum;
 use App\Domains\Enums\UFEnum;

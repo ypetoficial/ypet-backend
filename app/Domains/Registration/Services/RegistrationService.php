@@ -7,7 +7,6 @@ use App\Domains\Animal\Entities\AnimalEntity;
 use App\Domains\Animal\Services\AnimalService;
 use App\Domains\Citizen\Services\CitizenService;
 use App\Domains\Enums\AnimalStatusEnum;
-use App\Domains\Enums\GenderEnum;
 use App\Domains\Enums\RegistrationStatusEnum;
 use App\Domains\Enums\UserStatusEnum;
 use App\Domains\MobileClinicEvent\Services\MobileClinicEventService;
@@ -83,14 +82,14 @@ class RegistrationService extends AbstractService
         $rules = $mobileClinicEvent->rules();
 
         $maxRegistrations = $rules->sum('max_registrations');
-        if($mobileClinicEvent->getCurrentRegistrationsAttribute() >= $maxRegistrations) {
+        if ($mobileClinicEvent->getCurrentRegistrationsAttribute() >= $maxRegistrations) {
             throw new \InvalidArgumentException('Não há mais vagas para o animal');
         }
 
         $maxRegistrationByGender = $rules->where('gender', $animal->gender['value'])->sum('max_registrations');
 
-        if($mobileClinicEvent->getCurrentRegistrationByGenderAttribute($animal->gender['value']) >= $maxRegistrationByGender) {
-            throw new \InvalidArgumentException('Não há mais vagas para o animal do gênero '. $animal->gender['label']);
+        if ($mobileClinicEvent->getCurrentRegistrationByGenderAttribute($animal->gender['value']) >= $maxRegistrationByGender) {
+            throw new \InvalidArgumentException('Não há mais vagas para o animal do gênero '.$animal->gender['label']);
         }
     }
 
@@ -114,7 +113,7 @@ class RegistrationService extends AbstractService
             'color' => Arr::get($data, 'animal_color'),
             'birth_date' => Arr::get($data, 'animal_birth_date'),
             'weight' => Arr::get($data, 'animal_weight'),
-            'entry_date'=> Carbon::now()->format('Y-m-d H:i:s'),
+            'entry_date' => Carbon::now()->format('Y-m-d H:i:s'),
             'status' => AnimalStatusEnum::WITH_OWNER,
         ];
 
@@ -154,7 +153,7 @@ class RegistrationService extends AbstractService
         $defaultPassword = Arr::get($data, 'tutor_document');
         $tutorAddress = Arr::get($data, 'tutor_address', []);
 
-        if(empty($tutorAddress)) {
+        if (empty($tutorAddress)) {
             $tutorAddress = [
                 'zip_code' => Arr::get($data, 'tutor_address_zip_code'),
                 'street' => Arr::get($data, 'tutor_address_street'),
