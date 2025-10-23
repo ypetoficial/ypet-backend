@@ -4,6 +4,7 @@ use App\Http\Controllers\Address\AddressController;
 use App\Http\Controllers\AdoptionVisit\AdoptionVisitController;
 use App\Http\Controllers\Animal\AnimalController;
 use App\Http\Controllers\AnimalAmbulance\AnimalAmbulanceController;
+use App\Http\Controllers\AnimalEvaluationController;
 use App\Http\Controllers\Application\ApplicationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
@@ -85,6 +86,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/{uuid}/reschedule', [AdoptionVisitController::class, 'reschedule']);
         Route::post('/{uuid}/complete', [AdoptionVisitController::class, 'complete']);
         Route::post('/{uuid}/cancel', [AdoptionVisitController::class, 'cancel']);
+    });
+
+    Route::prefix('evaluation-animal')->group(function () {
+        Route::get('/', [AnimalEvaluationController::class, 'index']);
+        Route::post('/{uuid}/approved', [AnimalEvaluationController::class, 'approved']);
+        Route::post('/{uuid}/refused', [AnimalEvaluationController::class, 'refused']);
     });
 
     Route::prefix('reports')->group(function () {
