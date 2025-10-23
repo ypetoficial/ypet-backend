@@ -7,6 +7,7 @@ use App\Domains\Address\Services\ReverseGeoCoderService;
 use App\Domains\Files\FilesService;
 use App\Domains\Report\Repositories\ReportRepository;
 use App\Enums\ReportStatus;
+use App\Events\ComplaintStatusUpdated;
 use App\Events\ReportCompleted;
 use App\Events\ReportReceived;
 use Illuminate\Support\Facades\Auth;
@@ -75,6 +76,15 @@ class ReportService extends AbstractService
         Event::dispatch(new ReportCompleted($report));
 
         return $report;
+    }
+
+    public function afterUpdate($entity, array $params)
+    {
+        if ($entity->wasChanged('status')) {
+            event(new ComplaintStatusUpdated($entity->reporter_id, $entity->id, $entity->status));
+        }
+
+        return $entity;
     }
 
     public function archive($id)

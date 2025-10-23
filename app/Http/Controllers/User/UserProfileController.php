@@ -71,7 +71,6 @@ class UserProfileController extends AbstractController
                 $this->service->update($user->id, $validated);
             }
 
-            // Retornar usuário atualizado com relacionamentos relevantes
             $with = array_merge($request->get('with', []), ['citizen', 'protector', 'citizen.addresses', 'protector.addresses']);
             $freshUser = $this->service->find($user->id, $with);
 
@@ -106,6 +105,29 @@ class UserProfileController extends AbstractController
             report($e);
 
             return $this->error('Erro ao atualizar a senha.', [], 500);
+        }
+    }
+
+    public function updateFirebaseToken(Request $request)
+    {
+        try {
+            $request->validate([
+                'token' => 'required|string|max:500',
+            ]);
+
+            $user = $request->user();
+            $this->service->update($user->id, [
+                'fcm_token' => $request->token,
+            ]);
+
+            return $this->ok([
+                'message' => 'Firebase token atualizado com sucesso.',
+                'token_saved' => true,
+            ]);
+        } catch (\Exception $e) {
+            report($e);
+
+            return $this->error('Erro ao salvar Firebase token.', [], 500);
         }
     }
 }

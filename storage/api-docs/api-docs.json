@@ -2118,6 +2118,59 @@
                 }
             }
         },
+        "/api/auth/me/firebase-token": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Atualiza o token Firebase do usuário autenticado",
+                "operationId": "ba0114174ee967a06b22cb4d9aeaaf21",
+                "parameters": [
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Client type (e.g., web, mobile)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "mobile"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "token"
+                                ],
+                                "properties": {
+                                    "token": {
+                                        "description": "Token Firebase FCM para push notifications",
+                                        "type": "string",
+                                        "maxLength": 500,
+                                        "example": "eGpXAI4TQfOvhpKd04-HnM:APA91bEBArLrI5gONgqaVeU1mUqCUdVOiSoEMcBNaEBGllVOSLEAHGzxTTDjHI-uu"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Token Firebase atualizado com sucesso"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                }
+            }
+        },
         "/api/auth/me/password": {
             "put": {
                 "tags": [
@@ -4669,6 +4722,350 @@
                                 }
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/api/notifications": {
+            "get": {
+                "tags": [
+                    "Notifications"
+                ],
+                "summary": "Listar notificações do usuário",
+                "description": "Retorna uma lista paginada das notificações do usuário autenticado, ordenadas por data de criação (mais recentes primeiro)",
+                "operationId": "getNotifications",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Número de itens por página (máximo 100)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 20,
+                            "maximum": 100,
+                            "minimum": 1
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Página atual",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1,
+                            "minimum": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de notificações recuperada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationList"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado - Token inválido ou ausente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/notifications/unread-count": {
+            "get": {
+                "tags": [
+                    "Notifications"
+                ],
+                "summary": "Contar notificações não lidas",
+                "description": "Retorna o número total de notificações não lidas do usuário autenticado",
+                "operationId": "getUnreadNotificationsCount",
+                "responses": {
+                    "200": {
+                        "description": "Contagem de notificações não lidas recuperada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnreadCount"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado - Token inválido ou ausente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/notifications/mark-all-read": {
+            "patch": {
+                "tags": [
+                    "Notifications"
+                ],
+                "summary": "Marcar todas as notificações como lidas",
+                "description": "Marca todas as notificações não lidas do usuário autenticado como lidas",
+                "operationId": "markAllNotificationsAsRead",
+                "responses": {
+                    "200": {
+                        "description": "Todas as notificações marcadas como lidas com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "Status da operação",
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "description": "Mensagem de sucesso",
+                                            "type": "string",
+                                            "example": "Todas as notificações foram marcadas como lidas"
+                                        },
+                                        "count": {
+                                            "description": "Número de notificações que foram marcadas como lidas",
+                                            "type": "integer",
+                                            "example": 5
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado - Token inválido ou ausente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/notifications/{id}/read": {
+            "patch": {
+                "tags": [
+                    "Notifications"
+                ],
+                "summary": "Marcar notificação como lida",
+                "description": "Marca uma notificação específica como lida. Apenas notificações do usuário autenticado podem ser marcadas.",
+                "operationId": "markNotificationAsRead",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID único da notificação",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Notificação marcada como lida com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationSuccessResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autorizado - Token inválido ou ausente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Notificação não encontrada ou não pertence ao usuário",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro interno do servidor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/notifications/test-push": {
+            "post": {
+                "tags": [
+                    "Notifications"
+                ],
+                "summary": "Envia uma notificação push de teste",
+                "operationId": "2837e69accdd628bfc41b27af783c807",
+                "parameters": [
+                    {
+                        "name": "X-Client-Type",
+                        "in": "header",
+                        "description": "Client type (e.g., web, mobile)",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "mobile"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Notificação de teste enviada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Notificação de teste enviada"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "notification_id": {
+                                                    "type": "integer",
+                                                    "example": 123
+                                                },
+                                                "push_sent": {
+                                                    "type": "boolean",
+                                                    "example": true
+                                                },
+                                                "has_token": {
+                                                    "type": "boolean",
+                                                    "example": true
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Usuário não possui Firebase token configurado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Usuário não possui Firebase token configurado"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "has_token": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autenticado"
                     }
                 }
             }
@@ -8313,6 +8710,174 @@
         }
     },
     "components": {
+        "schemas": {
+            "Notification": {
+                "title": "Notificação",
+                "description": "Estrutura de uma notificação do sistema",
+                "properties": {
+                    "id": {
+                        "description": "ID único da notificação",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "description": "Título da notificação",
+                        "type": "string",
+                        "example": "Lembrete de Castração"
+                    },
+                    "message": {
+                        "description": "Mensagem da notificação",
+                        "type": "string",
+                        "example": "O agendamento de Thor para castração é amanhã às 09:00."
+                    },
+                    "type": {
+                        "description": "Tipo da notificação",
+                        "type": "string",
+                        "enum": [
+                            "alerta",
+                            "lembrete",
+                            "confirmacao",
+                            "informativa"
+                        ],
+                        "example": "lembrete"
+                    },
+                    "datetime": {
+                        "description": "Data e hora de criação",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-10-23T09:00:00Z"
+                    },
+                    "status": {
+                        "description": "Status de leitura",
+                        "type": "string",
+                        "enum": [
+                            "lida",
+                            "não lida"
+                        ],
+                        "example": "não lida"
+                    },
+                    "action_label": {
+                        "description": "Texto do botão de ação",
+                        "type": "string",
+                        "example": "Ver agendamento",
+                        "nullable": true
+                    },
+                    "action_target": {
+                        "description": "Destino da ação",
+                        "type": "string",
+                        "example": "/agendamentos/123",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "NotificationList": {
+                "title": "Lista de Notificações",
+                "description": "Resposta da listagem de notificações com paginação",
+                "properties": {
+                    "success": {
+                        "description": "Status da operação",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "data": {
+                        "description": "Array de notificações",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Notification"
+                        }
+                    },
+                    "pagination": {
+                        "description": "Informações de paginação",
+                        "properties": {
+                            "current_page": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "total": {
+                                "type": "integer",
+                                "example": 25
+                            },
+                            "per_page": {
+                                "type": "integer",
+                                "example": 20
+                            },
+                            "last_page": {
+                                "type": "integer",
+                                "example": 2
+                            },
+                            "from": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "to": {
+                                "type": "integer",
+                                "example": 20
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "UnreadCount": {
+                "title": "Contagem de Não Lidas",
+                "description": "Resposta da contagem de notificações não lidas",
+                "properties": {
+                    "success": {
+                        "description": "Status da operação",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "count": {
+                        "description": "Número de notificações não lidas",
+                        "type": "integer",
+                        "example": 5
+                    }
+                },
+                "type": "object"
+            },
+            "NotificationSuccessResponse": {
+                "title": "Resposta de Sucesso - Notificação",
+                "description": "Resposta padrão de sucesso para operações de notificação",
+                "properties": {
+                    "success": {
+                        "description": "Status da operação",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "message": {
+                        "description": "Mensagem de sucesso",
+                        "type": "string",
+                        "example": "Notificação marcada como lida"
+                    }
+                },
+                "type": "object"
+            },
+            "NotificationErrorResponse": {
+                "title": "Resposta de Erro - Notificação",
+                "description": "Resposta padrão de erro para operações de notificação",
+                "properties": {
+                    "success": {
+                        "description": "Status da operação",
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "message": {
+                        "description": "Mensagem de erro",
+                        "type": "string",
+                        "example": "Notificação não encontrada"
+                    },
+                    "error": {
+                        "description": "Detalhes do erro (apenas em debug)",
+                        "type": "string",
+                        "example": null,
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            }
+        },
         "securitySchemes": {
             "bearerAuth": {
                 "type": "http",
@@ -8361,6 +8926,10 @@
         {
             "name": "Locations",
             "description": "Gerenciamento de locais de atendimento, abrigos e parceiros"
+        },
+        {
+            "name": "Notifications",
+            "description": "Sistema de notificações do usuário"
         },
         {
             "name": "Adoption Visit",

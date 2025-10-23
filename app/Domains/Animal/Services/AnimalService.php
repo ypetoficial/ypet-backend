@@ -8,6 +8,7 @@ use App\Domains\Enums\AnimalStatusEnum;
 use App\Domains\Enums\EvaluationAnimalStatusEnum;
 use App\Domains\EvaluationAnimal\Services\EvaluationAnimalStatusService;
 use App\Domains\Files\FilesService;
+use App\Events\AnimalAvailableForAdoption;
 use App\Events\AnimalCreated;
 use Illuminate\Support\Facades\Log;
 
@@ -57,6 +58,10 @@ class AnimalService extends AbstractService
     public function afterUpdate($entity, array $params)
     {
         $animalEntryDataService = app(AnimalEntryDataService::class);
+
+        if ($entity->wasChanged('status') && $entity->status === AnimalStatusEnum::FOR_ADOPTION) {
+            event(new AnimalAvailableForAdoption($entity->id, $entity->name, $entity->type));
+        }
 
         if ($this->checkFieldsExistence($params)) {
             Log::info('AnimalService afterUpdate - Modified fields', [

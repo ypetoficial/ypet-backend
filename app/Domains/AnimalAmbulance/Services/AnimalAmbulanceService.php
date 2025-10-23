@@ -5,6 +5,8 @@ namespace App\Domains\AnimalAmbulance\Services;
 use App\Domains\Abstracts\AbstractService;
 use App\Domains\Address\Services\ReverseGeoCoderService;
 use App\Domains\AnimalAmbulance\Repositories\AnimalAmbulanceRepository;
+use App\Domains\Enums\AnimalAmbulenceStatusEnum;
+use App\Events\SamupetRequestApproved;
 use App\Models\AnimalAmbulenceReason;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -60,6 +62,17 @@ class AnimalAmbulanceService extends AbstractService
         if (! $address) {
             throw new \Exception('Houve um erro ao salvar o endereço, tente novamente');
         }
+    }
+
+    public function afterUpdate($entity, array $params)
+    {
+        if ($entity->wasChanged('status') &&
+            ($entity->status === AnimalAmbulenceStatusEnum::DESIGNATED ||
+             $entity->status === AnimalAmbulenceStatusEnum::COMPLETED)) {
+            event(new SamupetRequestApproved($entity->user_id, $entity->id));
+        }
+
+        return $entity;
     }
 
     private function handleEvidence(UploadedFile $evidence)
