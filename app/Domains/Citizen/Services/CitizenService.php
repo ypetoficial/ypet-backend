@@ -51,7 +51,6 @@ class CitizenService extends AbstractService
 
     public function afterSave($entity, array $params)
     {
-
         $addresses = data_get($params, 'address', []);
         foreach ($addresses as $addressData) {
             $addressData['type'] = AddressTypeEnum::MAIN;

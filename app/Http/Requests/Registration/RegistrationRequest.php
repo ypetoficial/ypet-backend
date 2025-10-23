@@ -50,7 +50,6 @@ class RegistrationRequest extends FormRequest
             'animal_specie' => ['required_if:animal_id,null', Rule::in(AnimalSpeciesEnum::values())],
             'animal_gender' => ['required_if:animal_id,null', Rule::in(GenderEnum::values())],
             'animal_size' => ['required_if:animal_id,null', Rule::in(SizeEnum::values())],
-            'animal_status' => ['required_if:animal_id,null', Rule::in(AnimalStatusEnum::values())],
             'animal_color' => ['nullable', 'string', 'max:100'],
             'animal_birth_date' => ['nullable', 'date'],
             'animal_weight' => ['required_if:animal_id,null', 'numeric', 'min:0', 'max:999.99'],
