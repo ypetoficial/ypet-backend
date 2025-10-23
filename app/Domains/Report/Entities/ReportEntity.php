@@ -2,12 +2,13 @@
 
 namespace App\Domains\Report\Entities;
 
-use App\Domains\Address\Entities\AddressEntity;
-use App\Domains\User\Entities\UserEntity;
-use App\Enums\ReportStatus;
 use App\Models\Report;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Enums\ReportStatus;
+use Illuminate\Support\Str;
+use App\Domains\User\Entities\UserEntity;
+use App\Domains\Address\Entities\AddressEntity;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ReportEntity extends Report
 {
@@ -26,7 +27,7 @@ class ReportEntity extends Report
         parent::boot();
 
         static::creating(function ($model) {
-            $model->uuid = (string) \Illuminate\Support\Str::uuid();
+            $model->uuid = (string) Str::uuid();
             if (empty($model->status)) {
                 $model->status = ReportStatus::IN_REVIEW->value;
             }
