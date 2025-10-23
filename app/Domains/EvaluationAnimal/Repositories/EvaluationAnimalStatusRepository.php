@@ -40,7 +40,6 @@ class EvaluationAnimalStatusRepository extends AbstractRepository
             ->withQueryString();
     }
 
-
     public function updateStatus(int|string $id, EvaluationAnimalStatusEnum $status)
     {
         $visit = $this->find($id);

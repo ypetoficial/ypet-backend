@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Domains\EvaluationAnimal\Services\EvaluationAnimalStatusService;
-use Illuminate\Http\Request;
 
 class AnimalEvaluationController extends AbstractController
 {

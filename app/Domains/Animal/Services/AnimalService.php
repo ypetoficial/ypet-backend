@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Log;
 class AnimalService extends AbstractService
 {
     public FilesService $filesService;
+
     public EvaluationAnimalStatusService $evaluationAnimalStatusService;
 
     public function __construct(AnimalRepository $repository)
@@ -66,7 +67,6 @@ class AnimalService extends AbstractService
             Log::info('AnimalService afterUpdate - No entry data fields were modified');
         }
 
-
         return $entity;
     }
 
@@ -95,7 +95,8 @@ class AnimalService extends AbstractService
         return false;
     }
 
-    private function createEvaluationAnimal($entity, array $params) {
+    private function createEvaluationAnimal($entity, array $params)
+    {
 
         if ($params['status'] === AnimalStatusEnum::FOR_ADOPTION->value) {
             $this->evaluationAnimalStatusService->save([

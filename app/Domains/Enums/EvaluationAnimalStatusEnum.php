@@ -17,19 +17,19 @@ enum EvaluationAnimalStatusEnum: string implements EnumInterface
     {
         $translations = [
             'en' => [
-                'PENDING'  => 'Pending',
+                'PENDING' => 'Pending',
                 'APPROVED' => 'Approved',
-                'REFUSED'  => 'Refused',
+                'REFUSED' => 'Refused',
             ],
             'es' => [
-                'PENDING'  => 'Pendiente',
+                'PENDING' => 'Pendiente',
                 'APPROVED' => 'Aprobado',
-                'REFUSED'  => 'Rechazado',
+                'REFUSED' => 'Rechazado',
             ],
             'pt_BR' => [
-                'PENDING'  => 'Pendente',
+                'PENDING' => 'Pendente',
                 'APPROVED' => 'Aprovado',
-                'REFUSED'  => 'Reprovado',
+                'REFUSED' => 'Reprovado',
             ],
         ];
 

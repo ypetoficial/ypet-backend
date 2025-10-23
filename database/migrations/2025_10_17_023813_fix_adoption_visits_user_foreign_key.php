@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('adoption_visits', function (Blueprint $table) {
-            
+
             $table->time('visit_time')->nullable();
 
             $table->dropForeign(['user_id']);
@@ -30,7 +30,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('adoption_visits', function (Blueprint $table) {
-            
+
             $table->dropColumn('visit_time');
 
             $table->dropForeign(['user_id']);
