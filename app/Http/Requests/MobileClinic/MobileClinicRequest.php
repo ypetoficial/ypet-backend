@@ -28,7 +28,7 @@ class MobileClinicRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'location' => 'required|string|max:255',
+            'location_id' => 'required|exists:locations,id',
             'start_date' => 'required|date|before_or_equal:end_date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'status' => ['required', Rule::enum(MobileEventStatusEnum::class)],
