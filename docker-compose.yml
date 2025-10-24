@@ -37,7 +37,7 @@ services:
       MYSQL_PASSWORD: password
       MYSQL_USER: ypet
     ports:
-      - "3366:3306"
+      - "3306:3306"
     volumes:
       - ypet-db-data:/var/lib/mysql
     networks:
@@ -53,7 +53,7 @@ services:
       MYSQL_PASSWORD: password
       MYSQL_USER: ypet_test
     ports:
-      - "3366:3306"
+      - "3307:3306"
     volumes:
       - ypet-test-db-data:/var/lib/mysql
     networks:

@@ -4,7 +4,6 @@ namespace App\Domains\Application\Services;
 
 use App\Domains\Abstracts\AbstractService;
 use App\Domains\Animal\Entities\AnimalEntity;
-use App\Domains\Animal\Services\AnimalHistoryService;
 use App\Domains\Application\Repositories\ApplicationRepository;
 use App\Domains\Product\Services\ProductService;
 use Illuminate\Support\Arr;
@@ -66,36 +65,7 @@ class ApplicationService extends AbstractService
 
     public function afterSave($entity, array $params)
     {
-        try {
-            /** @var AnimalHistoryService $historyService */
-            $historyService = app(AnimalHistoryService::class);
-            $historyService->save([
-                'animal_id' => (int) $entity->getAttribute('animal_id'),
-                'type' => 'application',
-                'category' => (string) $entity->getAttribute('category'),
-                'date' => $entity->getAttribute('application_date'),
-                'notes' => $entity->getAttribute('observations'),
-                'created_by' => Auth::user()?->id,
-                'meta' => [
-                    'application_id' => (int) $entity->getAttribute('id'),
-                    'product_id' => (int) $entity->getAttribute('product_id'),
-                    'animal_weight' => (float) $entity->getAttribute('animal_weight'),
-                    'estimated_days_supply' => (float) $entity->getAttribute('estimated_days_supply'),
-                    'period_days' => $entity->getAttribute('period_days'),
-                    'frequency' => $entity->getAttribute('frequency'),
-                    'via_administration' => $entity->getAttribute('via_administration'),
-                    'supplement_type' => $entity->getAttribute('supplement_type'),
-                    'meals_per_day' => $entity->getAttribute('meals_per_day'),
-                    'daily_quantity_g_per_kg' => $entity->getAttribute('daily_quantity_g_per_kg'),
-                    'next_dose_date' => $entity->getAttribute('next_dose_date'),
-                    'lot_number' => $entity->getAttribute('lot_number'),
-                    'expiration_date' => $entity->getAttribute('expiration_date'),
-                ],
-            ]);
-        } catch (\Throwable $e) {
-            Log::error('Erro ao processar pós-salvar aplicação: '.$e->getMessage());
-        }
-
+        // salvar historico do animal
         return $entity;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
@@ -63,17 +64,13 @@ abstract class AbstractController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            if ($this->requestValidate) {
-                $requestValidate = app($this->requestValidate);
-                $request->validate($requestValidate->rules());
-            }
-        } catch (ValidationException $e) {
-            return $this->error($this->messageErrorDefault, $e->errors());
+        if ($this->requestValidate) {
+            $requestValidate = app($this->requestValidate);
+            $request->validate($requestValidate->rules());
         }
 
+        DB::beginTransaction();
         try {
-            DB::beginTransaction();
             $params = $request->all();
             data_set($params, 'created_by', $request->user()->id ?? null);
             data_set($params, 'origin', $request->header('X-Client-Type'));
@@ -81,12 +78,12 @@ abstract class AbstractController extends Controller
             DB::commit();
 
             return $this->success($this->messageSuccessDefault, ['response' => $response]);
-        } catch (\Exception|ValidationException $e) {
+        } catch (\Throwable $e) {
             DB::rollBack();
             if ($e instanceof ValidationException) {
                 return $this->error($this->messageErrorDefault, $e->errors());
             }
-            if ($e instanceof \Exception) {
+            if ($e instanceof Exception) {
                 return $this->error($e->getMessage());
             }
         }
@@ -97,31 +94,22 @@ abstract class AbstractController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try {
-            if (! empty($this->requestValidateUpdate)) {
-                $requestValidateUpdate = app($this->requestValidateUpdate);
-                $request->validate($requestValidateUpdate->rules());
-            }
-        } catch (ValidationException $e) {
-            return $this->error($this->messageErrorDefault, $e->errors());
+        if (! empty($this->requestValidateUpdate)) {
+            $requestValidateUpdate = app($this->requestValidateUpdate);
+            $request->validate($requestValidateUpdate->rules());
         }
 
+        DB::beginTransaction();
         try {
-            DB::beginTransaction();
             $params = $request->all();
             data_set($params, 'updated_by', $request->user()->id ?? null);
             $this->service->update($id, $params);
             DB::commit();
 
             return $this->success($this->messageSuccessDefault);
-        } catch (\Exception|ValidationException $e) {
+        } catch (\Throwable $e) {
             DB::rollBack();
-            if ($e instanceof \Exception) {
-                return $this->error($e->getMessage());
-            }
-            if ($e instanceof ValidationException) {
-                return $this->error($this->messageErrorDefault, $e->errors());
-            }
+            throw $e;
         }
     }
 
@@ -130,19 +118,9 @@ abstract class AbstractController extends Controller
      */
     public function show($id)
     {
-        try {
-            $this->with = request()->get('with', []);
+        $this->with = request()->get('with', []);
 
-            return $this->ok($this->service->find($id, $this->with));
-        } catch (\Exception|ValidationException $e) {
-            DB::rollBack();
-            if ($e instanceof \Exception) {
-                return $this->error($e->getMessage());
-            }
-            if ($e instanceof ValidationException) {
-                return $this->error($this->messageErrorDefault, $e->errors());
-            }
-        }
+        return $this->ok($this->service->find($id, $this->with));
     }
 
     /**
@@ -150,13 +128,9 @@ abstract class AbstractController extends Controller
      */
     public function destroy($id)
     {
-        try {
-            $this->service->delete($id);
+        $this->service->delete($id);
 
-            return $this->success($this->messageSuccessDefault);
-        } catch (\Exception $e) {
-            return $this->error($e->getMessage());
-        }
+        return $this->success($this->messageSuccessDefault);
     }
 
     /**

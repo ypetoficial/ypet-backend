@@ -29,6 +29,10 @@ class User extends Authenticatable
         'telephone',
         'cellphone',
         'password',
+        'fcm_token',
+        'document',
+        'onboarding_done',
+        'photo_url',
     ];
 
     /**

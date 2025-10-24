@@ -53,6 +53,14 @@ class MobileClinicEventEntity extends MobileClinicEvent
         return $this->registrations()->count();
     }
 
+    public function getCurrentRegistrationByGenderAttribute(string $gender): int
+    {
+        return $this->registrations()
+            ->join('animals', 'registrations.animal_id', '=', 'animals.id')
+            ->where('animals.gender', $gender)
+            ->count();
+    }
+
     public function getMaxRegistrationsAttribute(): int
     {
         return $this->rules()->sum('max_registrations');
