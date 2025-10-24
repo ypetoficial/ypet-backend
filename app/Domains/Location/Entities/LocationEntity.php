@@ -3,7 +3,9 @@
 namespace App\Domains\Location\Entities;
 
 use App\Domains\Address\Entities\AddressEntity;
+use App\Domains\Animal\Entities\AnimalEntity;
 use App\Domains\Enums\LocationTypeEnum;
+use App\Domains\MobileClinicEvent\Entities\MobileClinicEventEntity;
 use App\Models\Location;
 
 class LocationEntity extends Location
@@ -25,6 +27,16 @@ class LocationEntity extends Location
     protected $casts = [
         'location_type' => LocationTypeEnum::class,
     ];
+
+    public function mobileClinicEvents()
+    {
+        return $this->hasMany(MobileClinicEventEntity::class, 'location_id');
+    }
+
+    public function animals()
+    {
+        return $this->hasMany(AnimalEntity::class, 'location_id');
+    }
 
     public function addresses()
     {

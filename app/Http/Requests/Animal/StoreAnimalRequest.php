@@ -41,6 +41,7 @@ class StoreAnimalRequest extends FormRequest
             'surname' => ['nullable', 'string', 'max:255'],
             'tutor_id' => ['nullable', 'exists:users,id'],
             'picture' => ['nullable', 'image', 'max:2048'],
+            'location_id' => ['nullable', 'exists:locations,id'],
 
             // Dados de entrada
             'status' => ['required', 'string', 'max:255', Rule::in(AnimalStatusEnum::values())],

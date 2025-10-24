@@ -1,0 +1,90 @@
+{
+  "example_1_existing_animal_and_tutor": {
+    "description": "Payload com animal_id e tutor_id existentes",
+    "payload": {
+      "mobile_clinic_event_id": 1,
+      "scheduler_at": "2025-10-10 14:00:00",
+      "tutor_id": 5,
+      "animal_id": 10
+    }
+  },
+
+  "example_2_existing_animal_new_tutor": {
+    "description": "Payload com animal_id existente mas novo tutor",
+    "payload": {
+      "mobile_clinic_event_id": 1,
+      "scheduler_at": "2025-10-10 15:00:00",
+      "animal_id": 10,
+      "tutor_name": "João Silva",
+      "tutor_document": "12345678900",
+      "tutor_cellphone": "(11) 98765-4321",
+      "tutor_email": "joao.silva@email.com",
+      "tutor_address": {
+        "street": "Rua das Flores",
+        "number": "123",
+        "complement": "Apto 45",
+        "district": "Centro",
+        "city": "São Paulo",
+        "state": "SP",
+        "zip_code": "01234-567"
+      }
+    }
+  },
+
+  "example_3_new_animal_existing_tutor": {
+    "description": "Payload com tutor_id existente mas novo animal",
+    "payload": {
+      "mobile_clinic_event_id": 1,
+      "scheduler_at": "2025-10-10 16:00:00",
+      "tutor_id": 5,
+      "animal_name": "Rex",
+      "animal_specie": "dog",
+      "animal_gender": "male",
+      "animal_size": "medium",
+      "animal_status": "domestic",
+      "animal_color": "Marrom",
+      "animal_birth_date": "2020-05-15",
+      "animal_weight": 15.5
+    }
+  },
+
+  "example_4_new_animal_and_tutor": {
+    "description": "Payload com novo animal e novo tutor (cadastro completo)",
+    "payload": {
+      "mobile_clinic_event_id": 1,
+      "scheduler_at": "2025-10-10 17:00:00",
+      "tutor_name": "Maria Oliveira",
+      "tutor_document": "98765432100",
+      "tutor_cellphone": "(11) 91234-5678",
+      "tutor_email": "maria.oliveira@email.com",
+      "tutor_address": {
+        "street": "Av. Paulista",
+        "number": "1000",
+        "complement": "Sala 10",
+        "district": "Bela Vista",
+        "city": "São Paulo",
+        "state": "SP",
+        "zip_code": "01310-100"
+      },
+      "animal_name": "Mimi",
+      "animal_specie": "cat",
+      "animal_gender": "female",
+      "animal_size": "small",
+      "animal_status": "domestic",
+      "animal_color": "Branco",
+      "animal_birth_date": "2022-03-20",
+      "animal_weight": 4.2
+    }
+  },
+
+  "notes": {
+    "animal_id": "Quando fornecido, os campos de animal (name, specie, gender, size, status, weight) tornam-se opcionais",
+    "tutor_id": "Quando fornecido, os campos de tutor (name, document, cellphone, email, address) tornam-se opcionais",
+    "required_fields": ["mobile_clinic_event_id", "scheduler_at"],
+    "animal_specie_enum": ["dog", "cat"],
+    "gender_enum": ["male", "female"],
+    "size_enum": ["small", "medium", "large"],
+    "animal_status_enum": ["domestic", "stray", "rescued"],
+    "uf_enum": ["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"]
+  }
+}

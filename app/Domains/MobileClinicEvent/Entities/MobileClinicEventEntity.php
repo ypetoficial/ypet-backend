@@ -4,6 +4,7 @@ namespace App\Domains\MobileClinicEvent\Entities;
 
 use App\Casts\EnumCast;
 use App\Domains\Enums\MobileEventStatusEnum;
+use App\Domains\Location\Entities\LocationEntity;
 use App\Domains\Registration\Entities\RegistrationEntity;
 use App\Models\MobileClinicEvent;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -16,10 +17,10 @@ class MobileClinicEventEntity extends MobileClinicEvent
     protected $fillable = [
         'name',
         'description',
-        'location',
         'start_date',
         'end_date',
         'status',
+        'location_id',
     ];
 
     protected $casts = [
@@ -41,6 +42,11 @@ class MobileClinicEventEntity extends MobileClinicEvent
     public function registrations()
     {
         return $this->hasMany(RegistrationEntity::class, 'mobile_clinic_event_id');
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(LocationEntity::class, 'location_id');
     }
 
     public function rules(): HasMany

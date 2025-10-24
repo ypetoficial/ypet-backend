@@ -41,6 +41,7 @@ class UpdateAnimalRequest extends FormRequest
             'tutor_id' => ['nullable', 'exists:users,id'],
             'entry_date' => ['nullable', 'date', 'before_or_equal:today'],
             'status' => ['sometimes', 'string', 'max:255', Rule::in(AnimalStatusEnum::values())],
+            'location_id' => ['nullable', 'exists:locations,id'],
             'microchip_number' => [
                 'sometimes',
                 'numeric',

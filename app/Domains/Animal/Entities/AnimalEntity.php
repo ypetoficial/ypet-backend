@@ -7,6 +7,7 @@ use App\Domains\Enums\AnimalCoatEnum;
 use App\Domains\Enums\AnimalSpeciesEnum;
 use App\Domains\Enums\GenderEnum;
 use App\Domains\Enums\SizeEnum;
+use App\Domains\Location\Entities\LocationEntity;
 use App\Domains\Registration\Entities\RegistrationEntity;
 use App\Models\Animal;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -33,6 +34,7 @@ class AnimalEntity extends Animal
         'characteristics',
         'surname',
         'picture',
+        'location_id',
     ];
 
     protected $casts = [
@@ -67,5 +69,10 @@ class AnimalEntity extends Animal
     public function registrations(): HasMany
     {
         return $this->hasMany(RegistrationEntity::class, 'animal_id', 'id');
+    }
+
+    public function location(): BelongsTo
+    {
+        return $this->belongsTo(LocationEntity::class, 'location_id');
     }
 }
