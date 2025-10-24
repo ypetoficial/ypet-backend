@@ -5,6 +5,7 @@ use App\Http\Controllers\AdoptionVisit\AdoptionVisitController;
 use App\Http\Controllers\Animal\AnimalController;
 use App\Http\Controllers\AnimalAmbulance\AnimalAmbulanceController;
 use App\Http\Controllers\AnimalEvaluationController;
+use App\Http\Controllers\Application\ApplicationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
@@ -119,6 +120,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::patch('/mark-all-read', [NotificationController::class, 'markAllAsRead']);
         Route::post('/test-push', [NotificationController::class, 'testPush']);
     });
+
+    Route::apiResource('applications', ApplicationController::class);
 });
 
 Route::post('adoption-visits', [AdoptionVisitController::class, 'store']);
