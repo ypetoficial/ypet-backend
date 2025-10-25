@@ -58,27 +58,36 @@ class LostAnimalService extends AbstractService
 
     private function sendNotification($entity, array $params)
     {
+        $address = null;
+
+        if (! empty($params['address'])) {
+            $addressData = $params['address'];
+            $coordinates = new CoordinatesValueObject(
+                latitude: $addressData['latitude'],
+                longitude: $addressData['longitude'],
+            );
+
+            $address = new AddressValueObject(
+                addressableId: $entity->id,
+                addressableType: LostAnimalEntity::class,
+                street: $addressData['street'] ?? '',
+                number: $addressData['number'] ?? null,
+                complement: $addressData['complement'] ?? null,
+                district: $addressData['district'] ?? null,
+                city: $addressData['city'] ?? null,
+                state: $addressData['state'] ?? null,
+                zipCode: $addressData['zip_code'] ?? null,
+                country: $addressData['country'] ?? null,
+                coordinates: $coordinates ?? null,
+            );
+        }
+
         $dto = new StoreLostAnimalDTO(
             animalId: $params['animal_id'],
             createdBy: $entity->created_by,
             lostAt: $params['lost_at'],
             status: $params['status'],
-            address: new AddressValueObject(
-                addressableId: $entity->id,
-                addressableType: LostAnimalEntity::class,
-                street: $params['address']['street'],
-                number: $params['address']['number'] ?? null,
-                complement: $params['address']['complement'] ?? null,
-                district: $params['address']['district'] ?? null,
-                city: $params['address']['city'] ?? null,
-                state: $params['address']['state'] ?? null,
-                zipCode: $params['address']['zip_code'] ?? null,
-                country: $params['address']['country'] ?? null,
-                coordinates: new CoordinatesValueObject(
-                    latitude: $params['address']['latitude'],
-                    longitude: $params['address']['longitude'],
-                ),
-            ),
+            address: $address,
         );
 
         event(new LostAnimalCreated($entity, $dto));

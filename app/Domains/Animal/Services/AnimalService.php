@@ -8,6 +8,7 @@ use App\Domains\Enums\AnimalStatusEnum;
 use App\Domains\Enums\EvaluationAnimalStatusEnum;
 use App\Domains\EvaluationAnimal\Services\EvaluationAnimalStatusService;
 use App\Domains\Files\FilesService;
+use App\Domains\LostAnimal\Services\LostAnimalService;
 use App\Events\AnimalAvailableForAdoption;
 use App\Events\AnimalCreated;
 use Illuminate\Support\Facades\Log;
@@ -18,11 +19,14 @@ class AnimalService extends AbstractService
 
     public EvaluationAnimalStatusService $evaluationAnimalStatusService;
 
+    public LostAnimalService $lostAnimalService;
+
     public function __construct(AnimalRepository $repository)
     {
         $this->repository = $repository;
         $this->filesService = app(FilesService::class);
         $this->evaluationAnimalStatusService = app(EvaluationAnimalStatusService::class);
+        $this->lostAnimalService = app(LostAnimalService::class);
     }
 
     public function beforeSave(array $data): array
@@ -41,6 +45,7 @@ class AnimalService extends AbstractService
         event(new AnimalCreated($entity, $params));
 
         $this->createEvaluationAnimal($entity, $params);
+        $this->createLostAnimal($entity, $params);
 
         return $entity;
     }
@@ -108,6 +113,19 @@ class AnimalService extends AbstractService
                 'animal_id' => $entity->id,
                 'status' => EvaluationAnimalStatusEnum::PENDING->value,
                 'tutor_id' => $params['tutor_id'],
+            ]);
+        }
+    }
+
+    private function createLostAnimal($entity, array $params)
+    {
+
+        if ($params['status'] === AnimalStatusEnum::LOST->value) {
+            $this->lostAnimalService->save([
+                'animal_id' => $entity->id,
+                'status' => AnimalStatusEnum::LOST->value,
+                'created_by' => $params['tutor_id'],
+                'lost_at' => $params['entry_date'],
             ]);
         }
     }
