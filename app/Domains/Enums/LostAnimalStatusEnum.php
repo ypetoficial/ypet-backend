@@ -12,6 +12,7 @@ enum LostAnimalStatusEnum: string implements EnumInterface
     case FOUND = 'found';
     case LOST = 'lost';
     case DECEASED = 'deceased';
+    case CONCLUDE = 'conclude';
 
     public static function translations(string $locale = 'en'): array
     {
@@ -20,16 +21,19 @@ enum LostAnimalStatusEnum: string implements EnumInterface
                 'FOUND' => 'Found',
                 'LOST' => 'Lost',
                 'DECEASED' => 'Deceased',
+                'CONCLUDE' => 'Conclude',
             ],
             'es' => [
                 'FOUND' => 'Encontrado',
                 'LOST' => 'Perdido',
                 'DECEASED' => 'Fallecido',
+                'CONCLUDE' => 'Finalizar',
             ],
             'pt_BR' => [
                 'FOUND' => 'Encontrado',
                 'LOST' => 'Perdido',
                 'DECEASED' => 'Óbito',
+                'CONCLUDE' => 'Concluído',
             ],
         ];
 

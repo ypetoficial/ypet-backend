@@ -57,7 +57,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('users', UserController::class);
     Route::apiResource('veterinarians', VeterinarianController::class);
     Route::apiResource('animals', AnimalController::class);
-    Route::apiResource('lost-animals', LostAnimalController::class);
+    Route::prefix('lost-animals')->group(function () {
+        Route::apiResource('', LostAnimalController::class);
+        Route::post('{uuid}/found', [LostAnimalController::class, 'found']);
+        Route::post('{uuid}/conclude', [LostAnimalController::class, 'conclude']);
+    });
     Route::apiResource('mobile-clinic-events', MobileClinicEventController::class);
     Route::apiResource('registrations', RegistrationController::class);
     Route::apiResource('suppliers', SupplierController::class);

@@ -7,7 +7,6 @@ use App\Domains\Animal\Entities\AnimalEntity;
 use App\Domains\User\Entities\UserEntity;
 use App\Models\LostAnimal;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
@@ -19,6 +18,7 @@ class LostAnimalEntity extends LostAnimal
         'animal_id',
         'created_by',
         'lost_at',
+        'lost_time',
     ];
 
     public function animal(): BelongsTo
@@ -41,8 +41,8 @@ class LostAnimalEntity extends LostAnimal
         return $this->hasOne(LostAnimalStatusEntity::class, 'lost_animal_id', 'id')->latest();
     }
 
-    public function historyStatuses(): HasMany
+    public function user(): BelongsTo
     {
-        return $this->hasMany(LostAnimalStatusEntity::class, 'lost_animal_id');
+        return $this->BelongsTo(UserEntity::class, 'created_by');
     }
 }

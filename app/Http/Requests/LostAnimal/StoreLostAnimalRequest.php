@@ -26,6 +26,7 @@ class StoreLostAnimalRequest extends FormRequest
         return [
             'animal_id' => ['required', 'integer', 'exists:animals,id'],
             'lost_at' => ['required', 'date'],
+            'lost_time' => ['nullable', 'string'],
             'status' => ['required', 'string', Rule::in(LostAnimalStatusEnum::values())],
             'address.street' => ['required', 'string'],
             'address.number' => ['required', 'string'],

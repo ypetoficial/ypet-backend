@@ -2,8 +2,6 @@
 
 namespace App\Domains\LostAnimal\Entities;
 
-use App\Casts\EnumCast;
-use App\Domains\Enums\LostAnimalStatusEnum;
 use App\Models\LostAnimal;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -16,10 +14,6 @@ class LostAnimalStatusEntity extends LostAnimal
         'status',
         'description',
         'created_by',
-    ];
-
-    protected $casts = [
-        'status' => EnumCast::class.':'.LostAnimalStatusEnum::class,
     ];
 
     public function lostAnimal(): BelongsTo
