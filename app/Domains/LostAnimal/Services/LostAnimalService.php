@@ -3,13 +3,13 @@
 namespace App\Domains\LostAnimal\Services;
 
 use App\Domains\Abstracts\AbstractService;
-use App\Domains\LostAnimal\Repositories\LostAnimalRepository;
 use App\Domains\Address\Repositories\AddressRepository;
 use App\Domains\Address\ValueObjects\AddressValueObject;
 use App\Domains\Address\ValueObjects\CoordinatesValueObject;
 use App\Domains\Enums\LostAnimalStatusEnum;
 use App\Domains\LostAnimal\DTOs\StoreLostAnimalDTO;
 use App\Domains\LostAnimal\Entities\LostAnimalEntity;
+use App\Domains\LostAnimal\Repositories\LostAnimalRepository;
 use App\Events\LostAnimalClosed;
 use App\Events\LostAnimalCreated;
 use App\Events\LostAnimalFound;
@@ -17,6 +17,7 @@ use App\Events\LostAnimalFound;
 class LostAnimalService extends AbstractService
 {
     protected $addressRepository;
+
     protected $lostAnimalStatusService;
 
     public function __construct(LostAnimalRepository $repository, AddressRepository $addressRepository, LostAnimalStatusService $lostAnimalStatusService)
@@ -55,7 +56,8 @@ class LostAnimalService extends AbstractService
         ]);
     }
 
-    private function sendNotification($entity, array $params){
+    private function sendNotification($entity, array $params)
+    {
         $dto = new StoreLostAnimalDTO(
             animalId: $params['animal_id'],
             createdBy: $entity->created_by,

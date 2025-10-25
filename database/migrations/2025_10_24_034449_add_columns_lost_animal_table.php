@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('lost_animals', function (Blueprint $table) {
             $table->foreignId('created_by')->constrained('users');
             $table->foreignId('animal_id')->constrained('animals');
-            $table->date('lost_at')->nullable();;
+            $table->date('lost_at')->nullable();
             $table->time('lost_time')->nullable();
         });
     }
@@ -26,7 +26,7 @@ return new class extends Migration
                 'created_by',
                 'animal_id',
                 'lost_at',
-                'lost_time'
+                'lost_time',
             ]);
         });
     }

@@ -7,7 +7,6 @@ use App\Domains\Animal\Entities\AnimalEntity;
 use App\Domains\User\Entities\UserEntity;
 use App\Models\LostAnimal;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 

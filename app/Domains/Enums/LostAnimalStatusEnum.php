@@ -33,7 +33,7 @@ enum LostAnimalStatusEnum: string implements EnumInterface
                 'FOUND' => 'Encontrado',
                 'LOST' => 'Perdido',
                 'DECEASED' => 'Óbito',
-                'CONCLUDE' => 'Concluído',    
+                'CONCLUDE' => 'Concluído',
             ],
         ];
 

@@ -15,9 +15,9 @@ class LostAnimalStatusRepository extends AbstractRepository
 
     public function updateStatus(int|string $id, LostAnimalStatusEnum $status)
     {
-    
+
         $animal = $this->findOneWhere(['lost_animal_id' => $id]);
-        
+
         if (! $animal) {
             throw new \Exception('animal não encontrada');
         }

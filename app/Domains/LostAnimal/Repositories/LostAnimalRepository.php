@@ -29,7 +29,7 @@ class LostAnimalRepository extends AbstractRepository
             ARRAY_FILTER_USE_KEY
         );
 
-        $query->when(!empty($params['status']), function ($q) use ($params) {
+        $query->when(! empty($params['status']), function ($q) use ($params) {
             $q->whereHas('status', function ($subQuery) use ($params) {
                 $subQuery->where('status', $params['status']);
             });
