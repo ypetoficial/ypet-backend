@@ -7,7 +7,7 @@ final readonly class AddressValueObject
     public function __construct(
         public int $addressableId,
         public string $addressableType,
-        public string $street,
+        public ?string $street = null,
         public ?string $number = null,
         public ?string $complement = null,
         public ?string $district = null,

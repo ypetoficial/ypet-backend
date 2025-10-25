@@ -10,7 +10,7 @@ final class StoreLostAnimalDTO
         public readonly int $animalId,
         public readonly int $createdBy,
         public readonly string $lostAt,
-        public AddressValueObject $address,
+        public ?AddressValueObject $address,
         public string $status,
     ) {}
 }
