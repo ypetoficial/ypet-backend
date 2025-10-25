@@ -18,9 +18,6 @@ class LostAnimalStatusEntity extends LostAnimal
         'created_by',
     ];
 
-    protected $casts = [
-        'status' => EnumCast::class.':'.LostAnimalStatusEnum::class,
-    ];
 
     public function lostAnimal(): BelongsTo
     {

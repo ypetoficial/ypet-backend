@@ -57,6 +57,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('veterinarians', VeterinarianController::class);
     Route::apiResource('animals', AnimalController::class);
     Route::apiResource('lost-animals', LostAnimalController::class);
+    Route::post('lost-animals/{uuid}/found', [LostAnimalController::class, 'found']);
+    Route::post('lost-animals/{uuid}/conclude', [LostAnimalController::class, 'conclude']);
     Route::apiResource('mobile-clinic-events', MobileClinicEventController::class);
     Route::apiResource('registrations', RegistrationController::class);
     Route::apiResource('suppliers', SupplierController::class);

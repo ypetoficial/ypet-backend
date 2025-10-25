@@ -17,4 +17,18 @@ class LostAnimalController extends AbstractController
     {
         $this->service = $service;
     }
+
+    public function found($uuid)
+    {
+        $this->service->found($uuid);
+
+        return $this->success('Animal encontrado com sucesso');
+    }
+
+    public function conclude($uuid)
+    {
+        $this->service->conclude($uuid);
+
+        return $this->success('Concluído com sucesso');
+    }
 }

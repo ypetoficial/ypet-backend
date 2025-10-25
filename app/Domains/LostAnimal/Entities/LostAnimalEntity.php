@@ -19,6 +19,7 @@ class LostAnimalEntity extends LostAnimal
         'animal_id',
         'created_by',
         'lost_at',
+        'lost_time',
     ];
 
     public function animal(): BelongsTo
@@ -41,8 +42,8 @@ class LostAnimalEntity extends LostAnimal
         return $this->hasOne(LostAnimalStatusEntity::class, 'lost_animal_id', 'id')->latest();
     }
 
-    public function historyStatuses(): HasMany
+    public function user(): BelongsTo
     {
-        return $this->hasMany(LostAnimalStatusEntity::class, 'lost_animal_id');
+        return $this->BelongsTo(UserEntity::class, 'created_by');
     }
 }

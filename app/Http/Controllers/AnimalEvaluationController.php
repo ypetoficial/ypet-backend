@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Domains\EvaluationAnimal\Services\EvaluationAnimalStatusService;
 
-class AnimalEvaluationController extends AbstractController
+class LostAnimalControllerAnimalEvaluationController extends AbstractController
 {
     public function __construct(EvaluationAnimalStatusService $service)
     {
